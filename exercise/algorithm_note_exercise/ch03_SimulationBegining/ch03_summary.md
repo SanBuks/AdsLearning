@@ -15,4 +15,8 @@
 | PATB1012 | 数字分类 |	O |
 | PATB1018 | 锤子剪刀布               |	#(scanf("%c\n")) 吸收换行问题 |
 | PATA1042 | Shuffling Machine | #(1-13重复循环模运算) |
-| PATA1046 | Shortest Distance | #(预处理累加数组) |
+| PATA1046   | Shortest Distance        | #(预处理累加数组)                      |
+| PATA1065   | A+B and C (64bit)        | *(BigN 加减 / begin 与 string(p) 区别) |
+| PATB1010   | 一元多项式求导           | *(移码/最后一行多余空格处理)           |
+| PATA1002   | A+B for Polynomials      | #(scanf 对double 和 float的格式)       |
+| PATA1009   | Product of Polynomials   | O                                      |
