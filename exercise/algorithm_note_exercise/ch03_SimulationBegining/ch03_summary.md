@@ -20,3 +20,14 @@
 | PATB1010   | 一元多项式求导           | *(移码/最后一行多余空格处理)           |
 | PATA1002   | A+B for Polynomials      | #(scanf 对double 和 float的格式)       |
 | PATA1009   | Product of Polynomials   | O                                      |
+
+## 查找
+
+| 题号     | 题名                 | 注释 |
+| -------- | -------------------- | ---- |
+| PATB1041 | 考试座位号           | O    |
+| PATB1004 | 成绩排名             | O    |
+| PATB1028 | 人口普查             | O    |
+| PATA1011 | World Cup Betting    | O    |
+| PATA1006 | Sign In and Sign Out | O    |
+
