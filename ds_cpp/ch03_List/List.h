@@ -24,6 +24,10 @@ protected:
 			p=p->succ;
 		} 
 	}	
+	void movetoFront(LNP(T) p){
+		if(vaild(p))
+			insertAfter(header, remove(p));
+	}
 
 public:
 	List(){ init(); }
@@ -64,22 +68,27 @@ public:
 	LNP(T) insertBefore(LNP(T) p, const T &e){ ++_size; return p->insertAsPred(e); }
 	LNP(T) insertAfter(LNP(T) p, const T &e){ ++_size; return p->insertAsSucc(e); }
 	
-	T &operator[](rank r) const {
+	T &operator[](rank r) const { // 自适应访问
 		auto p=header->succ;
 		while(0<r--)	p=p->succ;
+		movetoFront(p);
 		return p->data;
 	}
-	const T &operator[](rank r){  // 对List是否是const 重载
+	const T &operator[](rank r){  // 自适应访问, 对List是否是const 重载
 		auto p=header->succ;
 		while(0<r--)  p=p->succ;
+		movetoFront(p);
 		return p->data;
 	}
-	void traverse(void (*visit)(const T &e)){
+
+	template <typename VST>
+	void traverse(VST& visit){
 		LNP(T) p=header;
 		while((p=p->succ)!=trailer){
 			visit(p->data);
 		}
 	}
+
 	int disorder() const { // 返回紧邻无序对的数量
 		int sum=0; auto p=header->succ;
 		while((p=p->succ)!=trailer){
@@ -88,6 +97,7 @@ public:
 		}
 		return sum;
 	}
+
 	LNP(T) selectMax(LNP(T) p, int n){ // 返回 包括p在内的后n个节点中最大值位置
 		LNP(T) max=p; n--;
 		while(n--){
@@ -150,7 +160,7 @@ public:
 		return oldSize-_size;
 	}
 
-	void insertSort(LNP(T) p, int n){ // 对 包括p在内的 n各节点排序
+	void insertSort(LNP(T) p, int n){ // 对 包括p在内的 n各节点排序  平均比较次数=(n-1)n/2=O(n^2)
 		for(int r=0; r<n; ++r){ 
 			insertAfter(search(p->data, r, p), p->data); // 在以排序范围内先插入再删除
 			p=p->succ;  // 移动到下一个
@@ -162,7 +172,10 @@ public:
 		LNP(T) tail=p;for(int i=0; i<n; ++i) tail=tail->succ;
 		while(1<n){
 			LNP(T) m=selectMax(head->succ, n); // 每趟第一个节点会改变 找到最大节点位置
-			insertBefore(tail, remove(m));  // 移动
+			auto temp=m->data;
+			m->data=tail->pred->data;
+			tail->pred->data=temp;
+			//insertBefore(tail, remove(m));  // 移动
 			tail=tail->pred; // 更改区间
 			--n; // 缩小范围
 		}
