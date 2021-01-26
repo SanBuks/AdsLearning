@@ -141,10 +141,10 @@ BigN BigN::operator+(const BigN &rhs){
 
 bool BigN::operator>(const BigN &rhs){
 	switch(CALC_CON[nn][rhs.nn]){
-		case 1:  // 两个负数相加
+		case 1:  // 两个负数相比
 			return !compare(number, rhs.number);
 			break;
-		case 4:  // 两个正数相加
+		case 4:  // 两个正数相比
 			return compare(number, rhs.number);
 			break;
 		case 2: 
