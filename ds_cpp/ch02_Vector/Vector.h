@@ -1,258 +1,368 @@
-#pragma once
+#include <memory>
 #include <utility>
 #include <random>
-#include <ctime> 
-#include "Fib.h"
+#include <chrono>
+#include <stdexcept>
+#include <iostream>
 
-typedef int rank;
-const int DS=3;
-template<typename T>
-class Vector{
-protected:  // 为了同类元素之间的访问 设定protected访问符
-	T *_elem;  // 存放元素数组的指针
-	int _size; // 实际元素数量
-	int _capa; // 存放元素容量
+namespace my_ads {
 
-	void copyFrom(const T *A, rank lo, rank hi){
-		(hi-lo)<DS?_capa=DS:_capa=hi-lo;// 容量至少为DS	
-		_elem=new T[_capa<<=1];// 容量扩大一倍
-		_size=0;
-		while(lo<hi) // 逐一复制
-			_elem[_size++]=A[lo++];
-	}
-
-	void expand(){ // T(n) = N+2N+4N+....+n < 2n = O(n) 
-		if(_size<_capa) return ; // 未满不扩充
-		if(_capa<DS) _capa=DS; // 最小容量为 DS
-
-		T *oldElem=_elem;
-		_elem=new T[_capa<<=1];// 扩充容量
-		for(int i=0; i<_size; ++i) // 逐一复制
-			_elem[i]=oldElem[i];
-		delete [] oldElem; // 最后删除原数据
-	}
-
-	void shrink(){
-		if((_capa>>2)<_size) return; // 1/4_capa<_size 则不缩容
-		if((_capa>>1)<DS) return; // 缩小后的容量不能小于DS
-		
-		T *oldElem=_elem;  // 同上
-		_elem=new T[_capa>>=1];
-		for(int i=0; i<_size; ++i)
-			_elem[i]=oldElem[i];
-		delete [] oldElem;
-	}
-
-public:
-    Vector(int c, int s, T v){ // 容量c 规模s 元素v
-		if(c<DS) c=DS;  // 最小值为DS
-		_elem=new T[_capa=c];
-		for(_size=0; _size<s; ++_size)
-			_elem[_size]=v;
-	}
-
-	explicit Vector(int c=DS){
-		if(c<DS) c=DS;  // 最小值为DS
-		_elem=new T[_capa=c];
-		_size=0;
-	}
-	
-	Vector(const T *A, rank lo, rank hi){
-		copyFrom(A,lo,hi);
-	}
-
-	~Vector(){
-		delete [] _elem; // 删除数组 元素默认有析构函数
-	}
-
-	rank size() const {
-		return _size;
-	}
-
-	bool empty() const {
-		return _size<=0;
-	}
-
-	int disorder() const {
-		int sum=0;
-		for(int i=1; i<_size; ++i) // 计算紧邻逆序数
-			if(_elem[i]<_elem[i-1])
-				++sum;
-		return sum;
-	}
-
-	rank max(rank lo, rank hi)const{
-		if(empty()||hi<=lo||lo<0||hi>_size) return -1; // 下标非法返回-1	
-
-		rank max=lo;
-		for(int i=lo+1; i<hi; ++i) // 画家算法找出最大值下标
-			if(_elem[i]>_elem[max])
-				max=i;
-		return max;
-	}
-
-	T &operator[](rank r)const{ // 返回 const T & 元素 
-		return _elem[r];
-	} 
-	
-	T &operator[](rank r){  // 返回 T & 元素
-		return _elem[r];
-	}
-
-	Vector<T> &operator=(Vector<T> const &v){
-		if(_elem) delete [] _elem;
-		copyFrom(v._elem, 0, v.size()); // _elem 是 protected 属性
-		return *this;
-	}
-	
-	rank insert(rank r, const T &e){
-		expand();  // 插入之前扩容
-		for(int i=_size; i>r; --i) // 从后往前移动
-			_elem[i]=_elem[i-1];
-		_elem[r]=e;
-		++_size;
-		return r;
-	}
-
-	rank insert(const T &e){
-		expand();
-		_elem[_size]=e;
-		++_size;
-		return _size-1;
-	}
-	
-	int remove(rank lo, rank hi){
-		while(hi<_size)
-			_elem[lo++]=_elem[hi++]; // 从后向前移动完成删除
-		_size=lo;
-		shrink();  // 删除之后缩容
-		return hi-lo;
-	}
-
-	T remove(rank r){  // 删除一个元素 
-		T result=_elem[r];
-		remove(r,r+1);
-		return result;
-	}
-
-	int deduplicate(){ // 无序唯一化
-		if(_size<2) return 0;
-
-		int oldSize=_size;
-		int i=1;
-		while(i<_size){
-			if(-1==find(_elem[i], 0, i)) ++i;  // 没找到则下一个
-			else remove(i,i+1); // 找到则删除并停留再原地
-		}
-		return oldSize-_size;
-	}
-	
-	int uniqufy(){
-		if(_size<2) return 0;
-		
-		int i=0,j=1;
-		while(j<_size){  // 在有序向量中 按子区间 移动元素删除重复元素
-			if(_elem[j]==_elem[i]) ++j;
-			else _elem[++i]=_elem[j++];
-		}
-		_size=++i;
-		shrink();
-		return j-_size;
-	}
-	
-	void unsort(rank lo, rank hi){ // 范围内置乱
-		srand((int)time(0));
-		T *V=_elem+lo;  // 转换为[0, hi-lo) 区间
-		for(int i=hi-lo; i>0; --i)
-			std::swap(V[i-1], V[rand()%i]);
-	}
-
-	void bubbleSort(rank lo, rank hi){
-		for(int last=hi; lo<hi; hi=last){ 
-			// last 是 记录每趟扫描中最后交换落位的位置 即已经排序范围的左边界
-			last=lo; // 每次默认已经排序好
-			for(int i=lo; i<hi-1; ++i){
-				if(_elem[i]>_elem[i+1]){
-					last=i+1;
-					std::swap(_elem[i],_elem[i+1]);
-				}
-			}
-		}
-	}
-
-	void mergeSort(rank lo, rank hi){
-		if(hi-lo<2) return ;
-		int mi=(lo+hi)>>1;
-		mergeSort(lo, mi);
-		mergeSort(mi, hi);
-		merge(lo, mi, hi);
-	}
-
-	void merge(rank lo, rank mi, rank hi){
-		T *A=_elem+lo; // A是存放归并后的数组
-
-		int lb=mi-lo;  // B是复制备份的前段数组
-		T *B=new T[lb]; 
-		for(int i=0;i<lb;B[i++]=_elem[lo++]);
-		
-		int lc=hi-mi;  // C是后段数组,只对前端数组复制原因是防止错乱
-		T *C=_elem+mi;
-		
-		int i,j,k;
-		for( i=j=k=0; j<lb&&k<lc;){  // 两段数组比较,最小的放入A中
-			if(B[j]<=C[k]) A[i++]=B[j++];  // 为了稳定性
-			if(C[k]< B[j]) A[i++]=C[k++];
-		}
-		while(j<lb) A[i++]=B[j++];  // 未归并完的放入A中
-		while(k<lc) A[i++]=C[k++];
-
-		/*  
-		for( i=j=k=0; j<lb||k<lc;){ // 一段更简洁的写法
-			if( !(k<lc)||(j<lb&&B[j]<=C[k]) ) A[i++]=B[j++];
-			if( !(j<lb)||(k<lc&&C[k]< B[j]) ) A[i++]=C[k++];
-		} 
-		*/
-		delete [] B;
-	
-	}
-
-	rank find(const T &e, rank lo, rank hi){
-		while(lo<hi--){ // 从后往前在无序向量中查找秩最大的下标
-			if(e==_elem[hi])
-				return hi;
-		}
-		return -1; // 没有找到就返回 -1 
-	}
-	
-	rank binSearch(const T &e, rank lo, rank hi){
-		while(lo<hi){ // 在有序向量中二分查找寻找<=e 的最大值
-			int mi=(hi+lo)>>1;
-			if(e<_elem[mi]) hi=mi;
-			else lo=mi+1; // e >= _elem[mi]
-		}
-		return --lo;
-	}
-
-	rank fibSearch(const T &e, rank lo, rank hi){
-		Fib fib(hi-lo); // 获取不小于 hi-lo的 第一个fib数
-		while(lo<hi){
-			while(hi-lo<fib.get()) fib.pre(); // 使fib数<= hi-lo 
-			int mi=lo+fib.get()-1;  // 以 fib数为中点下标
-			if(e<_elem[mi]) hi=mi;
-			else lo=mi+1;
-		}
-		return --lo;	
-	}
-
-	void traverse(void (*visit)(const T &e)){
-		for(int i=0; i<_size; ++i)
-			visit(_elem[i]);
-	}
-	
-	template<typename VST>
-	void traverse(VST &visit){
-		for(int i=0; i<_size; ++i)
-			visit(_elem[i]);	
-	}
-
+class VectorBase {
+ public:
+  using Rank = unsigned long;
+  using Size = unsigned long;
+  static constexpr Rank kDefaultCapacity = 3; 
+  static constexpr double kMinLoadFactor = 0.25;
+ private:
 };
+
+template <typename T>
+class Vector : public VectorBase {
+ public:
+  using Ptr = std::unique_ptr<T[]>;
+
+  Vector(T elem, Size size = 0);
+  Vector(const T *array, Rank num);
+  Vector(const T *array, Rank low, Rank high);
+  Vector(const Vector<T> &vector);
+  Vector(const Vector<T> &vector, Rank low, Rank high);
+  Vector<T> &operator=(const Vector<T> &rhs);
+  ~Vector();
+
+  Size size() const { return size_; }
+  Size capacity() const { return capacity_; }
+  bool empty() const { return !size_;}
+  const T& operator[] (Rank r) const { return p_elem_[r]; }
+  T& operator[] (Rank r) { 
+    return const_cast<T &>(static_cast<const Vector<T> &>(*this)[r]); 
+  }
+
+  Size Disordered() const;
+  void Unsort();
+  void BubbleSort();
+  void MergeSort(Rank low, Rank high);
+
+  template <typename VST>
+  void Traverse(const VST &visit) const ;
+  template <typename VST>
+  void Traverse(const VST &visit);
+  void Traverse(void (*visit)(const T &elem)) const ;
+
+  Rank Find(const T &elem, Rank low, Rank high) const;
+  Rank BinSearch(const T &elem , Rank low, Rank high) const;
+
+  Rank Insert(Rank r, const T &elem);
+  Size Remove(Rank low, Rank high);
+  T Remove(Rank r);
+  Size Deduplicate();
+  Size Uniquify();
+
+ protected:
+  Rank size_;
+  Size capacity_;
+  Ptr p_elem_;
+
+  void Expand();
+  void Shrink();
+
+ private:
+  void InitCopyFrom(const T *array, Rank low, Rank high);
+  void Merge(Rank low1, Rank high1, Rank low2, Rank high2);
+};
+
+template <typename T>
+Vector<T>::Vector(T elem, Size size) : size_(size), capacity_(2 * size_) {
+  if (size < 2) {
+    capacity_ = kDefaultCapacity;
+  }
+  p_elem_.reset(new T[capacity_]);
+  for (Rank i = 0; i < size_; ++i) {
+    p_elem_[i] = elem;
+  }
+}
+
+template <typename T>
+Vector<T>::Vector(const T *array, Size num) {
+  InitCopyFrom(array, 0, num);
+}
+
+template <typename T>
+Vector<T>::Vector(const T *array, Rank low, Rank high) {
+  InitCopyFrom(array, low, high);
+}
+
+template <typename T>
+Vector<T>::Vector(const Vector<T> &vector) {
+  const T *array = vector.p_elem_.get();
+  Size num = vector.size();
+  InitCopyFrom(array, 0, num);
+}
+
+template <typename T>
+Vector<T>::Vector(const Vector<T> &vector, Rank low, Rank high) {
+  const T *array = vector.p_elem_.get();
+  InitCopyFrom(array, low, high);
+}
+
+template <typename T> 
+VectorBase::Size Vector<T>::Disordered() const {
+  Size num = 0;
+  for (Rank i = 0; i < size_ - 1; ++i) {
+    if (p_elem_[i] > p_elem_[i + 1]) {
+      ++num; 
+    }
+  }
+  return num;
+}
+
+template <typename T>
+void Vector<T>::Traverse(void (*visit)(const T &elem)) const {
+  for (Rank i = 0; i < size_; ++i) {
+    visit(p_elem_[i]);
+  }
+}
+
+template <typename T> template <typename VST>
+void Vector<T>::Traverse(const VST &visit) const {
+  for (Rank i = 0; i < size_; ++i) {
+    visit(p_elem_[i]);
+  }
+}
+
+template <typename T> template <typename VST>
+void Vector<T>::Traverse(const VST &visit) {
+  for (Rank i = 0; i < size_; ++i) {
+    visit(p_elem_[i]);
+  }
+}
+
+template <typename T>
+Vector<T> &Vector<T>::operator=(const Vector<T> &rhs) {
+  //  Self = Self
+  if (&rhs == this) {
+    return *this;
+  }
+  //  create temp Ptr firstly
+  Size size_temp = rhs.size(); 
+  Size capacity_temp = 2 * size_temp;
+  if (size_temp < 2) {
+    capacity_temp = kDefaultCapacity;
+  }
+  Ptr p_elem_temp(new T[capacity_temp]);
+  for (Rank i = 0; i < size_temp; ++i) {
+    p_elem_temp[i] = rhs[i];
+  }
+  //  update state
+  p_elem_ = std::move(p_elem_temp);
+  size_ = size_temp;
+  capacity_ = capacity_temp;
+  return *this;
+}
+
+template <typename T>
+Vector<T>::~Vector() { }
+
+template <typename T>
+void Vector<T>::Unsort() {
+  unsigned long seeds = 
+      std::chrono::system_clock::now().time_since_epoch().count();
+  static std::default_random_engine e(seeds);
+  std::uniform_int_distribution<unsigned long> u(0, size_ - 1);
+  for (Rank i = size_ - 1; i > 0; --i) {
+    std::swap(p_elem_[i], p_elem_[u(e) % i]);
+  }
+}
+template <typename T>
+void Vector<T>::BubbleSort() {
+  if (size_ < 2) {
+    return ;
+  }
+  using std::swap;
+  for (Rank pos = size_, last_swap_pos; 1 < pos; pos = last_swap_pos) {
+    last_swap_pos = 1;
+    for (Rank i = 0; i < pos - 1; ++i) {
+      if (p_elem_[i] > p_elem_[i + 1]) {
+        std::swap(p_elem_[i], p_elem_[i + 1]);
+        last_swap_pos = i + 1;
+      }
+    }
+  }
+}
+
+template <typename T>
+void Vector<T>::MergeSort(Rank low, Rank high) {
+  if (high - low < 2) {
+    return ;
+  } else {
+    Rank mi = (low + high) >> 1;
+    MergeSort(low, mi);
+    MergeSort(mi, high);
+    Merge(low, mi, mi, high);
+  }
+}
+
+template <typename T>
+void Vector<T>::Merge(Rank low1, Rank high1, Rank low2, Rank high2) { 
+  Ptr temp_ptr(new T[high1 - low1]);
+  for (Rank i = 0, low_temp = low1; low_temp < high1; ++i, ++low_temp) {
+    temp_ptr[i] = p_elem_[low_temp];
+  }
+  const Rank kLow1Base = low1;
+  Rank new_pos = low1;
+  while ((low1 < high1) && (low2 < high2)) {
+    if (p_elem_[low2] < temp_ptr[low1 - kLow1Base]) {
+      p_elem_[new_pos++] = p_elem_[low2];
+      ++low2;
+    } else {
+      p_elem_[new_pos++] = temp_ptr[low1 - kLow1Base];
+      ++low1;
+    }
+  }
+  while (low1 < high1) {
+    p_elem_[new_pos++] = temp_ptr[low1 - kLow1Base];
+    ++low1;
+  }
+}
+
+template <typename T>
+VectorBase::Rank Vector<T>::Find(const T &elem, Rank low, Rank high) const {
+  while (low < high) {
+    --high;
+    if (elem == p_elem_[high]) {
+      return high;
+    }
+  }
+  return --high;  //  找不到则返回比 high 大的秩
+}
+
+template <typename T> 
+VectorBase::Rank 
+Vector<T>::BinSearch(const T &elem , Rank low, Rank high) const {
+  while (low < high) {
+    Size mid = (low + high) >> 1;
+    if (p_elem_[mid] <= elem) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+  return --low;
+}
+
+template <typename T>
+VectorBase::Size Vector<T>::Remove(Rank low, Rank high) {
+  if (high > size_ || low > high) {
+    throw std::runtime_error("Vector::Remove():: wrong position!");
+  }
+  if (low == high) {
+    return 0;
+  }
+  while (high < size_) {
+    p_elem_[low++] = p_elem_[high++];
+  }
+  size_ = low;
+  Shrink();
+  return high - low;
+}
+
+template <typename T>
+T Vector<T>::Remove(Rank r) {
+  T e = p_elem_[r];
+  Remove(r, r + 1);
+  return e;
+}
+
+template <typename T>
+VectorBase::Size Vector<T>::Deduplicate() {
+  if (size_ < 2) {
+    return 0;
+  }
+  Size old_size = size_;
+  for (Rank i = 1; i < size_; ++i) {
+    Size dupli_pos = Find(p_elem_[i], 0, i);
+    if (dupli_pos < i) {      
+      Remove(i);      
+      --i;    
+    }  
+  }  
+  return old_size - size_;
+}
+
+template <typename T>
+VectorBase::Size Vector<T>::Uniquify() {
+  if (size_ < 2) {
+    return 0;
+  }
+  Rank right_sentry = 1;
+  for (Rank i = 1; i < size_; ++i) {
+    if (p_elem_[i] != p_elem_[i - 1]) {
+      p_elem_[right_sentry++] = p_elem_[i];
+    }
+  }
+  Size result = size_ - right_sentry;
+  size_ = right_sentry;
+  return result;
+}
+
+template <typename T>
+VectorBase::Rank Vector<T>::Insert(Rank r, const T &elem) {  
+  if ( r > size_) {    
+    throw std::runtime_error("Vector::insert():: wrong position!");  
+  }  
+  Expand();  
+  for (Rank i = size_; i > r; --i) {    
+    p_elem_[i] = p_elem_[i - 1];  
+  }  
+  p_elem_[r] = elem;  
+  size_++;  
+  return r;
+}
+
+template <typename T>
+void Vector<T>::Expand() {  
+  if (size_ < capacity_) {    
+    return ;  
+  }  
+  if (capacity_ < kDefaultCapacity) {    
+    capacity_ = kDefaultCapacity;  
+  }  
+  Size capacity_temp = capacity_ << 1;  
+  Ptr p_elem_temp(new T[capacity_temp]);  
+  for (Rank i = 0; i < size_; ++i) {    
+    p_elem_temp[i] = p_elem_[i];  
+  }  
+  p_elem_ = std::move(p_elem_temp);  
+  capacity_ = capacity_temp;
+}
+
+template <typename T>
+void Vector<T>::Shrink() {  
+  if (kMinLoadFactor <= size_ * 1.0 / capacity_) {    
+    return ;  
+  }  
+  if (capacity_ < kDefaultCapacity * 2) {    
+    return ;  
+  }  
+  Size capacity_temp = capacity_ >> 1;  
+  Ptr p_elem_temp(new T[capacity_temp]);  
+  for (Rank i = 0; i < size_; ++i) {
+    p_elem_temp[i] = p_elem_[i];  
+  }  
+  p_elem_ = std::move(p_elem_temp);  
+  capacity_ = capacity_temp;
+}
+
+template <typename T>
+void Vector<T>::InitCopyFrom(const T *array, Rank low, Rank high) {  
+  size_ = high - low;  
+  capacity_ = 2 * size_;  
+  if (size_ < 2) {    
+    capacity_ = kDefaultCapacity;  
+  }  
+  p_elem_.reset(new T[capacity_]);  
+  for (Rank i = 0; i < size_; ++i) {    
+    p_elem_[i] = array[i];  
+  }
+}
+
+}  // namespace my_ads
