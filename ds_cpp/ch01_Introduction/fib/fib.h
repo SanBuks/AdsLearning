@@ -2,7 +2,7 @@
 
 // fib 数列 : >= 0
 // 超出 上限 或 下限会抛出异常
-class Fib{
+class Fib {
 public:
   using ST = unsigned long;
 	Fib(ST n); // 获取不小于 n 的最小项 Fib 数

@@ -1,0 +1,21 @@
+{
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "cpp_build",
+      "command": "D:\\DevelopTools\\MSYS2_64\\mingw64\\bin",
+      "args": [ "-g", "${file}", "-o", "atest.exe", "-std=c++11", "-Wall", "-pedantic" ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}
