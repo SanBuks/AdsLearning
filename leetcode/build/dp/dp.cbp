@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="dp"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\dp\;CMake Files\hash\;CMake Files\math\;CMake Files\simulation\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/leetcode/build/dp"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="0647">
+				<Option output="D:/Project/LEARNING/AdsLearning/leetcode/build/dp/0647.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/leetcode/build/dp"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 0647"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="0647/fast">
+				<Option output="D:/Project/LEARNING/AdsLearning/leetcode/build/dp/0647.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/leetcode/build/dp"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/DevelopTool/mingw64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 0647/fast"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/leetcode/build/dp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/dp/0647_palindromic_substrings.cpp">
+			<Option target="0647"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/dp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\dp\"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/hash/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\hash\"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/math/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\math\"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/leetcode/simulation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\simulation\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

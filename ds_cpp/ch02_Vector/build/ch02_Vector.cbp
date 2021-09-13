@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ch02_Vector"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ch02_Vector">
+				<Option output="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/ch02_Vector.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/."/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 ch02_Vector"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ch02_Vector/fast">
+				<Option output="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/ch02_Vector.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/."/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 ch02_Vector/fast"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/DevelopTool/mingw64/mingw64/bin/make.exe -f &quot;D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/vector.cc">
+			<Option target="ch02_Vector"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/vector.h">
+			<Option target="ch02_Vector"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/vector_test.cc">
+			<Option target="ch02_Vector"/>
+		</Unit>
+		<Unit filename="D:/Project/LEARNING/AdsLearning/ds_cpp/ch02_Vector/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
