@@ -1,3 +1,0 @@
-D:\DevelopTool\clion\bin\cmake\win\bin\cmake.exe -E rm -f CMakeFiles\ch02_Vector.dir/objects.a
-D:\DevelopTool\mingw64\mingw64\bin\ar.exe cr CMakeFiles\ch02_Vector.dir/objects.a @CMakeFiles\ch02_Vector.dir\objects1.rsp
-D:\DevelopTool\mingw64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\ch02_Vector.dir/objects.a -Wl,--no-whole-archive -o ch02_Vector.exe -Wl,--out-implib,libch02_Vector.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ch02_Vector.dir\linklibs.rsp
