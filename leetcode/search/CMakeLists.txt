@@ -1,3 +1,7 @@
 project(search)
 
-add_executable()
+add_executable(0704 0704_binary_search.cc)
+add_executable(0035 0035_search_insert_position.cc)
+add_executable(0034 0034_find_first_and_last_position_of_element_in_sorted_array.cc)
+add_executable(0069 0069_sqrtx.cc)
+add_executable(0367 0367_valid_perfect_square.cc)
