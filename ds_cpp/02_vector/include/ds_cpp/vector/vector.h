@@ -6,12 +6,12 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace dsa_cpp {
+namespace ds_cpp {
 
 // 定义 Vector 类型别名, 常量
 class VectorBase {
  public:
-  // 下标类型 (秩) [low, high)
+  // 下标类型 (秩) [low, high) 范围为: [0, 2^k - 2)
   using Rank = unsigned long long;
   // 个数类型 (数)
   using Size = unsigned long long;
@@ -20,10 +20,10 @@ class VectorBase {
   static constexpr double kMinLoadFactor = 0.25;
   // 默认容量
   static constexpr Size kDefaultCapacity = 3;
-  // 最大容量/个数 2^k - 1 [0, 2^k - 2)
-  static constexpr Size kMaxSize = -2;
+  // 最大容量 2^k - 1
+  static constexpr Size kMaxSize         = -2;
   // 空余的一个 作为 溢出哨兵
-  static constexpr Rank kNonPosition = -1;
+  static constexpr Rank kNonPosition     = -1;
 };
 
 constexpr double VectorBase::kMinLoadFactor;

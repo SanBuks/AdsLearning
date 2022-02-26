@@ -1,6 +1,4 @@
 // 1025 PAT Ranking
-// 1. 注意 排序的要求要写全
-// 2. strcmp的运用
 #include <cstdio>
 #include <algorithm>
 #include <cstring>

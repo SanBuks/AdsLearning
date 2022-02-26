@@ -1,4 +1,4 @@
-#include "../include/dsa_cpp/vector/vector.h"
+#include "include/ds_cpp/vector/vector.h"
 
 #include <cstdlib>
 #include <exception>
@@ -23,7 +23,7 @@ class TestCtor : public ::testing::Test {
 };
 // 默认构造函数 测试
 TEST_F(TestCtor, TestDefaultConstructor) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   // 默认构造函数
   Vector<int> vec_default;
@@ -41,7 +41,7 @@ TEST_F(TestCtor, TestDefaultConstructor) {
 }
 // 拷贝构造函数 测试
 TEST_F(TestCtor, TestCopyConstructor) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   // 拷贝构造函数 (数组1)
   Vector<int> vec_copy_from_array1(array, array_size);
@@ -105,12 +105,12 @@ class OnlyReadTest: public ::testing::Test {
 
   size_t array_size;
   int *array;
-  dsa_cpp::Vector<int> vec;
-  const dsa_cpp::Vector<int> vec_const;
+  ds_cpp::Vector<int> vec;
+  const ds_cpp::Vector<int> vec_const;
 };
 // 重载赋值运算符 测试
 TEST_F(OnlyReadTest, TestOperatorEqual) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   Vector<int> vec_operator_equal;
   vec_operator_equal = vec;
@@ -122,10 +122,10 @@ TEST_F(OnlyReadTest, TestOperatorEqual) {
 }
 // 遍历 测试
 TEST_F(OnlyReadTest, TestTraverse) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
   vec.Traverse(traverse);
   try {
     auto &str_stream = dynamic_cast<std::ostringstream&>(traverse.io());
@@ -139,7 +139,7 @@ TEST_F(OnlyReadTest, TestTraverse) {
 }
 // 统计相邻逆序数 测试
 TEST_F(OnlyReadTest, TestDisordered) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   Vector<int> empty;
   Vector<int> only_one;
@@ -150,7 +150,7 @@ TEST_F(OnlyReadTest, TestDisordered) {
 }
 // 无序查找 测试
 TEST_F(OnlyReadTest, TestFind) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   ASSERT_EQ(4, vec.Find(5));
   ASSERT_EQ(4, vec.Find(5, 0, 5));
@@ -159,7 +159,7 @@ TEST_F(OnlyReadTest, TestFind) {
 }
 // 区间查找自大值 测试
 TEST_F(OnlyReadTest, TestMax) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   ASSERT_EQ(vec.Max(), vec.size() - 1);
 }
@@ -176,14 +176,14 @@ class OnlyModifyTest : public ::testing::Test {
 
   size_t array_size;
   int *array;
-  dsa_cpp::Vector<int> vec;
+  ds_cpp::Vector<int> vec;
 };
 // 插入 测试
 TEST_F(OnlyModifyTest, TestInsert) {
   using namespace std;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
 
   auto old_size = vec.size();
   vec.Insert(0, 0);
@@ -211,7 +211,7 @@ TEST_F(OnlyModifyTest, TestRemove) {
   using namespace std;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
 
   auto old_size = vec.size();
   auto old_capacity = vec.capacity();
@@ -236,7 +236,7 @@ TEST_F(OnlyModifyTest, TestReverse) {
   using namespace std;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
   try {
     vec.Reverse(0, 0);
     vec.Traverse(traverse);
@@ -259,10 +259,10 @@ TEST_F(OnlyModifyTest, TestReverse) {
 }
 // 无序去重 测试
 TEST_F(OnlyModifyTest, TestDeduplicate) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
   vec.Insert(1);
   vec.Insert(2);
   vec.Insert(3);
@@ -283,10 +283,10 @@ TEST_F(OnlyModifyTest, TestDeduplicate) {
 }
 // 有序去重 测试
 TEST_F(OnlyModifyTest, TestUniquify) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
   vec.Insert(5);
   vec.Insert(6);
   vec.Insert(6);
@@ -307,10 +307,10 @@ TEST_F(OnlyModifyTest, TestUniquify) {
 }
 // 置乱 测试
 TEST_F(OnlyModifyTest, TestUnsort) {
-  using namespace dsa_cpp;
+  using namespace ds_cpp;
 
   std::ostringstream oss;
-  dsa_cpp::VectorTraverse<int> traverse(oss);
+  ds_cpp::VectorTraverse<int> traverse(oss);
   auto old_size = vec.size();
   int last_elem = vec[old_size - 1];
   vec.Unsort(0, old_size - 1);
