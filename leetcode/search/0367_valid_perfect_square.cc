@@ -18,20 +18,14 @@ class Solution {
       int mid = lo + (hi - lo) / 2;
       unsigned long long temp = mid;
       temp *= temp;
-      if (temp > num) {
+      if (temp >= num) {
         hi = mid;
       } else {
         lo = mid + 1;
       }
     }
-    --lo;
-    unsigned long long temp = lo;
-    temp *= temp;
-    if (temp == num) {
-      return true;
-    } else {
-      return false;
-    }
+    unsigned long long temp = lo * lo;
+    return temp == num ;
   }
 };
 

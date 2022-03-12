@@ -13,26 +13,26 @@ class Solution {
   /**
    *  O(n) 滑动窗口
    */
+  // 1 <= target <= 10^9
+  // 1 <= nums.length <= 10^5
+  // 1 <= nums[i] <= 10^5
   static int minSubArrayLen(int target, vector<int> &nums) {
-    int result = INT_MAX;
-    int sum = 0;
-    size_t lo = 0;
-    size_t hi = 0;
-    while (true) {
-      if (hi == nums.size() && sum < target) {
-        break;
-      }
+    int min_length = INT_MAX;
+    int begin = 0;
+    int sum = nums[0];
+    if (sum >= target) {
+      return 1;
+    }
+    for (int end = 1; end < nums.size(); ++end) {
       if (sum < target) {
-        sum += nums[hi++];
-      } else {
-        sum -= nums[lo];
-        ++lo;
+        sum += nums[end];
       }
-      if (sum >= target) {
-        result = static_cast<int>(hi - lo < result ? hi - lo : result);
+      while (sum >= target) {
+        min_length = (end - begin + 1 < min_length ? end - begin + 1 : min_length);
+        sum -= nums[begin++];
       }
     }
-    return result == INT_MAX ? 0 : result;
+    return min_length == INT_MAX ? 0 : min_length;
   }
 
   static int binSearch(const vector<int> &vec, int lo, int hi, int target) {
@@ -63,8 +63,11 @@ class Solution {
     // acc[i] - target 为不必要的余量, 余量 = acc[0] + acc[1] + .. + acc[k]
     for (int i = size - 1; i >= 0 && acc[i] >= target; --i) {
 
-      // upper_bound 返回第一个 > target 的位置
+      // upper_bound 函数返回第一个 > target 的位置
+      // --k 指向 <= 余量的位置
+      // 目标区间为 (--k, begin() + i)]
       auto k = upper_bound(acc.begin(), acc.begin() + i, acc[i] - target);
+
       auto num =  static_cast<int>(acc.begin() + i - (--k));
       result = (num < result ? num : result);
 
