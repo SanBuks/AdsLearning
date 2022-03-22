@@ -28,12 +28,17 @@ add_executable(fib_test test/fib_test.cc)
 target_link_libraries(fib_test PRIVATE fib
                                PRIVATE GTest::Main)
 
+add_executable(shift_test test/shift_test.cc)
+target_link_libraries(shift_test PRIVATE intro
+                                 PRIVATE GTest::Main)
+
+add_executable(gcd_test test/gcd_test.cc)
+target_link_libraries(gcd_test PRIVATE intro
+                               PRIVATE GTest::Main)
+
 gtest_discover_tests(bubble_sort_test)
 gtest_discover_tests(count_ones_test)
 gtest_discover_tests(power2_test)
 gtest_discover_tests(ordinary_element_test)
 gtest_discover_tests(fib_test)
-
-# install
-install(DIRECTORY ${01_intro_SOURCE_DIR}/include/
-        DESTINATION include/ds_cpp)
+gtest_discover_tests(gcd_test)

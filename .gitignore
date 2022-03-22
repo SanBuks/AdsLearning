@@ -1,6 +1,7 @@
-# IDE files
+# IDE dir
 *.idea/
-*build/
+# any build dir
+build/
 
 # Prerequisites
 *.d
