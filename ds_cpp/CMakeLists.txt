@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.20)
-project(dsa_cpp)
-set(MY_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
-set(CMAKE_CXX_STANDARD 11)
+project(ds_cpp LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD          11    CACHE INTERNAL "")
+set(CMAKE_CXX_STANDARD_REQUIRED ON    CACHE INTERNAL "")
+set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
+
+# 导入第三方库
 include(cmake/import.cmake)
+
+add_subdirectory(01_intro)
 add_subdirectory(02_vector)
 
-set(CMAKE_BUILD_TYPE Debug CACHE INTERNAL "" FORCE)
+add_executable(test test.cc)
+set_target_properties(test PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")
 
-# install 共有头文件
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
-        DESTINATION include)
+#target_link_libraries(test PRIVATE fib)
+# 打印 generator expression
+#add_custom_target(print COMMAND ${CMAKE_COMMAND} -E echo $<TARGET_FILE:tgt>)

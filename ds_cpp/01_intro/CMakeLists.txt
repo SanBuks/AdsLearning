@@ -36,9 +36,19 @@ add_executable(gcd_test test/gcd_test.cc)
 target_link_libraries(gcd_test PRIVATE intro
                                PRIVATE GTest::Main)
 
+add_executable(subset_test test/subset_test.cc)
+target_link_libraries(subset_test PRIVATE intro
+                                  PRIVATE GTest::Main)
+
+add_executable(hanoi_test test/hanoi_test.cc)
+target_link_libraries(hanoi_test PRIVATE intro
+                                 PRIVATE GTest::Main)
+
 gtest_discover_tests(bubble_sort_test)
 gtest_discover_tests(count_ones_test)
 gtest_discover_tests(power2_test)
 gtest_discover_tests(ordinary_element_test)
 gtest_discover_tests(fib_test)
 gtest_discover_tests(gcd_test)
+gtest_discover_tests(subset_test)
+gtest_discover_tests(hanoi_test)
