@@ -1,16 +1,24 @@
 cmake_minimum_required(VERSION 3.20)
-project(leete_code)
+project(leete_code LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE INTERNAL "" FORCE)
-endif()
+set(CMAKE_CXX_STANDARD          11    CACHE INTERNAL "")
+set(CMAKE_CXX_STANDARD_REQUIRED ON    CACHE INTERNAL "")
+set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
 
-add_subdirectory(math)
 add_subdirectory(dp)
-add_subdirectory(hash)
-add_subdirectory(simulation)
+#add_subdirectory(hash)
+#add_subdirectory(linklist)
+#add_subdirectory(math)
+#add_subdirectory(search)
+#add_subdirectory(simulation)
+#add_subdirectory(slide_window)
+add_subdirectory(tree)
+#add_subdirectory(two_pointer)
 
-add_executable(test test_main.cpp)
+add_executable(test test_main.cc)
+
+# PRIVATE -fno-elide-constructors
+#add_executable(complex  complex.cc)
+#add_executable(m_string m_string.cc)
+#add_executable(image    image.cc)
 
