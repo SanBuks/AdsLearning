@@ -10,7 +10,9 @@ add_executable(0063 0063_unique_paths_II.cc)
 add_executable(0343 0343_integer_break.cc)
 add_executable(0096 0096_unique_binary_search_trees.cc)
 # add_executable(0095 0095_unique_binary_search_trees_II.cc)
-
+# -----------------------------------------------------------------------------
+add_executable(0416 0416_partition_equal_subset_sum.cc)
+add_executable(1049 1049_last_stone_weight_ii.cc)
 
 #add_executable(0647 0647_palindromic_substrings.cpp)
 #add_executable(0005 0005_longest_palindromic_substring.cpp)
