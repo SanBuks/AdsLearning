@@ -1,1 +1,0 @@
-PATB1019 : The Black Hole of Numbers 
