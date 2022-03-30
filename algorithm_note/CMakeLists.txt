@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON    CACHE INTERNAL "")
 set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
 
 add_subdirectory(ch03_simulation)
+add_subdirectory(ch11_dp)
 #add_subdirectory(ch04_algorithm_beginning)
