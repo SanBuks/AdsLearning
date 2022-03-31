@@ -31,31 +31,20 @@ for (int i = 0; i < n; i += 1 + n / 2013) { }
 
 ## 程序清单
 
-| 问题序号           | 文件            |
-|----------------|---------------|
-| 1-12           | #count_ones.h |
-| 1-13, 1-14     | #power2.h     |
-| 1-16           | #subset.h     |
-| 1-22           | #fib.h        |
-| 1-23           | #hanoi.h      |
-| 1-25           | #gcd.h        |
-| 1-26           | #shirft.h     |
-| cycle_times.cc | 32. 计算循环次数    |
+| 问题序号       | 文件             |
+|------------|----------------|
+| 1-12       | #count_ones.h  |
+| 1-13, 1-14 | #power2.h      |
+| 1-16       | #subset.h      |
+| 1-22       | #fib.h         |
+| 1-23       | #hanoi.h       |
+| 1-24       | #cover.h       |
+| 1-25       | #gcd.h         |
+| 1-26       | #shirft.h      |
+| 1-32.cc    | #cycle_times.h |
 
 
 - 1-19, 20, 21
-- 1-24
 - 1-27
 - 1-28
-- 1-32
 - $\sum_{k=1}^{n}k2^{-k}d$ 求和
-```c++
-Fibonacci数 fib(n)
-= O(2n) - 12n + 5 = O(nlogn) - log2(n1024 - 2*n6 + 101) = O(?)
-- logdn = O(nc), c > 0, d > 1 - log1.001n
-= O(log(n1001))
-- (n2 + 1) / (2n + 3) - n2013
-= O(n!)
-- n! = O(n2019) - 2n = O(n!)
-Data Structures & Algorithms, Tsinghua University 4 = O(n)
-```

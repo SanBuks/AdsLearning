@@ -48,7 +48,7 @@ void RShift(T array[], size_t n, size_t lo, size_t hi) {
 }
 
 /**
- * 从 array[s] 出发, 以 k 为间隔循环左移
+ * 从 array[s] 出发, 以 pos , pos + k 间隔循环左移
  * O(n / gcd(n, k)) 如果 n, k 互素 则循环 n 次 (k < n)
  *                  如果 n, k 不互素 则循环同余类中的个数
  * 返回移动次数

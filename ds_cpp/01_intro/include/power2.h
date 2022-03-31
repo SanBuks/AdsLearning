@@ -24,7 +24,7 @@ unsigned long long Power2A(std::size_t n) {
 /**
  * 计算 2^n, O(logn) = O(r)
  * 推导过程:
- * 2^(2^n) = (((2^2)^2)^2).... (n个)
+ * 2^(2^n) = (((2^2)^2)^2).... (n个 ^)
  * 2^1111 = 2^(2^3)        * 2^(2^2)   * 2^(2^1) * 2^(2^0) 二进制加权公式
  *        = ((2^2)^2)^2    * (2^2)^2   * (2)^2   * 2       公式推导
  *        = (((2^2)^2)     * (2^2)     * (2))^2  * 2       一步一步提取 ^2
@@ -38,6 +38,7 @@ unsigned long long Power2B(std::size_t n) {
     return 1;
   }
   unsigned long long temp = Power2B(n >> 1);
+  // 2^abc * 2^abc = 2^abc0
   return (temp * temp) << (n & 1 ? 1 : 0);
 }
 

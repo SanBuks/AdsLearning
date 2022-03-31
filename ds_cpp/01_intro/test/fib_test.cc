@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #define GTEST_COUT std::cout << "[---INFO---] "
 
-TEST(FibTest, FibTest) {
+TEST(TestFib, FibTest) {
   using namespace ds_cpp;
 
   Fib fib1(0);

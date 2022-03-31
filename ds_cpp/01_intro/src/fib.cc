@@ -26,13 +26,13 @@ unsigned long long Fib::Next() {
 }
 
 unsigned long long Fib::Prev() {
-  // 没有溢出下限
+  // 没有溢出下限 (即 p 不能为 1, n 不能为 0)
   if (n_ - p_ <= p_ ) {
     p_ = n_ - p_;
     n_ = n_ - p_;
     return n_;
   } else {
-    throw std::runtime_error("Fib::Prev(): Over Flow!");
+    throw std::runtime_error("Fib::Prev(): MIN Over Flow!");
   }
 }
 

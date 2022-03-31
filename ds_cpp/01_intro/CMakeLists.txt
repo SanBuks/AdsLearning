@@ -6,6 +6,9 @@ target_include_directories(intro INTERFACE include)
 add_library(fib SHARED src/fib.cc)
 target_include_directories(fib PUBLIC include)
 
+add_library(cover SHARED src/cover.cc)
+target_include_directories(cover PUBLIC include)
+
 # -------------------------TEST--------------------------------
 
 add_executable(bubble_sort_test test/bubble_sort_test.cc)
@@ -44,6 +47,14 @@ add_executable(hanoi_test test/hanoi_test.cc)
 target_link_libraries(hanoi_test PRIVATE intro
                                  PRIVATE GTest::Main)
 
+add_executable(cycle_times_test test/cycle_times_test.cc)
+target_link_libraries(cycle_times_test PRIVATE intro
+                                       PRIVATE GTest::Main)
+
+add_executable(cover_test test/cover_test.cc)
+target_link_libraries(cover_test PRIVATE cover
+                                 PRIVATE GTest::Main)
+
 gtest_discover_tests(bubble_sort_test)
 gtest_discover_tests(count_ones_test)
 gtest_discover_tests(power2_test)
@@ -52,3 +63,5 @@ gtest_discover_tests(fib_test)
 gtest_discover_tests(gcd_test)
 gtest_discover_tests(subset_test)
 gtest_discover_tests(hanoi_test)
+gtest_discover_tests(cycle_times_test)
+gtest_discover_tests(cover_test)
