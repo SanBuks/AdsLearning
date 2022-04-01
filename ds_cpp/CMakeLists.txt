@@ -10,6 +10,7 @@ include(cmake/import.cmake)
 
 add_subdirectory(01_intro)
 add_subdirectory(02_vector)
+add_subdirectory(03_list)
 
 add_executable(test test.cc)
 set_target_properties(test PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")

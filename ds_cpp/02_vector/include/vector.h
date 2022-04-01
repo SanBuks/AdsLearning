@@ -25,7 +25,7 @@ class VectorBase {
   // 默认容量
   static constexpr Size kDefaultCapacity = 3;
   // 最大容量 2^k - 1
-  static constexpr Size kMaxSize         = -2;
+  static constexpr Size kMaxSize         = -1;
   // 空余的一个 作为 溢出哨兵
   static constexpr Rank kNonPosition     = -1;
 };

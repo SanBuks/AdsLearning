@@ -1,5 +1,5 @@
-#ifndef DS_CPP_02_VECTOR_ERROR_H_
-#define DS_CPP_02_VECTOR_ERROR_H_
+#ifndef DS_CPP_VECTOR_ERROR_H
+#define DS_CPP_VECTOR_ERROR_H
 
 namespace ds_cpp {
 
