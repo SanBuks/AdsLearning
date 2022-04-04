@@ -37,6 +37,7 @@ constexpr VectorBase::Rank VectorBase::kNonPosition;
 
 template <typename>
 class Vector;
+
 template <typename T>
 void swap(Vector<T> &lhs, Vector<T> &rhs) noexcept;
 
@@ -49,35 +50,47 @@ class Vector : public VectorBase {
   using CPtr = const T*;
 
   /*---------------------------- 拷贝控制 -----------------------------------*/
-
   // 默认构造函数
   explicit Vector(Size size = 0, T elem = T());
   // 数组拷贝构造函数 [lo, hi)
   Vector(CPtr p_elem, Rank lo, Rank hi);
   Vector(CPtr p_elem, Size size);
   // 拷贝构造函数 [lo, hi)
-  Vector(const Vector<T>& rhs, Rank lo, Rank hi);
-  Vector(const Vector<T>& rhs);
-  Vector(Vector<T>&& rhs) noexcept;
+  Vector(const Vector &rhs, Rank lo, Rank hi);
+  Vector(const Vector &rhs);
+  Vector(Vector&& rhs) noexcept;
   // 重载赋值运算符
-  Vector<T> &operator=(const Vector<T> &rhs);
-  Vector<T> &operator=(Vector<T> &&rhs) noexcept;
+  Vector &operator=(const Vector &rhs);
+  Vector &operator=(Vector &&rhs) noexcept;
   // 析构
   ~Vector();
 
   /*--------------------------- 只读访问 ------------------------------------*/
-
   // 返回元素数量
   inline Size size() const { return size_; }
   // 返回容量
   inline Size capacity() const { return capacity_; }
   // 是否为空
   inline bool Empty() const { return !size_; }
+
   // 下标随机访问(不可修改)
   const T& operator[](Rank r) const;
   // 下标随机访问(可修改, 委托 const 函数)
   T& operator[](Rank r);
 
+  // 访问器(不可修改)
+  template <typename VST> void Traverse(const VST &visit) const ;
+  // 访问器(可修改)
+  template <typename VST> void Traverse(const VST &visit);
+
+  // 返回区间最大值的秩
+  Rank Max(Rank low, Rank high) const;
+  Rank Max() const;
+
+  // 返回连接逆序数
+  Size Disordered() const;
+
+  /*--------------------------- 查找访问 ------------------------------------*/
   // 无序查找 在 [low, high) 范围内
   Rank Find(const T &elem, Rank low, Rank high) const;
   Rank Find(const T &elem) const;
@@ -90,15 +103,6 @@ class Vector : public VectorBase {
   Rank FibSearch(const T &elem , Rank low, Rank high) const;
   Rank FibSearch(const T &elem) const;
 
-//  Rank Max(Rank low, Rank high) const;
-//  Rank Max() const;
-//  Size Disordered() const;
-
-  // 访问器(不可修改)
-  template <typename VST> void Traverse(const VST &visit) const ;
-  // 访问器(可修改)
-  template <typename VST> void Traverse(const VST &visit);
-//
   /*--------------------------- 可写访问 ------------------------------------*/
   // 区间置乱
   void Unsort(Rank low, Rank high);
@@ -115,9 +119,9 @@ class Vector : public VectorBase {
   // 有序区间去重
   Size Uniquify(Rank low, Rank high);
   Size Uniquify();
-
-//  // 区间转置
-//  void Reverse(Rank low, Rank high);
+  // 区间转置
+  void Reverse(Rank low, Rank high);
+  void Reverse();
 
   /*---------------------------  排序  ------------------------------------*/
   // 区间冒泡排序
@@ -134,10 +138,23 @@ class Vector : public VectorBase {
   void MergeSort();
 
  protected:
+  /*--------------------------- 容量管理 ------------------------------------*/
   // 扩容
   void Expand();
   // 缩容
   void Shrink();
+
+  /*--------------------------- 检测参数 ------------------------------------*/
+  // 检测 capacity_ 范围
+  void CheckCapacity();
+  // 检测 访问下标是否有效
+  void CheckVisitIndex(Rank r) const ;
+  // 检测 low <= high, 如果超出范围会抛出异常
+  void CheckRange(Rank low, Rank high) const ;
+  // 检测 high <= size_, 如果超出范围会抛出异常
+  void CheckUpperBound(Rank high, Size size) const ;
+
+  /*--------------------------- 数据成员 ------------------------------------*/
   // 个数
   Rank size_;
   // 容量(任何状态下: capacity_ >= size_)
@@ -146,16 +163,6 @@ class Vector : public VectorBase {
   Ptr p_elem_;
 
  private:
-  /*--------------------------- 检测参数 ------------------------------------*/
-  // 检测 size_ 与 capacity_ 范围
-  void CheckSizeCapacity();
-  // 检测 访问下标是否有效
-  void CheckVisitIndex(Rank r) const ;
-  // 检测 low <= high, 如果超出范围会抛出异常
-  void CheckRange(Rank low, Rank high) const ;
-  // 检测 high <= size_, 如果超出范围会抛出异常
-  void CheckUpperBound(Rank high, Size size) const ;
-
   /*--------------------------- 功能函数 ------------------------------------*/
   // 根据 capacity_ 分配空间
   void Allocate();
@@ -168,7 +175,7 @@ class Vector : public VectorBase {
 template <typename T>
 Vector<T>::Vector(Size size, T elem)
     : size_(size), capacity_(size_ << 1), p_elem_(nullptr) {
-  CheckSizeCapacity();
+  CheckCapacity();
   Allocate();
   for (Rank i = 0; i != size_; ++i) {
     p_elem_[i] = elem;
@@ -179,7 +186,7 @@ template <typename T>
 Vector<T>::Vector(CPtr p_elem, Rank low, Rank high)
     : size_(high - low), capacity_(size_ << 1), p_elem_(nullptr) {
   CheckRange(low, high);
-  CheckSizeCapacity();
+  CheckCapacity();
   Allocate();
   CopyFrom(p_elem, low, size_, p_elem_);
 }
@@ -188,20 +195,20 @@ template <typename T>
 Vector<T>::Vector(CPtr p_elem, Size size) : Vector(p_elem, 0, size) {}
 
 template <typename T>
-Vector<T>::Vector(const Vector<T>& rhs, Rank low, Rank high)
+Vector<T>::Vector(const Vector& rhs, Rank low, Rank high)
     : size_(high - low), capacity_(size_ << 1), p_elem_(nullptr) {
   CheckRange(low, high);
   CheckUpperBound(high, rhs.size());
-  CheckSizeCapacity();
+  CheckCapacity();
   Allocate();
   CopyFrom(rhs.p_elem_, low, size_, p_elem_);
 }
 
 template <typename T>
-Vector<T>::Vector(const Vector<T>& rhs) : Vector(rhs, 0, rhs.size()) {}
+Vector<T>::Vector(const Vector &rhs) : Vector(rhs, 0, rhs.size()) {}
 
 template <typename T>
-Vector<T>::Vector(Vector<T>&& rhs) noexcept
+Vector<T>::Vector(Vector &&rhs) noexcept
     : size_(rhs.size_), capacity_(rhs.capacity_), p_elem_(rhs.p_elem_) {
   rhs.size_ = 0;
   rhs.capacity_ = 0;
@@ -209,18 +216,18 @@ Vector<T>::Vector(Vector<T>&& rhs) noexcept
 }
 
 template <typename T>
-Vector<T> &Vector<T>::operator=(const Vector<T> &rhs) {
+Vector<T> &Vector<T>::operator=(const Vector &rhs) {
   using std::swap;
   if (&rhs != this) {
-    Vector<T> temp(rhs);
+    Vector temp(rhs);
     swap(*this, temp);
   }
   return *this;
 }
 
 template <typename T>
-Vector<T> &Vector<T>::operator=(Vector<T> &&rhs) noexcept {
-  if (this != &rhs) {
+Vector<T> &Vector<T>::operator=(Vector &&rhs) noexcept {
+  if (&rhs != this) {
     delete [] p_elem_;
     size_ = rhs.size_;
     capacity_ = rhs.capacity_;
@@ -247,8 +254,59 @@ const T& Vector<T>::operator[](Rank r) const {
 template <typename T>
 T& Vector<T>::operator[](Rank r) {
   return const_cast<T &>(
-      static_cast<const Vector<T>&>(*this)[r]
+      static_cast<const Vector &>(*this)[r]
   );
+}
+
+template <typename T>
+template <typename VST>
+void Vector<T>::Traverse(const VST &visit) {
+  for (Rank i = 0; i != size_; ++i) {
+    visit(p_elem_[i]);
+  }
+}
+
+template <typename T>
+template <typename VST>
+void Vector<T>::Traverse(const VST &visit) const {
+  for (Rank i = 0; i != size_; ++i) {
+    visit(p_elem_[i]);
+  }
+}
+
+template <typename T>
+VectorBase::Rank Vector<T>::Max(Rank low, Rank high) const {
+  CheckRange(low, high);
+  CheckUpperBound(high, size_);
+  if (low == high) {
+    return kNonPosition;
+  }
+  Rank max_pos = low;
+  for (Rank i = low + 1; i != high; ++i) {
+    if (p_elem_[i] > p_elem_[max_pos]) {
+      max_pos = i;
+    }
+  }
+  return max_pos;
+}
+
+template <typename T>
+VectorBase::Rank Vector<T>::Max() const {
+  return Max(0, size_);
+}
+
+template <typename T>
+VectorBase::Size Vector<T>::Disordered() const {
+  Size unordered_num = 0;
+  if (size_ < 2) {
+    return unordered_num;
+  }
+  for (Rank i = 0; i != size_ - 1; ++i) {
+    if (p_elem_[i] > p_elem_[i + 1]) {
+      ++unordered_num;
+    }
+  }
+  return unordered_num;
 }
 
 template <typename T>
@@ -329,61 +387,6 @@ template <typename T>
 VectorBase::Rank
 Vector<T>::FibSearch(const T &elem) const {
   return FibSearch(elem, 0, size_);
-}
-
-//template<typename T>
-//VectorBase::Rank Vector<T>::Max(Rank low, Rank high) const {
-//  CheckRange(low, high);
-//  CheckUpBound(size_, high);
-//  if (low == high) {
-//    return kNonPosition;
-//  }
-//  Rank max_pos = low;
-//  for (Rank i = low + 1; i != high; ++i) {
-//    if ((*this)[i] > (*this)[max_pos]) {
-//      max_pos = i;
-//    }
-//  }
-//  return max_pos;
-//}
-//
-//template<typename T>
-//VectorBase::Rank Vector<T>::Max() const {
-//  return Max(0, size_);
-//}
-//
-//template<typename T>
-//VectorBase::Size Vector<T>::Disordered() const {
-//  if (size_ < 2) {
-//    return 0;
-//  }
-//
-//  Size unordered_num = 0;
-//  for (Rank i = 0; i != size_ - 1; ++i) {
-//    if ((*this)[i] > (*this)[i + 1]) {
-//      ++unordered_num;
-//    }
-//  }
-//  return unordered_num;
-//}
-//
-
-
-
-template <typename T>
-template <typename VST>
-void Vector<T>::Traverse(const VST &visit) {
-  for (Rank i = 0; i != size_; ++i) {
-    visit(p_elem_[i]);
-  }
-}
-
-template <typename T>
-template <typename VST>
-void Vector<T>::Traverse(const VST &visit) const {
-  for (Rank i = 0; i != size_; ++i) {
-    visit(p_elem_[i]);
-  }
 }
 
 template <typename T>
@@ -488,6 +491,21 @@ VectorBase::Size Vector<T>::Uniquify(Rank low, Rank high) {
 template <typename T>
 VectorBase::Size Vector<T>::Uniquify() {
   return Uniquify(0, size_);
+}
+
+template <typename T>
+void Vector<T>::Reverse(Rank low, Rank high) {
+  CheckRange(low, high);
+  CheckUpperBound(high, size_);
+  while (low < high) {
+    std::swap(p_elem_[low], p_elem_[high - 1]);
+    ++low, --high;
+  }
+}
+
+template <typename T>
+void Vector<T>::Reverse() {
+  Reverse(0, size_);
 }
 
 template <typename T>
@@ -619,13 +637,8 @@ void Vector<T>::Shrink() {
 }
 
 template <typename T>
-void Vector<T>::CheckSizeCapacity() {
-  // 处理 size_ 上溢
-  if (kMaxSize < size_) {
-    throw std::runtime_error(vector_error::kSizeOverFlow);
-  }
-  // 处理 capacity_ 上溢, 确保在 [size_, kMaxSize] 范围内
-  capacity_ = kMaxSize < capacity_ ? kMaxSize : capacity_;
+void Vector<T>::CheckCapacity() {
+  // 处理 capacity_ 上溢, 确保 >= size_
   capacity_ = capacity_ < size_ ? size_ : capacity_;
   // 处理 capacity_ 下溢
   capacity_ = capacity_ < kDefaultCapacity ? kDefaultCapacity : capacity_;
@@ -637,6 +650,7 @@ void Vector<T>::CheckVisitIndex(Rank r) const {
     throw std::runtime_error(vector_error::kVisitIndexError);
   }
 }
+
 template <typename T>
 void Vector<T>::CheckRange(const Rank low, const Rank high) const {
   if (high < low) {
@@ -689,18 +703,6 @@ void Vector<T>::Merge(Rank low, Rank mid, Rank high) {
   }
 }
 
-//template <typename T>
-//void Vector<T>::Reverse(Rank low, Rank high) {
-//  CheckRange(low, high);
-//  CheckUpBound(size_, high);
-//  while (low < high) {
-//    T temp = (*this)[low];
-//    (*this)[low] = (*this)[high - 1];
-//    (*this)[high - 1] = temp;
-//    ++low, --high;
-//  }
-//}
-//
 
 // 遍历调用对象类型
 template <typename T>

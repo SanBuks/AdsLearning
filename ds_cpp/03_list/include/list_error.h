@@ -4,16 +4,14 @@
 namespace ds_cpp {
 
 struct list_error {
-//  static constexpr const char *kSizeOverFlow
-//      = "[ds_cpp:vector]: `size` must <= `max_size`";
-//  static constexpr const char *kInvalidRange
-//      = "[ds_cpp:vector]: `low` must <= `high`";
-//  static constexpr const char *kUpperBoundOverFlow
-//      = "[ds_cpp:vector]: `high` must <= `size`";
-//  static constexpr const char *kVisitIndexError
-//      = "[ds_cpp:vector]: `visit index` must < `size`";
-//  static constexpr const char *kVectorFull
-//      = "[ds_cpp:vector]: vector is full";
+  static constexpr const char *kInvalidRange
+      = "[ds_cpp:list]: `low` must <= `high`";
+  static constexpr const char *kVisitIndexError
+      = "[ds_cpp:list]: `visit index` must < `size`";
+  static constexpr const char *kVisitPositionError
+      = "[ds_cpp:list]: LNP must be valid";
+  static constexpr const char *kNullptrError
+      = "[ds_cpp:list]: LNP must not be nullptr";
 };
 
 }  // namespace ds_cpp

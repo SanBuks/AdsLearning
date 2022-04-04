@@ -14,6 +14,7 @@ class ModifyTest : public ::testing::Test {
   void TearDown() override {
     delete [] array;
     delete [] array_dup;
+    delete [] array_uni;
   }
   size_t low = 2, high = 4, array_size = 10;
   int *array = new int[array_size]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -26,12 +27,14 @@ TEST_F(ModifyTest, TestUnsort) {
   using namespace ds_cpp;
 
   Vector<int> vec(array, array_size);
+  EXPECT_EQ(vec.Disordered(), 0);
   VectorTraverse<int> traverse(std::cout);
 
   vec.Traverse(traverse);
   GTEST_COUT << "\n";
 
   vec.Unsort();
+  EXPECT_GT(vec.Disordered(), 0);
   vec.Traverse(traverse);
   GTEST_COUT << "\n";
 
@@ -93,4 +96,24 @@ TEST_F(ModifyTest, TestUniquify) {
   Vector<int> vec2(array_uni, array_size);
   vec2.Deduplicate(0, 5);
   EXPECT_EQ(vec2.size(), 8);
+}
+
+// 转置 测试
+TEST_F(ModifyTest, TestReverse) {
+  using namespace ds_cpp;
+
+  Vector<int> vec(array, array_size);
+  std::stringstream ss;
+  VectorTraverse<int> traverse(ss);
+
+  vec.Reverse();
+  vec.Traverse(traverse);
+
+  auto &os = dynamic_cast<std::stringstream &>(traverse.io());
+  EXPECT_EQ(os.str(), "10 9 8 7 6 5 4 3 2 1 ");
+  ss.str("");
+
+  vec.Reverse(0, 5);
+  vec.Traverse(traverse);
+  EXPECT_EQ(os.str(), "6 7 8 9 10 5 4 3 2 1 ");
 }

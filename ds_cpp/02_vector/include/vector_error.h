@@ -4,8 +4,6 @@
 namespace ds_cpp {
 
 struct vector_error {
-  static constexpr const char *kSizeOverFlow
-      = "[ds_cpp:vector]: `size` must <= `max_size`";
   static constexpr const char *kInvalidRange
       = "[ds_cpp:vector]: `low` must <= `high`";
   static constexpr const char *kUpperBoundOverFlow
