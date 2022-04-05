@@ -19,10 +19,12 @@ class AccessTest : public ::testing::Test {
   int array_size1 = 0;
   int array_size2 = 1;
   int array_size3 = 10;
+  int array_size4 = 10;
 
   int *array1 = new int[array_size1]{};
   int *array2 = new int[array_size2]{1};
   int *array3 = new int[array_size3]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+  int *array4 = new int[array_size4]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 };
 
 // 遍历测试
@@ -155,15 +157,20 @@ TEST_F(AccessTest, TestMax) {
   List<int> list1(array1, array_size1);
   List<int> list2(array2, array_size2);
   List<int> list3(array3, array_size3);
+  List<int> list4(array4, array_size4);
 
   auto pf1 = list1.header()->succ();
   auto pf2 = list2.header()->succ();
   auto pf3 = list3.header()->succ();
+  auto pf4 = list4.header()->succ();
 
   auto p1 = list1.Max(pf1, 3);
   auto p2 = list2.Max(pf2, 10);
   auto p3 = list3.Max(pf3, 11);
+  auto p4 = list3.Max(pf4, 3);
+
   EXPECT_EQ(p1, nullptr);
-  EXPECT_EQ(pf2->data(), 1);
-  EXPECT_EQ(pf3->data(), 10);
+  EXPECT_EQ(p2->data(), 1);
+  EXPECT_EQ(p3->data(), 10);
+  EXPECT_EQ(p4->data(), 3);
 }

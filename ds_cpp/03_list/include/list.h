@@ -81,7 +81,6 @@ class List : public ListBase {
   // 有序查找, 在 p 的真后缀 n 个节点中寻找靠前等于 elem 节点位置, 没有找到则返回 左边界
   LNP SearchAfter(T const &elem, Size n, LNP p) const;
 
-
   /*--------------------------- 可写访问 ------------------------------------*/
   // 头插入
   LNP InsertAsFirst(const T &elem);
@@ -103,10 +102,13 @@ class List : public ListBase {
 
   /*---------------------------  排序  ------------------------------------*/
   // 选择排序
+  void SelectSort(LNP p, Size n);
   void SelectSort();
   // 插入排序
+  void InsertSort(LNP p, Size n);
   void InsertSort();
-  // 归并排序
+  // 归并排序, 注意 p 为引用, 方便递归时更新头节点
+  void MergeSort(LNP &p, Size n);
   void MergeSort();
 
  protected:
@@ -133,6 +135,9 @@ class List : public ListBase {
   void Init();
   // 从 p_source 所指处拷贝 num 个元素(包含所指) 插入到 p_pre 之后
   void CopyFrom(LNP p_source, Size num, LNP p_pre);
+  // 将 pa 所指处 n 个元素, 与 list 中 pb 所指处 m 个元素合并到 pa 所指处
+  // 注意 pa 为 引用, 方便递归式更新头节点
+  void Merge(LNP &pa, Size n, List<T> &list, LNP pb, Size m);
 
 };
 
@@ -242,7 +247,7 @@ typename List<T>::LNP List<T>::Max(LNP p, Size n) const {
   }
 
   LNP max_p = p;
-  for (--n, p = p->succ_; n && p!= trailer(); p = p->succ_) {
+  for (--n, p = p->succ_; n && p!= trailer(); p = p->succ_, --n) {
     if (p->data_ > max_p->data_) {
       max_p = p;
     }
@@ -415,25 +420,86 @@ ListBase::Size List<T>::Uniquify() {
 }
 
 template <typename T>
-void List<T>::SelectSort() {
+void List<T>::SelectSort(LNP p, Size n) {
+  if (n < 2 || !CheckVisitPosition(p)) {
+    return;
+  }
 
-}
+  int num = 0;  // p 实际到右边界距离
+  auto pre_pos = p->pred_;
+  auto end_pos = p;
+  for (int i = 0; i < n; ++i) {
+    end_pos = end_pos->succ_;
+    ++num;
+    if (end_pos == trailer()) {
+      break;
+    }
+  }
 
-template <typename T>
-void List<T>::InsertSort() {
-  Size pred_num = 0;
-  auto p = header()->succ_;
-  while (p != trailer()) {
-    InsertAfter(SearchBefore(p->data_, pred_num, p), p->data_);
-    p = p->succ_;
-    Remove(p->pred_);
-    ++pred_num;
+  while (num > 1) {
+    auto pos = Max(pre_pos->succ_, num);
+    end_pos = InsertBefore(end_pos, pos->data_);
+    Remove(pos);
+    --num;
   }
 }
 
 template <typename T>
-void List<T>::MergeSort() {
+void List<T>::SelectSort() {
+  SelectSort(header()->succ(), size_);
+}
 
+template <typename T>
+void List<T>::InsertSort(LNP p, Size n) {
+  if (n < 2 || !CheckVisitPosition(p)) {
+    return;
+  }
+
+  Size pred_num = 0;
+  while (p != trailer() && n > 0) {
+    InsertAfter(SearchBefore(p->data_, pred_num, p), p->data_);
+    p = p->succ_;
+    Remove(p->pred_);
+    ++pred_num;
+    --n;
+  }
+}
+
+template <typename T>
+void List<T>::InsertSort() {
+  InsertSort(header()->succ_, size_);
+}
+
+template <typename T>
+void List<T>::MergeSort(LNP &p, Size n) {
+  if (n < 2 || !CheckVisitPosition(p)) {
+    return;
+  }
+  // n 可以 远远大于当前元素个数, 这里获取实际 valid_n <= n
+  Size valid_n = 0;
+  for (auto new_p = p; new_p != trailer(); new_p = new_p->succ_) {
+    ++valid_n;
+    if (valid_n > n) {
+      valid_n = n;
+      break;
+    }
+  }
+
+  Size m = valid_n >> 1;
+  LNP pa = p, pb = p;
+  for (Size i = 0; i < m; ++i) {
+    pb = pb->succ_;
+  }
+
+  MergeSort(pa, m);
+  MergeSort(pb, valid_n - m);
+  Merge(pa, m, *this, pb, valid_n - m);
+  p = pa;
+}
+
+template <typename T>
+void List<T>::MergeSort() {
+  MergeSort(header()->succ_, size_);
 }
 
 template <typename T>
@@ -484,6 +550,23 @@ void List<T>::CopyFrom(LNP p_source, Size num, LNP p_pre) {
   }
 }
 
+template <typename T>
+void List<T>::Merge(LNP &pa, Size n, List<T> &list, LNP pb, Size m) {
+  auto pp = pa->pred_;
+  while (0 < m && pa != pb) {  // 如果 pa, pb 同源可以优化
+    if (0 < n && pa->data_ <= pb->data_) {
+      pa = pa->succ_;
+      --n;
+    } else {
+      InsertBefore(pa, pb->data_);
+      pb = pb->succ_;
+      Remove(pb->pred_);
+      --m;
+    }
+  }
+  pa = pp->succ_;
+}
+
 // 遍历调用对象类型
 template <typename T>
 class ListTraverse {
@@ -507,73 +590,6 @@ void swap(List<T> &lhs, List<T> &rhs) noexcept {
   swap(lhs.header_, rhs.header_);
   swap(lhs.trailer_, rhs.trailer_);
 }
-
-//LNP(T)find(const T &e) const { // 全局查找
-//  find(e, _size, trailer);
-//}
-
-//LNP(T)search(const T &e, int n, LNP(T)p) const { // 在p的n个真前驱且包括左哨兵查找<=e的最大秩节点
-//  while (n--) // 遍历n次
-//    if ((p = p->pred)->data <= e) // <=e 则直接返回
-//      return p;
-//  return p->pred; // 没找到则返回左哨兵
-//}
-//LNP(T)search(const T &e) {  // 全局区间查找
-//  search(e, _size, trailer);
-//}
-
-
-//void insertSort(LNP(T)p, int n) { // 对 包括p在内的 n各节点排序  平均比较次数=(n-1)n/2=O(n^2)
-//for (int r = 0; r < n; ++r) {
-//insertAfter(search(p->data, r, p), p->data); // 在以排序范围内先插入再删除
-//p = p->succ;  // 移动到下一个
-//remove(p->pred); // 删除多余前驱
-//}
-//}
-//void selectionSort(LNP(T)p, int n) {
-//LNP(T)head = p->pred; // 设定区间
-//LNP(T)tail = p;
-//for (int i = 0; i < n; ++i) tail = tail->succ;
-//while (1 < n) {
-//LNP(T)m = selectMax(head->succ, n); // 每趟第一个节点会改变 找到最大节点位置
-//auto temp = m->data;
-//m->data = tail->pred->data;
-//tail->pred->data = temp;
-////insertBefore(tail, remove(m));  // 移动
-//tail = tail->pred; // 更改区间
-//--n; // 缩小范围
-//}
-//}
-
-//void mergeSort(LNP(T)&p, int n) {
-//if (n < 2) return;
-//int m = n >> 1;
-//LNP(T)q = p;
-//for (int i = 0; i < m; ++i) q = q->succ;
-//// p 指向前半段第一个 q指向后半段第一个 前半段一共m个 后半段一共n-m个
-//mergeSort(p, m);
-//mergeSort(q, n - m);
-//merge(p, m, *this, q, n - m);
-//}
-//void merge(LNP(T)&p, int n, List<T> &L, LNP(T)q, int m) { // p实参应不是任何一个点的前后指针
-//LNP(T)pp = p->pred; // 记录p原来的位置
-//while (0 < m) {  // (0<m&&0<n)
-//if (n > 0 && p->data <= q->data) {
-//if (q == (p = p->succ)) break;
-//n--;
-//} else {  // (m>0 && q->data<p->data)
-//insertBefore(p, q->data);
-//q = q->succ;
-//L.remove(q->pred);
-//m--;
-//}
-//}
-//p = pp->succ;
-//}
-//void mergeSort() {
-//  auto h = header->succ;
-//  mergeSort(h, _size);
-//} //注意是header->succ的副本
 
 }  // namespace ds_cpp
 
