@@ -74,22 +74,22 @@ TEST_F(AccessTest, TestFindBefore) {
 TEST_F(AccessTest, TestFindAfter) {
   using namespace ds_cpp;
 
-  auto p1 = list1.FindAfter(3, 3, list1.header());
+  auto p1 = list1.FindAfter(3, list1.header(), 3);
   EXPECT_EQ(p1->data(), 3);
 
-  auto p2 = list1.FindAfter(9, 5, p1);
+  auto p2 = list1.FindAfter(9, p1, 5);
   EXPECT_EQ(p2, nullptr);
 
-  auto p3 = list1.FindAfter(0, 8, p1);
+  auto p3 = list1.FindAfter(0, p1, 8);
   EXPECT_EQ(p3, nullptr);
 
-  auto p4 = list1.FindAfter(0, 100, p1);
+  auto p4 = list1.FindAfter(0, p1, 100);
   EXPECT_EQ(p4, nullptr);
 
-  auto p5 = list1.FindAfter(0, 0, nullptr);
+  auto p5 = list1.FindAfter(0, nullptr, 0);
   EXPECT_EQ(p5, nullptr);
 
-  auto p6 = list1.FindAfter(0, 1, nullptr);
+  auto p6 = list1.FindAfter(0, nullptr, 1);
   EXPECT_EQ(p6, nullptr);
 }
 
@@ -120,22 +120,22 @@ TEST_F(AccessTest, TestSearchBefore) {
 TEST_F(AccessTest, TestSearchAfter) {
   using namespace ds_cpp;
 
-  auto p1 = list1.SearchAfter(3, 3, list1.header());
+  auto p1 = list1.SearchAfter(3, list1.header(), 3);
   EXPECT_EQ(p1->data(), 2);
 
-  auto p2 = list1.SearchAfter(9, 5, p1);
+  auto p2 = list1.SearchAfter(9, p1, 5);
   EXPECT_EQ(p2->data(), 7);
 
-  auto p3 = list1.SearchAfter(11, 9, p1);
+  auto p3 = list1.SearchAfter(11, p1, 9);
   EXPECT_EQ(p3->data(), 10);
 
-  auto p4 = list1.SearchAfter(11, 100, p1);
+  auto p4 = list1.SearchAfter(11, p1, 100);
   EXPECT_EQ(p4->data(), 10);
 
-  EXPECT_THROW(auto p5 = list1.SearchAfter(0, 0, nullptr),
+  EXPECT_THROW(auto p5 = list1.SearchAfter(0, nullptr, 0),
                std::runtime_error);
 
-  auto p6 = list1.SearchAfter(11, 0, p1);
+  auto p6 = list1.SearchAfter(11, p1, 0);
   EXPECT_EQ(p6->data(), 2);
 }
 

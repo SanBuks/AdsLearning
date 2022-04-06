@@ -96,3 +96,28 @@ TEST_F(SortTest, TestMergeSort) {
   EXPECT_EQ(list3.Disordered(), 0);
   EXPECT_EQ(list3.size(), 10);
 }
+
+TEST_F(SortTest, TestRadixSort) {
+  using namespace ds_cpp;
+
+  List<int> list1(array1, array_size1);
+  List<int> list2(array2, array_size2);
+  List<int> list3(array3, array_size3);
+
+  auto temp_p = list3.header()->succ();
+  list3.RadixSort(temp_p, 3);
+  EXPECT_EQ(list3.Disordered(), 4);
+
+  list1.RadixSort();
+  list2.RadixSort();
+  list3.RadixSort();
+
+  EXPECT_EQ(list1.Disordered(), 0);
+  EXPECT_EQ(list1.size(), 0);
+
+  EXPECT_EQ(list2.Disordered(), 0);
+  EXPECT_EQ(list2.size(), 1);
+
+  EXPECT_EQ(list3.Disordered(), 0);
+  EXPECT_EQ(list3.size(), 10);
+}
