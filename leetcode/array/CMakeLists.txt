@@ -1,0 +1,3 @@
+project(array)
+
+add_executable(1491 1491_average_salary_excluding_the_minimum_and_maximum_salary.cc)

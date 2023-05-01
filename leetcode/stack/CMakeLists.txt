@@ -18,3 +18,5 @@ add_executable(0227 0227_basic_calculator_ii.cc)
 add_executable(0239 0239_sliding_window_maximum.cc)
 add_executable(0347 0347_top_k_frequent_elements.cc)
 
+
+add_executable(0739 0739_daily_temperatures.cc) # 简单题(栈 单调栈) 多解
