@@ -19,6 +19,7 @@ add_executable(0239 0239_sliding_window_maximum.cc)
 add_executable(0347 0347_top_k_frequent_elements.cc)
 
 
-add_executable(0739 0739_daily_temperatures.cc) # 简单题(栈 单调栈)
-add_executable(0496 0496_next_greater_element_i.cc) # 简单题(栈 单调栈)
+add_executable(0739 0739_daily_temperatures.cc)      # 简单题(栈 单调栈)
+add_executable(0496 0496_next_greater_element_i.cc)  # 简单题(栈 单调栈)
 add_executable(0503 0503_next_greater_element_ii.cc) # 简单题(栈 单调栈)
+add_executable(0042 0042_trapping_rain_water.cc)     # 简单题(栈 单调栈)
