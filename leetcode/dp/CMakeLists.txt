@@ -30,6 +30,14 @@ add_executable(0003 0003_longest_substring_without_repeating_characters.cc)
 #add_executable(0647 0647_palindromic_substrings.cpp)
 #add_executable(0005 0005_longest_palindromic_substring.cpp)
 
+add_executable(2140 2140_solving_questions_with_brainpower.cc) # 简单题 (一维 遍历方向)
+add_executable(2466 2466_count_ways_to_build_good_strings.cc) # 简单题 (一维)
+#120. Triangle
+#354. Russian Doll Envelopes
+#1349. Maximum Students Taking Exam
+add_executable(1143 1143_longest_common_subsequence.cc) # 简单题 (LCS)
+add_executable(1035 1035_uncrossed_lines.cc) # 简单题 (LCS)
+
 add_executable(0300 0300_longest_increasing_subsequence.cc) # 简单题 (动态规划/贪心二分 LIS)
 #334. Increasing Triplet Subsequence
 #354. Russian Doll Envelopes
