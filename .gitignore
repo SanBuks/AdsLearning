@@ -1,9 +1,9 @@
 # IDE dir
 *.idea/
 # any build dir
+remote-build/
 build/
-# any dsacpp-src dir
-dsacpp-src/
+debug/
 
 # Prerequisites
 *.d
