@@ -11,3 +11,10 @@ add_executable(0886 0886_possible_bipartition.cc)                          # 简
 #1632. Rank Transform of a Matrix
 #1740. Find Distance in a Binary Tree
 add_executable(0399 0399_evaluate_division.cc)                             # 难题(DFS)
+
+add_executable(0934 0934_shortest_bridge.cc)                               # 中等题(DFS     找连通分量)
+add_executable(0200 0200_number_of_islands.cc)                             # 简单题(BFS&DFS 找连通分量)
+#1072. Flip Columns For Maximum Number of Equal Rows
+#2510. Check if There is a Path With Equal Number of 0's And 1's
+#417. Pacific Atlantic Water Flow
+
