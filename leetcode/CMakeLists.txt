@@ -5,14 +5,14 @@ set(CMAKE_CXX_STANDARD          11    CACHE INTERNAL "")
 set(CMAKE_CXX_STANDARD_REQUIRED ON    CACHE INTERNAL "")
 set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
 
-# 格式
-# add_executable(xxxx xxxx_yyyyyyyyy.cc) 简单题(数组 遍历)
-
 #add_subdirectory(array)
+#add_subdirectory(backtrace)
 #add_subdirectory(bits)
-add_subdirectory(dp)
+#add_subdirectory(dp)
+#add_subdirectory(graph)
 #add_subdirectory(greedy)
 #add_subdirectory(hash)
+add_subdirectory(heap)
 #add_subdirectory(linklist)
 #add_subdirectory(math)
 #add_subdirectory(search)
@@ -24,7 +24,6 @@ add_subdirectory(dp)
 #add_subdirectory(two_pointer)
 
 add_executable(test test_main.cc)
-add_executable(individual_value_calc individual_value_calc.cc)
 
 # PRIVATE -fno-elide-constructors
 #add_executable(complex  complex.cc)
