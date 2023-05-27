@@ -6,7 +6,7 @@ class Solution {
  public:
   int n;
   static const int MaxSum = 1000000;
-  int dp[2][101][8];
+  int dp[2][101][101];
 
   int Dfs(vector<int> &piles, int p, int i, int m) {
     if (i == n) {

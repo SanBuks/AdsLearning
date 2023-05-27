@@ -30,7 +30,7 @@ add_executable(0003 0003_longest_substring_without_repeating_characters.cc)
 #add_executable(0647 0647_palindromic_substrings.cpp)
 #add_executable(0005 0005_longest_palindromic_substring.cpp)
 
-add_executable(1799 1799_maximize_score_after_n_operations.cc) # 难题(dp 压缩 mask)
+add_executable(1799 1799_maximize_score_after_n_operations.cc) # 难题(dp 压缩 mask) *
 
 add_executable(2140 2140_solving_questions_with_brainpower.cc) # 简单题 (一维 遍历方向)
 add_executable(2466 2466_count_ways_to_build_good_strings.cc) # 简单题 (一维)
@@ -50,7 +50,11 @@ add_executable(1964 1964_find_the_longest_valid_obstacle_course_at_each_position
 #2659. Make Array Empty
 
 add_executable(0837 0837_new_21_game.cc)   # 难题(滑动窗口/概率统计) *
-add_executable(1140 1140_stone_game_ii.cc) # 难题(零和博弈/记忆)
+
+add_executable(0877 0877_stone_game.cc)     # 简单题(零和博弈/记忆/二维)
+add_executable(1140 1140_stone_game_ii.cc)  # 难题(零和博弈/记忆)
+add_executable(1406 1406_stone_game_iii.cc) # 简单题(零和博弈/记忆)
+
 #1563. Stone Game V
 #1686. Stone Game VI
 #1690. Stone Game VII
