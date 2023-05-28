@@ -54,7 +54,9 @@ add_executable(0837 0837_new_21_game.cc)   # 难题(滑动窗口/概率统计) *
 add_executable(0877 0877_stone_game.cc)     # 简单题(零和博弈/记忆/二维)
 add_executable(1140 1140_stone_game_ii.cc)  # 难题(零和博弈/记忆)
 add_executable(1406 1406_stone_game_iii.cc) # 简单题(零和博弈/记忆)
-
 #1563. Stone Game V
 #1686. Stone Game VI
 #1690. Stone Game VII
+
+
+add_executable(1547 1547_minimum_cost_to_cut_a_stick.cc)
