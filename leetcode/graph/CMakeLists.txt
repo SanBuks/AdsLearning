@@ -18,3 +18,11 @@ add_executable(0200 0200_number_of_islands.cc)                             # 简
 #2510. Check if There is a Path With Equal Number of 0's And 1's
 #417. Pacific Atlantic Water Flow
 
+add_executable(2101 2101_detonate_the_maximum_bombs.cc)                    # 中等题(BFS&DFS 求连通分量规模)
+add_executable(0547 0547_number_of_provinces.cc)                           # 中等题(DFS 求连通分量规模)
+#323. Number of Connected Components in an Undirected Graph
+#657. Robot Return to Origin
+#734. Sentence Similarity
+#Max Area of Island
+#Rotting Oranges
+#Minesweeper
