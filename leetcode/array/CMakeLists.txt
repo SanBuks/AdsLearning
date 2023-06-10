@@ -11,3 +11,9 @@ add_executable(1572 1572_matrix_diagonal_sum.cc)
 # x1, y1, z1, x1
 # x2, y2, z2, x2
 
+add_executable(1351 1351_count_negative_numbers_in_a_sorted_matrix.cc)         #(简单题 模拟)
+add_executable(1802 1802_maximum_value_at_a_given_index_in_a_bounded_array.cc) #(中等题 二分+等差数列)
+#1521. Find a Value of a Mysterious Function Closest to Target
+#2340. Minimum Adjacent Swaps to Make a Valid Array
+#2259. Remove Digit From Number to Maximize Result
+
