@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #include "Bitmap/Bitmap.h" //引入Bitmap结构
@@ -20,11 +20,11 @@
  ******************************************************************************************/
 /*DSA*/ #include "_share/util.h"
 
-void Eratosthenes ( int n, char* file ) {
-   Bitmap B( n ); B.set( 0 ); B.set( 1 ); //0和1都不是素数
-   for ( int i = 2; i*i < n; i++ ) //逐个地
-      if ( !B.test ( i ) ) //确认下一个素数i
-         for ( int j = i * i; j < n; j += i ) //并将一系列能被i整除的
-            B.set ( j ); //j标记为合数（小于i*i的合数，必在此之前已被标记）
-   B.dump ( file ); //将筛选标记统一存入指定文件，以便日后直接导入
+void Eratosthenes( Rank n, char* file ) {
+   Bitmap B( n ); B.set( 0 ); B.set( 1 ); // 0和1都不是素数
+   for ( Rank i = 2; i * i < n; i++ ) //逐个地
+      if ( !B.test( i ) ) //确认下一个素数i
+         for ( Rank j = i * i; j < n; j += i ) //并将一系列能被i整除的
+            B.set( j ); // j标记为合数（小于i*i的合数，必在此之前已被标记）
+   B.dump( file ); //将筛选标记统一存入指定文件，以便日后直接导入
 }

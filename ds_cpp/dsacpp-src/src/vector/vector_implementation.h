@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -44,11 +44,9 @@
 #include "vector_selectionSort.h"
 #include "vector_merge.h"
 #include "vector_mergeSort.h"
-//#include "vector_partition_LUG.h"
-//#include "vector_partition_LUG1.h"
+#include "vector_partition_LUG.h"
 //#include "vector_partition_DUP.h"
-//#include "vector_partition_DUP1.h"
-#include "vector_partition_LGU.h"
+//#include "vector_partition_LGU.h"
 #include "vector_heapSort.h"
 //#include "vector_quickSort_recursive.h"
 #include "vector_quickSort_iterative.h"

@@ -1,5 +1,5 @@
-#ifndef DS_CPP_STACK_H
-#define DS_CPP_STACK_H
+#ifndef DS_CPP_QUEUE_H
+#define DS_CPP_QUEUE_H
 
 #include "list.h"
 

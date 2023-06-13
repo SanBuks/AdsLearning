@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -17,9 +17,9 @@
 #include "queue/queue.h" //引入队列
 #include "Customer.h" //顾客类
 
-int bestWindow ( Queue<Customer> window[], int nWin );
+int bestWindow ( Queue<Customer> window[], Rank nWin );
 void printCustomer ( Customer c );
-void displayProgress ( Queue<Customer> window[], int nWin, int now );
-void simulate ( int, int );
+void displayProgress ( Queue<Customer> window[], Rank nWin, Rank now );
+void simulate ( Rank, Rank );
 
 extern int delay; //控制进度显示的延迟

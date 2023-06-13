@@ -3,22 +3,21 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
-
 
 #include "hanoi.h"
 
 /******************************************************************************************
  * 输出栈S在高度i的分布
  ******************************************************************************************/
-void display ( Stack<int>& S, int i ) {
-   int diskR = ( i < S.size() ) ? S[i] : 0; //通过Vecotr[]接口，获取高度i处盘子的半径
-   for ( int j = 0; j < nDisk - diskR; j++ )   printf ( " " );
-   for ( int j = 0; j < diskR; j++ )    printf ( "=" );
+void display ( Stack<int>& S, Rank i ) {
+   Rank diskR = ( i < S.size() ) ? S[i] : 0; //通过Vecotr[]接口，获取高度i处盘子的半径
+   for ( Rank j = 0; j < nDisk - diskR; j++ )   printf ( " " );
+   for ( Rank j = 0; j < diskR; j++ )    printf ( "=" );
    printf ( "|" );
-   for ( int j = 0; j < diskR; j++ )    printf ( "=" );
-   for ( int j = 0; j < nDisk - diskR; j++ )   printf ( " " );
+   for ( Rank j = 0; j < diskR; j++ )    printf ( "=" );
+   for ( Rank j = 0; j < nDisk - diskR; j++ )   printf ( " " );
 }
 
 /******************************************************************************************

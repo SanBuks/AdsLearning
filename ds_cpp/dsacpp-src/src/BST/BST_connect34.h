@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -17,7 +17,7 @@ template <typename T> BinNodePosi<T> BST<T>::connect34 (
    BinNodePosi<T> a, BinNodePosi<T> b, BinNodePosi<T> c,
    BinNodePosi<T> T0, BinNodePosi<T> T1, BinNodePosi<T> T2, BinNodePosi<T> T3
 ) {
-   //*DSA*/print(a); print(b); print(c); printf("\n");
+   /*DSA*///print(a); print(b); print(c); printf("\n");
    a->lc = T0; if ( T0 ) T0->parent = a;
    a->rc = T1; if ( T1 ) T1->parent = a; updateHeight ( a );
    c->lc = T2; if ( T2 ) T2->parent = c;

@@ -16,9 +16,10 @@ class ListNode {
 
   explicit ListNode(T data = T(), LNP pred = nullptr, LNP succ = nullptr);
 
-  // 获取数据左值
+  // 获取数据
   T &data();
   const T &data() const;
+
   LNP pred() const;
   LNP succ() const;
 

@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -17,4 +17,4 @@
 #include "Skiplist_get.h"
 #include "Skiplist_put.h"
 #include "Skiplist_remove.h"
-#include "Skiplist_skipSearch.h"
+#include "Skiplist_search.h"

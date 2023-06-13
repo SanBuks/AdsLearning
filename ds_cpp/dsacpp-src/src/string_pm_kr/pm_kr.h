@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -15,8 +15,9 @@
 #define DIGIT(S, i) ( (S)[i] - '0' )  //取十进制串S的第i位数字值（假定S合法）
 using HashCode = __int64; //用64位整数实现散列码
 /*DSA*/#define showProgressOfKR(T, P, k) { \
-   /*DSA*/ showProgress(T, P, k, 0); \
-   /*DSA*/ printf("hashT = %I64d", hashT); getchar(); }
+/*DSA*/  showProgress(T, P, k, 0); \
+/*DSA*/  printf("hashT = %I64d", hashT); getchar(); \
+/*DSA*/}
 bool check1by1 ( char* P, char* T, size_t i );
 HashCode prepareDm ( size_t m );
 void updateHash ( HashCode& hashT, char* T, size_t m, size_t k, HashCode Dm );

@@ -118,13 +118,13 @@
     <ClInclude Include="SkipList_remove.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SkipList_skipSearch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="SkipList_test.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\_share\util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipList_search.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

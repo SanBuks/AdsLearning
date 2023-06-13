@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -16,7 +16,7 @@ template <typename T> class SMMH : public DEPQ<T>, public Vector<T> { //Symmetri
 protected:
    //void heapify ( Rank n ); //Floyd's heapification
 public:
-   SMMH() { insert((T) -1); } //only a dummy root initially
+   SMMH() { insert((T) -1); } //initialized with a dummy root
    void insert( T ); //insert an element (duplicates accepted)
    T getMin() { return _elem[1]; }
    T getMax() { return _size < 3 ? _elem[1] : _elem[2]; }

@@ -141,7 +141,8 @@
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap.h" />
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_delMax.h" />
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_getMax.h" />
-    <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_Heapify.h" />
+    <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_Heapify.Floyd.h" />
+    <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_Heapify.Naive.h" />
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_implementation.h" />
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_insert.h" />
     <ClInclude Include="..\PQ_ComplHeap\PQ_ComplHeap_macro.h" />

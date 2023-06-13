@@ -124,9 +124,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Comparator\Comparator.h" />
     <ClInclude Include="BTNode.h" />
-    <ClInclude Include="BTNode_Implementation.h" />
     <ClInclude Include="BTree.h" />
     <ClInclude Include="BTree_implementation.h" />
     <ClInclude Include="BTree_insert.h" />

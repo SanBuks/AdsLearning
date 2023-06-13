@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -15,7 +15,7 @@
  * 测试散列表
  ******************************************************************************************/
 template <typename K, typename V> //key、value
-void testHashtable ( int n ) {
+void testHashtable ( Rank n ) {
    Hashtable<K, V> ht ( n ); print ( ht );
    while ( ht.size() < 4 * n ) {
       printf ( "\n" );
@@ -35,7 +35,7 @@ void testHashtable ( int n ) {
          }
          default: {//插入，成功率 == 100%
             K key = dice ( ( K ) n * 12 ); V v = ( V ) 'A' + dice ( 26 ); //在[0, 2n)*['A'~'Z']范围内的词条
-            printf( "Inserting <" ); print( key ); printf( "(%04d)", hashCode( key ) ); printf( "," ); print ( v ); printf( ">\n" );
+            printf( "Inserting <" ); print( key ); printf( "(%04d)", hashCode( key ) ); printf( " :" ); print ( v ); printf( " >\n" );
             ht.put( key, v ) ? printf( "Done\n" ), print( ht ) : printf( "Dup key\n" );
             break;
          }
@@ -54,7 +54,8 @@ void testHashtable ( int n ) {
  ******************************************************************************************/
 int main ( int argc, char* argv[] ) {
    if ( 2 > argc ) { printf ( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
-   srand( ( unsigned int ) time( NULL ) ); //设置随机种子
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
    testHashtable<int, char>( atoi( argv[1] ) ); //元素类型可以在这里任意选择
    return 0;
 }

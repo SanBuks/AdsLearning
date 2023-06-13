@@ -149,15 +149,13 @@
     <ClInclude Include="PQ_ComplHeap.h" />
     <ClInclude Include="PQ_ComplHeap_delMax.h" />
     <ClInclude Include="PQ_ComplHeap_getMax.h" />
-    <ClInclude Include="PQ_ComplHeap_Heapify.h" />
+    <ClInclude Include="PQ_ComplHeap_Heapify.Floyd.h" />
+    <ClInclude Include="PQ_ComplHeap_Heapify.Naive.h" />
     <ClInclude Include="PQ_ComplHeap_implementation.h" />
     <ClInclude Include="PQ_ComplHeap_insert.h" />
     <ClInclude Include="PQ_ComplHeap_macro.h" />
     <ClInclude Include="PQ_ComplHeap_percolateDown.h" />
     <ClInclude Include="PQ_ComplHeap_percolateUp.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

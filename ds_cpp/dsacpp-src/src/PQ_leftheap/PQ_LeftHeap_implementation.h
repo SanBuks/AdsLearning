@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -16,7 +16,8 @@
 #include "_share/release.h"
 #include "_share/util.h"
 
-#include "PQ_LeftHeap_Insert.h"
-#include "PQ_LeftHeap_getMax.h"
+#include "PQ_LeftHeap_insert.h"
 #include "PQ_LeftHeap_delMax.h"
-#include "PQ_LeftHeap_Merge.h"
+#include "PQ_LeftHeap_getMax.h"
+//#include "PQ_Leftheap_merge.recursive.h"
+#include "PQ_Leftheap_merge.iterative.h"

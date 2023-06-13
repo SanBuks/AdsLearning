@@ -57,7 +57,7 @@ size_t Divide(const char str[], size_t lo, size_t hi, char lc, char rc) {
   return m;
 }
 
-// 迭代版括号匹配, 需要根据符号种类多次扫描
+// 迭代版括号匹配, 只能限定一种括号匹配, 无法处理多括号混合问题
 bool BracketCheckR(const char str[], size_t lo, size_t hi, char lc, char rc) {
   if (lo > hi) {
     return true;

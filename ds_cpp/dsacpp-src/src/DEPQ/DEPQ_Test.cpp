@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -16,7 +16,7 @@
  * 针对基于列表、向量以及左式堆实现的优先级队列，做过程统一的测试
  ******************************************************************************************/
 void verifySMMH( SMMH<int> H ) {
-   int s = H.size(); Rank k = 0;
+   Rank s = H.size(); Rank k = 0;
    while ( ++k < s ) {
       if ( isLC(k) && sib(k) < s  &&  H[k] > H[sib(k)] ) break; //Property #0
       if ( isLC(k) && lc(k) < s && H[k] > H[lc(k)] ) break; //Property #1
@@ -27,7 +27,7 @@ void verifySMMH( SMMH<int> H ) {
    if ( k < s ) { print(H); printf("SMMP invalid at H[%d] = %d\n", k, H[k]); exit(-1); }
 }
 
-void testSMMH( int n ) {
+void testSMMH( Rank n ) {
    SMMH<int> H; //init an empty DEPQ implemented as an SMMH
    /*DSA*/ print(H); printf("\n");
    while ( H.size() < n ) { //随机测试
@@ -61,7 +61,8 @@ void testSMMH( int n ) {
  ******************************************************************************************/
 int main ( int argc, char* argv[] ) {
    if ( 2 > argc ) { printf ( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
-   srand ( ( unsigned int ) time ( NULL ) );
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
 #if defined(DSA_DEPQ_SMMH)
    testSMMH( atoi ( argv[1] ) ); //词条类型可在此指定
 #else

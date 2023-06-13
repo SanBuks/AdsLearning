@@ -40,17 +40,17 @@
     <ClInclude Include="PQ_LeftHeap_insert.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PQ_Leftheap_merge.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\PQ\PQ_Test.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\UniPrint\print.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ClInclude Include="PQ_Leftheap_merge.iterative.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PQ_Leftheap_merge.recursive.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -14,8 +14,7 @@
 /******************************************************************************************
  * Test a RedBlack
  ******************************************************************************************/
-template <typename T> //元素类型
-void  testRedBlack ( int n ) {
+template <typename T> void testRedBlack( Rank n ) {
    RedBlack<T> rb;
    //for ( int i = 0; i < 256; i++ ) {
    //   int e = i % 2 ? i : -i;
@@ -61,9 +60,10 @@ void  testRedBlack ( int n ) {
 /******************************************************************************************
  * 测试主入口
  ******************************************************************************************/
-int main ( int argc, char* argv[] ) {
-   if ( 2 > argc ) { printf ( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
-   srand ( ( unsigned int ) time ( NULL ) );
-   testRedBlack<int> ( atoi ( argv[1] ) ); //元素类型可以在这里任意选择
+int main( int argc, char* argv[] ) {
+   if ( 2 > argc ) { printf( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
+   testRedBlack<int>( atoi( argv[1] ) ); //元素类型可以在这里任意选择
    return 0;
 }

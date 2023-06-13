@@ -3,18 +3,18 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #include "Splay_test.h"
 
-template <typename T> void  testSplayPeriod ( int n ) { //周期性访问测试
+template <typename T> void testSplayPeriod( int n ) { //周期性访问测试
    Splay<T> splay;
    for ( int i = 0; i < n; i++ ) splay.insert ( ( T ) i ); print ( splay );
    for ( int i = 0; i < n; i++ ) { splay.search ( ( T ) i ); print ( splay ); }
 }
 
-template <typename T> void  testSplayRandom ( int n ) { //随机访问测试
+template <typename T> void testSplayRandom( Rank n ) { //随机访问测试
    Splay<T> splay;
    while ( splay.size() < n ) {
       T e = dice ( ( T ) n * 3 ); //[0, 3n)范围内的e
@@ -51,9 +51,10 @@ template <typename T> void  testSplayRandom ( int n ) { //随机访问测试
    }
 } //课后：利用这一接口，针对不同分布的访问，验证课上对Splay分摊分析的结论
 
-int main ( int argc, char* argv[] ) { //测试主入口
+int main( int argc, char* argv[] ) { //测试主入口
    if ( 2 > argc ) { printf ( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
-   srand ( ( unsigned int ) time ( NULL ) );
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
    testSplayRandom<int> ( atoi ( argv[1] ) ); //元素类型可以在这里任意选择
    testSplayPeriod<int> ( atoi ( argv[1] ) ); //元素类型可以在这里任意选择
    return 0;

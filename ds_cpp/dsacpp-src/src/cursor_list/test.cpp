@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -14,17 +14,21 @@
 /******************************************************************************************
  * 测试游标式列表
  ******************************************************************************************/
-void testCursor ( int testSize ) {
-   CursorList<char> CL ( testSize ); CL.print();
+int testCursor ( Rank testSize ) {
+   CursorList<char> CL ( testSize ); CL.print(); 
    //CL.insert('A'); CL.insert('B'); CL.insert('C'); CL.insert('D'); CL.insert('E'); CL.print();
    //CL.remove(CL.find('A')); CL.remove(CL.find('B')); CL.remove(CL.find('C')); CL.remove(CL.find('D')); CL.remove(CL.find('E')); CL.print();
    //CL.insert('A'); CL.insert('B'); CL.insert('C'); CL.insert('D'); CL.insert('E'); CL.print();
-   for ( int i = 0; i < testSize ; i++ ) {
+   for ( Rank i = 0; i < 2*testSize ; i++ ) {
       char x = 'A' + ( rand() % 26 );
       if ( 30 < ( rand() % 100 ) ) {
-         printf ( "%c inserted at %d\n", x, CL.insert ( x ) );
+         Rank r = CL.insert ( x );
+         if ( r < testSize )
+            printf ( "%c inserted at %d\n", x, r );
+         else
+            printf ( "failed to insert %c into full CL\n", x );
       } else {
-         if ( 0 > CL.find ( x ) )
+         if ( testSize == CL.find ( x ) )
             printf ( "%c not found\n", x );
          else
             printf ( "%c removed at %d\n", x, CL.remove ( CL.find ( x ) ) );
@@ -32,10 +36,11 @@ void testCursor ( int testSize ) {
       CL.print();
    }
    for ( char x = 'A'; x <= 'Z'; x++ ) {
-      while ( 0 <= CL.find ( x ) )
+      while ( testSize != CL.find ( x ) )
          printf ( "%c removed at %d\n", x, CL.remove ( CL.find ( x ) ) );
       CL.print();
    }
+   return 0;
 }
 
 /******************************************************************************************

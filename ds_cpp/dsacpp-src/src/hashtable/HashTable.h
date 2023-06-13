@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -16,19 +16,19 @@ class Hashtable : public Dictionary<K, V> { //·ûºÏDictionary½Ó¿ÚµÄHashtableÄ£°åÀ
    /*DSA*/friend class UniPrint;
 private:
    Entry<K, V>** ht; //Í°Êı×é£¬´æ·Å´ÊÌõÖ¸Õë
-   int M, N, L; //Í°µÄ×ÜÊı¡¢´ÊÌõµÄÊıÄ¿¡¢ÀÁ¶èÉ¾³ı±ê¼ÇµÄÊıÄ¿£¨N + L <= M£©
-   Bitmap* removed; //ÀÁ¶èÉ¾³ı±ê¼Ç
+   Bitmap* removed; //ÀÁ¶èÉ¾³ı±ê¼ÇÎ»Í¼£º×ÜÊıL = removed->size() = removed->top
+   Rank M, N; //Í°µÄ×ÜÊı¡¢´ÊÌõµÄÊıÄ¿£º(N+L)/M <= Lambda_max
 protected:
-   int probe4Hit ( const K& k ); //ÑØ¹Ø¼üÂëk¶ÔÓ¦µÄÊÔÌ½Á´£¬ÕÒµ½´ÊÌõÆ¥ÅäµÄÍ°
-   int probe4Free ( const K& k ); //ÑØ¹Ø¼üÂëk¶ÔÓ¦µÄÊÔÌ½Á´£¬ÕÒµ½Ê×¸ö¿ÉÓÃ¿ÕÍ°
+   Rank probe4Hit( const K& k ); //ÑØ¹Ø¼üÂëk¶ÔÓ¦µÄÊÔÌ½Á´£¬ÕÒµ½´ÊÌõÆ¥ÅäµÄÍ°
+   Rank probe4Free( const K& k ); //ÑØ¹Ø¼üÂëk¶ÔÓ¦µÄÊÔÌ½Á´£¬ÕÒµ½Ê×¸ö¿ÉÓÃ¿ÕÍ°
    void rehash(); //ÖØÉ¢ÁĞËã·¨£ºÀ©³äÍ°Êı×é£¬±£Ö¤×°ÌîÒò×ÓÔÚ¾¯½äÏßÒÔÏÂ
 public:
-   Hashtable ( int c = 5 ); //´´½¨Ò»¸öÈİÁ¿²»Ğ¡ÓÚcµÄÉ¢ÁĞ±í£¨Îª²âÊÔÔİÊ±Ñ¡ÓÃ½ÏĞ¡µÄÄ¬ÈÏÖµ£©
+   Hashtable( Rank c = 5 ); //´´½¨Ò»¸öÈİÁ¿²»Ğ¡ÓÚcµÄÉ¢ÁĞ±í£¨Îª²âÊÔÔİÊ±Ñ¡ÓÃ½ÏĞ¡µÄÄ¬ÈÏÖµ£©
    ~Hashtable(); //ÊÍ·ÅÍ°Êı×é¼°ÆäÖĞ¸÷£¨·Ç¿Õ£©ÔªËØËùÖ¸ÏòµÄ´ÊÌõ
-   int size() const { return N; } // µ±Ç°µÄ´ÊÌõÊıÄ¿
-   bool put ( K, V ); //²åÈë£¨½ûÖ¹À×Í¬´ÊÌõ£¬¹Ê¿ÉÄÜÊ§°Ü£©
-   V* get ( K k ); //¶ÁÈ¡
-   bool remove ( K k ); //É¾³ı
+   Rank size() const { return N; } // µ±Ç°µÄ´ÊÌõÊıÄ¿
+   bool put( K, V ); //²åÈë£¨½ûÖ¹À×Í¬´ÊÌõ£¬¹Ê¿ÉÄÜÊ§°Ü£©
+   V* get( K k ); //¶ÁÈ¡
+   bool remove( K k ); //É¾³ı
 };
 
 #include "Hashtable_implementation.h"

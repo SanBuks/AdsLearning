@@ -3,24 +3,21 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
 
 #include "Entry/Entry.h"
-template <typename T> struct QuadlistNode;
-template <typename T> using QListNodePosi = QuadlistNode<T>*; //跳转表节点位置
-template <typename T> struct QuadlistNode { //QuadlistNode模板类
+template <typename T> struct QNode;
+template <typename T> using QNodePosi = QNode<T>*; //跳转表节点位置
+template <typename T> struct QNode { //四联节点
    T entry; //所存词条
-   QListNodePosi<T> pred;  QListNodePosi<T> succ; //前驱、后继
-   QListNodePosi<T> above; QListNodePosi<T> below; //上邻、下邻
-   QuadlistNode //构造器
-   ( T e = T(), QListNodePosi<T> p = NULL, QListNodePosi<T> s = NULL,
-     QListNodePosi<T> a = NULL, QListNodePosi<T> b = NULL )
-      : entry ( e ), pred ( p ), succ ( s ), above ( a ), below ( b ) {}
-   QListNodePosi<T> insertAsSuccAbove //插入新节点，以当前节点为前驱，以节点b为下邻
-   ( T const& e, QListNodePosi<T> b = NULL );
+   QNodePosi<T> pred, succ, above, below; //前驱、后继、上邻、下邻
+   QNode( T e = T(), QNodePosi<T> p = NULL, QNodePosi<T> s = NULL,
+          QNodePosi<T> a = NULL, QNodePosi<T> b = NULL ) //构造器
+      : entry( e ), pred( p ), succ( s ), above( a ), below( b ) {}
+   QNodePosi<T> insert( T const& e, QNodePosi<T> b = NULL ); //将e作为当前节点的后继、b的上邻插入
 };
 
 #include "QuadlistNode_implementation.h"

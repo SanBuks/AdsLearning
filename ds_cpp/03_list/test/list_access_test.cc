@@ -14,6 +14,13 @@ class AccessTest : public ::testing::Test {
     }
   }
 
+  void TearDown() override {
+    delete [] array1;
+    delete [] array2;
+    delete [] array3;
+    delete [] array4;
+  }
+
   ds_cpp::List<int> list1;
 
   int array_size1 = 0;

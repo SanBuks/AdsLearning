@@ -52,5 +52,44 @@
     <ClInclude Include="..\_share\util.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\UniPrint\print_traversable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_binNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_bintree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_btree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_Entry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_HashTable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_implementation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_PQ_ComplHeap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_PQ_LeftHeap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_PQ_List.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_QuadList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UniPrint\print_SkipList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

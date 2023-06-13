@@ -15,6 +15,7 @@
     <RootNamespace>skiplist</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SkipList</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -159,7 +160,7 @@
     <ClInclude Include="SkipList_implementation.h" />
     <ClInclude Include="SkipList_put.h" />
     <ClInclude Include="SkipList_remove.h" />
-    <ClInclude Include="SkipList_skipSearch.h" />
+    <ClInclude Include="SkipList_search.h" />
     <ClInclude Include="SkipList_test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

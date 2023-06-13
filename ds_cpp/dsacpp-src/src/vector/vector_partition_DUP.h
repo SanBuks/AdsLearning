@@ -3,27 +3,21 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
 
-template <typename T> //轴点构造算法：通过调整元素位置构造区间[lo, hi)的轴点，并返回其秩
-Rank Vector<T>::partition ( Rank lo, Rank hi ) { //DUP版：可优化处理多个关键码雷同的退化情况
-   swap ( _elem[lo], _elem[ lo + rand() % ( hi - lo ) ] ); //任选一个元素与首元素交换
-   hi--; T pivot = _elem[lo]; //以首元素为候选轴点——经以上交换，等效于随机选取
-   while ( lo < hi ) { //从向量的两端交替地向中间扫描
-      while ( lo < hi )
-         if ( pivot < _elem[hi] ) //在大于pivot的前提下
-            hi--; //向左拓展右端子向量
-         else //直至遇到不大于pivot者
-            { _elem[lo++] = _elem[hi]; break; } //将其归入左端子向量
-      while ( lo < hi )
-         if ( _elem[lo] < pivot ) //在小于pivot的前提下
-            lo++; //向右拓展左端子向量
-         else //直至遇到不小于pivot者
-            { _elem[hi--] = _elem[lo]; break; } //将其归入右端子向量
-   } //assert: lo == hi
-   _elem[lo] = pivot; //将备份的轴点记录置于前、后子向量之间
-   return lo; //返回轴点的秩
+template <typename T> //通过调整元素位置，构造出区间[lo, hi)内的一个轴点
+Rank Vector<T>::partition( Rank lo, Rank hi ) { // DUP版：可优化处理多个关键码雷同的退化情况
+   swap( _elem[lo], _elem[lo + rand() % ( hi - lo )] ); //任选一个元素与首元素交换
+   T pivot = _elem[lo]; //经以上交换，等效于随机选取候选轴点
+   while ( lo < hi ) { //从两端交替扫描，直至相遇
+      do hi--; while ( ( lo < hi ) && ( pivot < _elem[hi] ) ); //向左拓展后缀G
+      if ( lo < hi ) _elem[lo] = _elem[hi]; //阻挡者归入前缀L
+      do lo++; while ( ( lo < hi ) && ( _elem[lo] < pivot ) ); //向右拓展前缀L
+      if ( lo < hi ) _elem[hi] = _elem[lo]; //阻挡者归入后缀G
+   } // assert: quit with lo == hi or hi + 1
+   _elem[hi] = pivot; //候选轴点置于前缀、后缀之间，它便名副其实
+   return hi; //返回轴点的秩
 }

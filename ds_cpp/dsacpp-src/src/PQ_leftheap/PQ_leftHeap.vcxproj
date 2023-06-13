@@ -135,10 +135,8 @@
     <ClInclude Include="PQ_LeftHeap_getMax.h" />
     <ClInclude Include="PQ_LeftHeap_implementation.h" />
     <ClInclude Include="PQ_LeftHeap_insert.h" />
-    <ClInclude Include="PQ_Leftheap_merge.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ClInclude Include="PQ_Leftheap_merge.iterative.h" />
+    <ClInclude Include="PQ_Leftheap_merge.recursive.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

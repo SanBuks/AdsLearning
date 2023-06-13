@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -59,6 +59,7 @@ int main ( int argc, char* argv[] ) {
    int m = atoi ( argv[1] ); if ( m < 3 )  { printf ( "Make sure the order (%d) is no less than 3.\a\a\n", m ); return 1; }
    int size = atoi ( argv[2] ); if ( size < 0 )  { printf ( "Make sure the size (%d) is no less than 0.\a\a\n", size ); return 1; }
    srand ( ( unsigned int ) time ( NULL ) );
+   //srand( 31415926 ); //固定种子
    testBTree<int> ( atoi ( argv[1] ), atoi ( argv[2] ) ); //元素类型、比较器可以在这里任意选择
    return 0;
 }

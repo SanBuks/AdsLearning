@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 /******************************************************************************************
@@ -14,7 +14,7 @@
 /******************************************************************************************
  * Test a BST
  ******************************************************************************************/
-template <typename T> void  testBST ( int n ) {
+template <typename T> void testBST ( Rank n ) {
    BST<T> bst;
    while ( bst.size() < n ) bst.insert ( dice ( ( T ) n * 3 ) ); print ( bst ); //随机创建
    bst.stretchToLPath(); print ( bst ); //伸直成撇
@@ -59,7 +59,8 @@ template <typename T> void  testBST ( int n ) {
  ******************************************************************************************/
 int main ( int argc, char* argv[] ) {
    if ( 2 > argc ) { printf ( "Usage: %s <size of test>\a\a\n", argv[0] ); return 1; }
-   srand ( ( unsigned int ) time ( NULL ) );
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
    testBST<int> ( atoi ( argv[1] ) ); //元素类型可以在这里任意选择
    return 0;
 }

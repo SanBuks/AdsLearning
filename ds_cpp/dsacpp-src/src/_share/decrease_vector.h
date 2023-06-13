@@ -3,10 +3,10 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
 
-template <typename T> void decrease ( Vector<T> & V ) //统一递减向量中的各元素
-{  V.traverse ( Decrease<T>() );  } //以Decrease<T>()为基本操作进行遍历
+template <typename T> void decrease( Vector<T> & V ) //统一递减向量中的各元素
+   { V.traverse( Decrease<T>() ); } //以Decrease<T>()为基本操作进行遍历

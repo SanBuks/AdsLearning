@@ -34,7 +34,7 @@
     <ClInclude Include="PQ_ComplHeap_getMax.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PQ_ComplHeap_Heapify.h">
+    <ClInclude Include="PQ_ComplHeap_Heapify.Floyd.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="PQ_ComplHeap_implementation.h">
@@ -106,8 +106,8 @@
     <ClInclude Include="..\_share\util.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ClInclude Include="PQ_ComplHeap_Heapify.Naive.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -125,7 +125,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\BST\BSTElem.h" />
+    <ClInclude Include="..\binTree\BinNode.h" />
     <ClInclude Include="..\BST\BST_connect34.h" />
     <ClInclude Include="..\BST\bst_insert.h" />
     <ClInclude Include="..\BST\BST_remove.h" />

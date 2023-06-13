@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #include "queen_stack.h"
@@ -23,7 +23,7 @@ int nCheck = 0; //尝试的总次数
 int main ( int argc, char* argv[] ) {
    for ( int i = 1; i < argc - 1; i++ ) //检查参数
       if ( !strcmp ( "-step", argv[i] ) ) runMode = Step; //设定为单步演示模式
-   int nQueen = atoi ( argv[argc-1] ); //棋盘大小 = 皇后总数
+   Rank nQueen = atoi ( argv[argc-1] ); //棋盘大小 = 皇后总数
    if ( QUEEN_MAX < nQueen || 1 > nQueen ) { //检查参数
       fprintf ( stderr, "\nUsage: %s [-step] <nQueen(%d)>\n", argv[0], QUEEN_MAX );
       return -1;

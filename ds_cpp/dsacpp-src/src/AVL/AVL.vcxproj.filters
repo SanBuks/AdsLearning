@@ -58,9 +58,6 @@
     <ClInclude Include="..\BST\BST_search.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\BST\BSTElem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\_share\rand.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -68,6 +65,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\_share\util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\binTree\BinNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

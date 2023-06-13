@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma warning(disable : 4996 4800)
@@ -13,7 +13,7 @@
 /******************************************************************************************
  * 测试位图
  ******************************************************************************************/
-int testBitmap ( int n, int t ) {
+int testBitmap( int n, int t ) {
    bool* B = new bool[n]; //常规位图
    Bitmap M ( n ); //高效位图
    while ( t-- > 0 ) { //重复使用位图多次
@@ -48,8 +48,9 @@ int testBitmap ( int n, int t ) {
 /******************************************************************************************
  * 测试位图
  ******************************************************************************************/
-int main ( int argc, char* argv[] ) {
+int main( int argc, char* argv[] ) {
    if ( 3 > argc ) { printf ( "Usage: %s <bitmap size> <#test>\a\a\n", argv[0] ); return 1; }
-   srand ( ( unsigned int ) time ( NULL ) ); //设置随机种子
-   return testBitmap ( max(0, atoi(argv[1])), max(0, atoi(argv[2]))); //启动测试
+   srand((unsigned int)time(NULL)); //随机种子
+   //srand( 31415926 ); //固定种子（假种子，调试用）
+   return testBitmap( max(0, atoi(argv[1])), max(0, atoi(argv[2]))); //启动测试
 }

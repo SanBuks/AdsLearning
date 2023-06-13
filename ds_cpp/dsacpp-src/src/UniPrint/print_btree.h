@@ -3,7 +3,7 @@
  * ISBN: 7-302-33064-6 & 7-302-33065-3 & 7-302-29652-2 & 7-302-26883-3
  * Junhui DENG, deng@tsinghua.edu.cn
  * Computer Science & Technology, Tsinghua University
- * Copyright (c) 2003-2021. All rights reserved.
+ * Copyright (c) 2003-2023. All rights reserved.
  ******************************************************************************************/
 
 #pragma once
@@ -37,7 +37,7 @@ static void printBTree ( BTNodePosi<T> bt, int depth, bool isLeftmost, bool isRi
    printBTree ( bt->child[k], depth + 1, false, true, leftmosts, rightmosts ); //递归输出之
    /*DSA*/bool parentOK = false; BTNodePosi<T> p = bt->parent;
    /*DSA*/if ( !p ) parentOK = true;
-   /*DSA*/else for ( int i = 0; i < p->child.size(); i++ ) if ( p->child[i] == bt ) parentOK = true;
+   /*DSA*/else for ( Rank i = 0; i < p->child.size(); i++ ) if ( p->child[i] == bt ) parentOK = true;
    while ( 0 < k-- ) { //自右向左，输出各子树及其右侧的关键码
       /*DSA*/printf ( parentOK ? " " : "X" );
       print ( bt->key[k] ); printf ( " *>" );

@@ -46,7 +46,7 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\..\_executable\$(Configuration)</OutDir>
+    <OutDir>$(SolutionDir)\..\_executable\$(Configuration).$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\_executable\$(Configuration).$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>false</GenerateManifest>
@@ -83,7 +83,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <ProgramDataBaseFileName />
-      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
       <XMLDocumentationFileName />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <BrowseInformationFile />
@@ -97,9 +97,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
       <ProfileGuidedDatabase />
-      <LinkTimeCodeGeneration />
       <ProgramDatabaseFile />
       <ManifestFile />
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <BuildLog>
       <Path>..\..\_executable\$(Configuration).$(ProjectName)\$(ProjectName).log</Path>
@@ -126,6 +126,19 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\UniPrint\print.h" />
+    <ClInclude Include="..\UniPrint\print_binNode.h" />
+    <ClInclude Include="..\UniPrint\print_bintree.h" />
+    <ClInclude Include="..\UniPrint\print_btree.h" />
+    <ClInclude Include="..\UniPrint\print_Entry.h" />
+    <ClInclude Include="..\UniPrint\print_HashTable.h" />
+    <ClInclude Include="..\UniPrint\print_implementation.h" />
+    <ClInclude Include="..\UniPrint\print_PQ_ComplHeap.h" />
+    <ClInclude Include="..\UniPrint\print_PQ_LeftHeap.h" />
+    <ClInclude Include="..\UniPrint\print_PQ_List.h" />
+    <ClInclude Include="..\UniPrint\print_QuadList.h" />
+    <ClInclude Include="..\UniPrint\print_SkipList.h" />
+    <ClInclude Include="..\UniPrint\print_traversable.h" />
     <ClInclude Include="..\_share\rand.h" />
     <ClInclude Include="..\_share\release.h" />
     <ClInclude Include="..\_share\util.h" />
