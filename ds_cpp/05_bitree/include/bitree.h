@@ -3,16 +3,12 @@
 
 #include "binode.h"
 #include "bitree_error.h"
-#include "vector.h"
-#include "queue.h"
-#include "stack.h"
+
+#include <vector>
+#include <queue>
+#include <stack>
 
 namespace ds_cpp {
-
-class BiTreeBase {
- public:
-  using Size = unsigned long long;
-};
 
 template <typename>
 class BiTree;
@@ -21,11 +17,12 @@ template <typename T>
 void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
 
 template <typename T>
-class BiTree : public BiTreeBase {
+class BiTree {
   friend void swap<T>(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
 
  public:
   using BNP = typename BiNode<T>::BNP;
+  using Size = unsigned long long;
   using HeightType = typename BiNode<T>::HeightType;
 
   /*---------------------------- 拷贝控制 -----------------------------------*/
