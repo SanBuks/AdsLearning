@@ -1,5 +1,5 @@
 # IDE dir
-*.idea/
+**/.idea/
 # any build dir
 remote-build/
 build/
