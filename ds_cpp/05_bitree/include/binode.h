@@ -13,7 +13,6 @@ class BiNode {
 
  public:
   using BNP = BiNode *;
-  using CBNP = const BiNode *;
 
   BiNode();
   explicit BiNode(T data = T(), BNP parent = nullptr,
@@ -30,6 +29,25 @@ class BiNode {
   BNP InsertAsLc(const T &data);
   // 作为右孩子插入, 如果存在有孩子则返回 nullptr
   BNP InsertAsRc(const T &data);
+
+  // 是否是根节点
+  inline static bool IsRoot(BNP p) { return !p->parent_; }
+  // 是否是左孩子
+  inline static bool IsLc(BNP p) { return !IsRoot(p) && p->parent_->lc_ == p; }
+  // 是否是右孩子
+  inline static bool IsRc(BNP p) { return !IsRoot(p) && p->parent_->rc_ == p; }
+  // 是否有父节点
+  inline static bool HasParent(BNP p) { return !IsRoot(p); }
+  // 是否有左孩子
+  inline static bool HasLc(BNP p) { return p->lc_; }
+  // 是否有右孩子
+  inline static bool HasRc(BNP p) { return p->rc_; }
+  // 是否有孩子
+  inline static bool HasC(BNP p) { return HasLc(p) || HasRc(p); }
+  // 是否是叶子节点
+  inline static bool IsLeaf(BNP p) { return !HasC(p); }
+  // 是否有两个孩子
+  inline static bool HasBc(BNP p) { return HasLc(p) && HasRc(p); }
 
   T data_;            // 数据
   BNP parent_;        // 指向父节点
