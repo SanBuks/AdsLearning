@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD          11    CACHE INTERNAL "")
 set(CMAKE_CXX_STANDARD_REQUIRED ON    CACHE INTERNAL "")
 set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
 
-add_subdirectory(array)
+#add_subdirectory(array)
 #add_subdirectory(backtrace)
 #add_subdirectory(bits)
 #add_subdirectory(dp)
@@ -20,10 +20,8 @@ add_subdirectory(array)
 #add_subdirectory(slide_window)
 #add_subdirectory(stack)
 #add_subdirectory(string)
-#add_subdirectory(tree)
+add_subdirectory(tree)
 #add_subdirectory(two_pointer)
-
-add_executable(test test_main.cc)
 
 # PRIVATE -fno-elide-constructors
 #add_executable(complex  complex.cc)

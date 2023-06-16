@@ -16,4 +16,10 @@ add_executable(1802 1802_maximum_value_at_a_given_index_in_a_bounded_array.cc) #
 #1521. Find a Value of a Mysterious Function Closest to Target
 #2340. Minimum Adjacent Swaps to Make a Valid Array
 #2259. Remove Digit From Number to Maximize Result
+add_executable(1146 1146_snapshot_array.cc) #(中等题 二分+更改记录)
+#1552. Magnetic Force Between Two Balls
+#952. Largest Component Size by Common Factor
+#2301. Match Substring After Replacement
+
+add_executable(2352 2352_equal_row_and_column_pairs.cc)
 
