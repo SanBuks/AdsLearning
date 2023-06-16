@@ -7,7 +7,7 @@ template<typename T>
 BiNode<T>::BiNode(): data_(), parent_(nullptr), lc_(nullptr), rc_(nullptr), height_(0) {}
 
 template<typename T>
-BiNode<T>::BiNode(T data, BNP parent, BNP lc, BNP rc, long long height)
+BiNode<T>::BiNode(T data, BNP parent, BNP lc, BNP rc, SizeType height)
     : data_(data), parent_(parent), lc_(lc), rc_(rc), height_(height) {}
 
 template<typename T>

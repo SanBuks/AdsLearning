@@ -1,14 +1,9 @@
 template <typename T>
 class BiTree {
-  friend void swap<T>(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
-
  public:
-  using BNP = typename BiNode<T>::BNP;
-  using Size = unsigned long long;
   using HeightType = typename BiNode<T>::HeightType;
 
   /*---------------------------- 拷贝控制 -----------------------------------*/
-  BiTree();
   BiTree(const Vector<T> &vec, const T &null);  // null 表示空节点
   BiTree(const BiTree &rhs);
   BiTree(BiTree &&rhs) noexcept ;
@@ -17,12 +12,6 @@ class BiTree {
   ~BiTree();
 
   /*--------------------------- 只读访问 ------------------------------------*/
-  // 返回元素数量
-  inline Size size() const { return size_; }
-  // 返回根节点
-  inline BNP root() { return root_; }
-  // 是否为空
-  inline bool Empty() const { return !size_; }
 
   // 获取子树节点个数
   Size GetSubTreeSize(BNP p) const;
@@ -103,8 +92,6 @@ class BiTree {
   void VisitAlongLeftBranch(BNP p, Stack<BNP> &stack, const VST &visit) const ;
 };
 
-template <typename T>
-BiTree<T>::BiTree() : size_(0), root_(nullptr) {}
 
 template <typename T>
 BiTree<T>::BiTree(const Vector<T> &vec, const T &null)
@@ -601,9 +588,3 @@ class BiTreeTraverse {
   std::ostream& io_;
 };
 
-template <typename T>
-void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept {
-  using std::swap;
-  swap(lhs.size_, rhs.size_);
-  swap(lhs.root_, rhs.root_);
-}

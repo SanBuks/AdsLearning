@@ -10,25 +10,40 @@
 
 namespace ds_cpp {
 
-template <typename>
+template<typename>
 class BiTree;
 
-template <typename T>
+template<typename T>
 void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
 
-template <typename T>
+template<typename T>
 class BiTree {
 
+  friend void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
+
  public:
-  using BNP = BiNode<T> *;
+  using typename BiNode<T>::BNP;
+  using typename BiNode<T>::SizeType;
+
   BiTree();
- private:
+  ~BiTree();
+
+  // 返回元素数量
+  inline SizeType size() const { return size_; }
+  // 返回根节点
+  inline BNP root() { return root_; }
+  // 是否为空
+  inline bool Empty() const { return !size_; }
+
+ protected:
   BNP root_;
-  long long size_;
+  SizeType size_;
 
 };
 
 
 }  // namespace ds_cpp
+
+#include "bitree_impl.h"
 
 #endif
