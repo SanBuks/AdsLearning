@@ -1,4 +1,4 @@
-project(04_bintree LANGUAGES CXX)
+project(05_bintree LANGUAGES CXX)
 
 add_library(bitree INTERFACE)
 target_include_directories(bitree INTERFACE include)
@@ -8,8 +8,8 @@ target_include_directories(bitree INTERFACE include)
 
 # -------------------------TEST--------------------------------
 
-add_executable(simple test/simple.cc)
-target_link_libraries(simple PRIVATE bitree PRIVATE GTest::Main)
+add_executable(insert_remove test/insert_remove.cc)
+target_link_libraries(insert_remove PRIVATE bitree PRIVATE GTest::Main)
 
 #add_executable(bitree_copy_control_test test/bitree_copy_control_test.cc)
 #target_link_libraries(bitree_copy_control_test PRIVATE bitree

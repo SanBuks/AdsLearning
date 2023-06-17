@@ -22,18 +22,25 @@ class BiTree {
   friend void swap<T>(BiTree &lhs, BiTree &rhs) noexcept;
 
  public:
-  using typename BiNode<T>::BNP;
-  using typename BiNode<T>::SizeType;
+  using BNP = typename BiNode<T>::BNP;
+  using SizeType = typename BiNode<T>::SizeType;
 
   BiTree();
   ~BiTree();
   BiTree(const BiTree &rhs) = delete;
   BiTree& operator=(const BiTree &rhs) = delete;
 
-  // 三种插入方式 (原没有)
-  BNP InsertAsRoot(const T &data);
-  BNP InsertAsLc(BNP p, const T &data);
-  BNP InsertAsRc(BNP p, const T &data);
+  // 三种节点初始化
+  BNP Insert(const T &data);         // 根
+  BNP Insert(const T &data, BNP p);  // 左孩子
+  BNP Insert(BNP p, const T &data);  // 右孩子
+  // 两种接入子树
+  BNP Attach(BiTree<T> &tree, BNP p); // 接入左子树
+  BNP Attach(BNP p, BiTree<T> &tree); // 接入右子树
+  // 删除/分离
+  SizeType Remove(BNP p);   // 删除子树
+  SizeType static RemoveAt(BNP p); // 递归删除子树
+  BiTree *Secede(BNP p);    // 分离子树, p 一定指向本树中的节点
 
   inline SizeType size() const { return size_; }
   inline BNP root() { return root_; }
@@ -43,7 +50,7 @@ class BiTree {
   // 根据孩子节点高度更新 p 节点高度
   void virtual UpdateHeight(BNP p);
   // 更新 p 节点及祖先节点高度
-  void UpdateAbove(BNP p);
+  void UpdateHeightAbove(BNP p);
 
   BNP root_;
   SizeType size_;
