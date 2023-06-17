@@ -333,33 +333,7 @@ typename BiTree<T>::BNP BiTree<T>::InsertAsRoot(const T &elem) {
   }
 }
 
-template <typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsLc(BNP p, const T &elem) {
-  if (!p) {
-    return nullptr;
-  }
 
-  BNP p_insert = p->InsertAsLc(elem);
-  if (p_insert) {
-    UpdateHeightAbove(p_insert);
-    ++size_;
-  }
-  return p_insert;
-}
-
-template <typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsRc(BNP p, const T &elem) {
-  if (!p) {
-    return nullptr;
-  }
-
-  BNP p_insert = p->InsertAsRc(elem);
-  if (p_insert) {
-    UpdateHeightAbove(p_insert);
-    ++size_;
-  }
-  return p_insert;
-}
 
 template <typename T>
 typename BiTree<T>::BNP BiTree<T>::AttachAsLc(BNP p, BiTree &tree) {
@@ -453,27 +427,6 @@ BiTree<T> *BiTree<T>::Secede(BNP p) {
   p_subtree->root_ = p;
 
   return p_subtree;
-}
-
-template <typename T>
-void BiTree<T>::UpdateHeight(BNP p) {
-  auto lh = Stature(p->lc_);
-  auto rh = Stature(p->rc_);
-  p->height_ = 1 + (lh < rh ? rh : lh);
-}
-
-// 更新 p 所指节点祖先的高度
-template <typename T>
-void BiTree<T>::UpdateHeightAbove(BNP p) {
-  while (p) {
-    UpdateHeight(p);
-    p = p->parent_;
-  }
-}
-
-template <typename T>
-inline typename BiTree<T>::HeightType BiTree<T>::Stature(BNP p) const {
-  return p ? p->height_ : -1;
 }
 
 template <typename T>

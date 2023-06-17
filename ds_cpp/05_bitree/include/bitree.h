@@ -19,7 +19,7 @@ void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
 template<typename T>
 class BiTree {
 
-  friend void swap(BiTree<T> &lhs, BiTree<T> &rhs) noexcept;
+  friend void swap<T>(BiTree &lhs, BiTree &rhs) noexcept;
 
  public:
   using typename BiNode<T>::BNP;
@@ -27,20 +27,30 @@ class BiTree {
 
   BiTree();
   ~BiTree();
+  BiTree(const BiTree &rhs) = delete;
+  BiTree& operator=(const BiTree &rhs) = delete;
 
-  // 返回元素数量
+  // 三种插入方式 (原没有)
+  BNP InsertAsRoot(const T &data);
+  BNP InsertAsLc(BNP p, const T &data);
+  BNP InsertAsRc(BNP p, const T &data);
+
   inline SizeType size() const { return size_; }
-  // 返回根节点
   inline BNP root() { return root_; }
-  // 是否为空
   inline bool Empty() const { return !size_; }
 
  protected:
+  // 根据孩子节点高度更新 p 节点高度
+  void virtual UpdateHeight(BNP p);
+  // 更新 p 节点及祖先节点高度
+  void UpdateAbove(BNP p);
+
   BNP root_;
   SizeType size_;
 
-};
+ private:
 
+};
 
 }  // namespace ds_cpp
 
