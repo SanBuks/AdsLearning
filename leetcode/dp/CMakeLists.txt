@@ -58,5 +58,13 @@ add_executable(1406 1406_stone_game_iii.cc) # 简单题(零和博弈/记忆)
 #1686. Stone Game VI
 #1690. Stone Game VII
 
+add_executable(1547 1547_minimum_cost_to_cut_a_stick.cc) # 中等题(二维)
 
-add_executable(1547 1547_minimum_cost_to_cut_a_stick.cc)
+
+# 两个数组交换元素, 组成递增数组问题
+add_executable(0801 0801_minimum_swaps_to_make_sequences_increasing.cc) # 中等题(二维)
+add_executable(1187 1187_make_array_strictly_increasing.cc) # 难题*
+
+add_executable(2328 2328_number_of_increasing_paths_in_a_grid.cc) # 中等题 (DFS/记忆)
+
+
