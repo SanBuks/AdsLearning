@@ -42,6 +42,12 @@ class BiTree {
   SizeType static RemoveAt(BNP p); // 递归删除子树
   BiTree *Secede(BNP p);    // 分离子树, p 一定指向本树中的节点
 
+  // 遍历方式
+  template <typename VST>
+  void TraversePreRecursion(const VST &visit);
+  template <typename VST>
+  void TraversePreIteration(const VST &visit);
+
   inline SizeType size() const { return size_; }
   inline BNP root() { return root_; }
   inline bool Empty() const { return !size_; }
@@ -56,7 +62,12 @@ class BiTree {
   SizeType size_;
 
  private:
-
+  template <typename VST>
+  void TraversePreRecursion(BNP p, const VST &visit);
+  template <typename VST>
+  void TraversePreIteration(BNP p, const VST &visit);
+  template <typename VST>
+  void TraverseAlongLeftVine(BNP p, std::stack<BNP> &stack, const VST &visit);
 };
 
 }  // namespace ds_cpp

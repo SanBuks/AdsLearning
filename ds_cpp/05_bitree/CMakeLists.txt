@@ -11,6 +11,9 @@ target_include_directories(bitree INTERFACE include)
 add_executable(insert_remove test/insert_remove.cc)
 target_link_libraries(insert_remove PRIVATE bitree PRIVATE GTest::Main)
 
+add_executable(traverse test/traverse.cc)
+target_link_libraries(traverse PRIVATE bitree PRIVATE GTest::Main)
+
 #add_executable(bitree_copy_control_test test/bitree_copy_control_test.cc)
 #target_link_libraries(bitree_copy_control_test PRIVATE bitree
 #                                               PRIVATE GTest::Main)

@@ -4,7 +4,8 @@
 namespace ds_cpp {
 
 template<typename T>
-BiNode<T>::BiNode(): data_(), parent_(nullptr), lc_(nullptr), rc_(nullptr), height_(0) {}
+BiNode<T>::BiNode()
+    : data_(), parent_(nullptr), lc_(nullptr), rc_(nullptr), height_(0) {}
 
 template<typename T>
 BiNode<T>::BiNode(const T &data, BNP parent, BNP lc, BNP rc, SizeType height)

@@ -48,14 +48,15 @@ typename BiTree<T>::BNP BiTree<T>::Insert(BNP p, const T &data) {
 
 template<typename T>
 typename BiTree<T>::BNP BiTree<T>::Attach(BiTree<T> &tree, BNP p) {
-  if (p->left_ || !tree.root_) return nullptr;
+  if (p->left() || !tree.root_) return nullptr;
 
   p->left_ = tree.root_;
+  p->left_->parent_ = p;
   UpdateHeightAbove(p);
+  tree.root_ = nullptr;
+
   size_ += tree.size_;
   tree.size_ = 0;
-  tree.root_ = nullptr;
-  p->left_->parent_ = p;
 
   return p->left_;
 }
@@ -65,11 +66,12 @@ typename BiTree<T>::BNP BiTree<T>::Attach(BNP p, BiTree<T> &tree) {
   if (p->right_ || !tree.root_) return nullptr;
 
   p->right_ = tree.root_;
+  p->right_->parent_ = p;
   UpdateHeightAbove(p);
+  tree.root_ = nullptr;
+
   size_ += tree.size_;
   tree.size_ = 0;
-  tree.root_ = nullptr;
-  p->right_->parent_ = p;
 
   return p->right_;
 }
@@ -111,8 +113,21 @@ BiTree<T> * BiTree<T>::Secede(BNP p) {
   return tree;
 }
 
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraversePreRecursion(const VST &visit) {
+  TraversePreRecursion(root_, visit);
+}
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraversePreIteration(const VST &visit) {
+  TraversePreIteration(root_, visit);
+}
+
 template<typename T>
 void BiTree<T>::UpdateHeight(BNP p) {
+  //  获取子树高度后 + 1, 空树高度为零
   SizeType left = p->lc_ ? p->lc_->height_ : -1;
   SizeType right = p->rc_ ? p->rc_->height_ : -1;
   p->height_ = left > right ? left + 1: right + 1;
@@ -125,6 +140,59 @@ void BiTree<T>::UpdateHeightAbove(BNP p) {
     p = p->parent_;
   }
 }
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraversePreRecursion(BNP p, const VST &visit) {
+  if (!p) return;
+  visit(p->data_);
+  TraversePreRecursion(p->lc_, visit);
+  TraversePreRecursion(p->rc_, visit);
+}
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraversePreIteration(BNP p, const VST &visit) {
+  if (!p) return;
+  std::stack<BNP> stack;
+
+  stack.push(p);
+  while (!stack.empty()) {
+    BNP vine_root = stack.top();
+    stack.pop();
+    TraverseAlongLeftVine(vine_root, stack, visit);
+  }
+
+}
+
+template<typename T>
+template<typename VST>
+void BiTree<T>::TraverseAlongLeftVine(BNP p, std::stack<BNP> &stack,
+                                      const VST &visit) {
+  while (p) {
+    visit(p->data_);
+    if (p->rc_) {
+      stack.push(p->rc_);
+    }
+    p = p->lc_;
+  }
+}
+
+// 遍历调用对象类型
+template <typename T>
+class BiTreeTraverse {
+ public:
+  explicit BiTreeTraverse(std::ostream &io) : io_(io) {}
+  void operator()(const T &e) const {
+    io_ << e << " ";
+  }
+  void operator()(T &e) const {
+    io_ << e << " ";
+  }
+  std::ostream& io() const { return io_; }
+ private:
+  std::ostream& io_;
+};
 
 }  // namespace ds_cpp
 
