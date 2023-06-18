@@ -14,10 +14,12 @@ template<typename T>
 BiTree<T>::BiTree() : size_(0), root_(nullptr) {}
 
 template<typename T>
-BiTree<T>::~BiTree() = default;
+BiTree<T>::~BiTree(){
+  Remove(root_);
+}
 
 template<typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsRoot(const T &data) {
+typename BiTree<T>::BNP BiTree<T>::Insert(const T &data) {
   if (root_) { return nullptr; }
   root_ = new BiNode<T>(data, nullptr);
   size_ = 1;
@@ -25,32 +27,99 @@ typename BiTree<T>::BNP BiTree<T>::InsertAsRoot(const T &data) {
 }
 
 template<typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsLc(BNP p, const T &data) {
-  if (p->left_) { return nullptr; }
-  p->left_ = new BiNode<T>(data, p);
-  ++size_;
-  UpdateAbove(p);
+typename BiTree<T>::BNP BiTree<T>::Insert(const T &data, BNP p) {
+  auto left = p->InsertAsLc(data);
+  if (left) {
+    ++size_;
+    UpdateHeightAbove(p);
+  }
+  return left;
+}
+
+template<typename T>
+typename BiTree<T>::BNP BiTree<T>::Insert(BNP p, const T &data) {
+  auto right = p->InsertAsRc(data);
+  if (right) {
+    ++size_;
+    UpdateHeightAbove(p);
+  }
+  return right;
+}
+
+template<typename T>
+typename BiTree<T>::BNP BiTree<T>::Attach(BiTree<T> &tree, BNP p) {
+  if (p->left_ || !tree.root_) return nullptr;
+
+  p->left_ = tree.root_;
+  UpdateHeightAbove(p);
+  size_ += tree.size_;
+  tree.size_ = 0;
+  tree.root_ = nullptr;
+  p->left_->parent_ = p;
+
   return p->left_;
 }
 
 template<typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsRc(BNP p, const T &data) {
-  if (p->right_) { return nullptr; }
-  p->right_ = new BiNode<T>(data, p);
-  ++size_;
-  UpdateAbove(p);
+typename BiTree<T>::BNP BiTree<T>::Attach(BNP p, BiTree<T> &tree) {
+  if (p->right_ || !tree.root_) return nullptr;
+
+  p->right_ = tree.root_;
+  UpdateHeightAbove(p);
+  size_ += tree.size_;
+  tree.size_ = 0;
+  tree.root_ = nullptr;
+  p->right_->parent_ = p;
+
   return p->right_;
 }
 
 template<typename T>
-void BiTree<T>::UpdateHeight(BNP p) {
-  SizeType left = p->left_ ? p->left_->height_ : -1;
-  SizeType right = p->right_ ? p->right_->height_ : -1;
-  p->height_ = left > right ? left : right;
+typename BiTree<T>::SizeType BiTree<T>::Remove(BNP p) {
+  if (!p) return 0;
+  BiNode<T>::FromParentTo(p, root_) = nullptr;
+  UpdateHeightAbove(p->parent_);
+  SizeType num = RemoveAt(p);
+  size_ -= num;
+  return num;
 }
 
 template<typename T>
-void BiTree<T>::UpdateAbove(BNP p) {
+typename BiTree<T>::SizeType BiTree<T>::RemoveAt(BNP p) {
+  if (!p) return 0;
+  SizeType num = 1 + RemoveAt(p->lc_) + RemoveAt(p->rc_);
+#if DEBUG
+  std::cout << p->data_ << "\n";
+#endif
+  delete p;
+  return num;
+}
+
+template<typename T>
+BiTree<T> * BiTree<T>::Secede(BNP p) {
+  if (!p) return nullptr;
+  // 先组装
+  auto tree = new BiTree<T>();
+  tree->root_ = p;
+  tree->size_ = p->Size();
+  // 再分离
+  size_ -= tree->size_;
+  BiNode<T>::FromParentTo(p, root_) = nullptr;
+  UpdateHeightAbove(p->parent_);
+  p->parent_ = nullptr;
+
+  return tree;
+}
+
+template<typename T>
+void BiTree<T>::UpdateHeight(BNP p) {
+  SizeType left = p->lc_ ? p->lc_->height_ : -1;
+  SizeType right = p->rc_ ? p->rc_->height_ : -1;
+  p->height_ = left > right ? left + 1: right + 1;
+}
+
+template<typename T>
+void BiTree<T>::UpdateHeightAbove(BNP p) {
   while (p) {
     UpdateHeight(p);
     p = p->parent_;

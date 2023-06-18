@@ -11,11 +11,6 @@ class BiTree {
   BiTree &operator=(BiTree &&rhs) noexcept;
   ~BiTree();
 
-  /*--------------------------- 只读访问 ------------------------------------*/
-
-  // 获取子树节点个数
-  Size GetSubTreeSize(BNP p) const;
-
   // 三种遍历 递归
   template <typename VST> void TraversePreOrderR(BNP p, const VST &visit) const;
   template <typename VST> void TraversePreOrderR(const VST &visit) const;
@@ -60,12 +55,6 @@ class BiTree {
   BiTree *Secede(BNP p);
 
  protected:
-  /*----------------------------- 更新节点信息 --------------------------------*/
-  // 更新 p 所指节点的高度 因树而异
-  virtual void UpdateHeight(BNP p);
-  // 更新 p 所指节点的祖先高度
-  void UpdateHeightAbove(BNP p);
-
   /*----------------------------- 获取节点信息 --------------------------------*/
   // 返回 节点指针的高度, 如果空指针则为返回 -1
   inline HeightType Stature(BNP p) const;
@@ -74,13 +63,6 @@ class BiTree {
   inline BNP Sibling(BNP p);
   // 返回叔叔节点指针
   inline BNP Uncle(BNP p);
-  // 返回父节点指向 p 所指节点的指针引用
-  inline BNP &FromParentTo(BNP p);
-
-  /*--------------------------- 数据成员 ------------------------------------*/
-  Size size_; // 节点个数
-  BNP root_;  // 树根
-
  private:
   /*--------------------------- 功能函数 ------------------------------------*/
   // 拷贝子树初始化
@@ -324,60 +306,6 @@ void BiTree<T>::TraverseLevel(const VST &visit) const {
 }
 
 template <typename T>
-typename BiTree<T>::BNP BiTree<T>::InsertAsRoot(const T &elem) {
-  if (!root_) {
-    size_ = 1;
-    return root_ = new BiNode<T>(elem);
-  } else {
-    return nullptr;
-  }
-}
-
-
-
-template <typename T>
-typename BiTree<T>::BNP BiTree<T>::AttachAsLc(BNP p, BiTree &tree) {
-  if (!p || p->lc_) {
-    return nullptr;
-  }
-
-  // 接入
-  p->lc_ = tree.root_;
-  if (p->lc_) {
-    p->lc_->parent_ = p;
-  }
-  // 更新
-  size_ += tree.size_;
-  UpdateHeightAbove(p);
-  // 处理为空树
-  tree.root_ = nullptr;
-  tree.size_ = 0;
-
-  return p;
-}
-
-template <typename T>
-typename BiTree<T>::BNP BiTree<T>::AttachAsRc(BNP p, BiTree &tree) {
-  if (!p || p->rc_) {
-    return nullptr;
-  }
-
-  // 接入
-  p->rc_ = tree.root_;
-  if (p->rc_) {
-    p->rc_->parent_ = p;
-  }
-  // 更新
-  size_ += tree.size_;
-  UpdateHeightAbove(p);
-  // 处理为空树
-  tree.root_ = nullptr;
-  tree.size_ = 0;
-
-  return p;
-}
-
-template <typename T>
 typename BiTree<T>::Size BiTree<T>::Remove(BNP p) {
   if (!p) {
     return 0;
@@ -409,25 +337,6 @@ typename BiTree<T>::Size BiTree<T>::Remove(BNP p) {
   return num_remove;
 }
 
-template <typename T>
-BiTree<T> *BiTree<T>::Secede(BNP p) {
-  if (!p) {
-    return nullptr;
-  }
-
-  auto *p_subtree = new BiTree<T>();
-
-  Size subtree_size = GetSubTreeSize(p);
-  FromParentTo(p) = nullptr;
-  UpdateHeightAbove(p->parent_);
-  size_ -= subtree_size;
-
-  p->parent_ = nullptr;
-  p_subtree->size_ = subtree_size;
-  p_subtree->root_ = p;
-
-  return p_subtree;
-}
 
 template <typename T>
 inline typename BiTree<T>::BNP BiTree<T>::Sibling(BNP p) {
@@ -438,11 +347,6 @@ inline typename BiTree<T>::BNP BiTree<T>::Sibling(BNP p) {
 template <typename T>
 inline typename BiTree<T>::BNP BiTree<T>::Uncle(BNP p) {
   return !p || IsRoot(p) ? nullptr : Sibling(p->parent_);
-}
-
-template <typename T>
-inline typename BiTree<T>::BNP &BiTree<T>::FromParentTo(BNP p) {
-  return IsRoot(p) ? root_ : IsLc(p) ? p->parent_->lc_: p->parent_->rc_;
 }
 
 template <typename T>

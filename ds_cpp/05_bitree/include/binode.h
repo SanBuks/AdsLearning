@@ -26,6 +26,9 @@ class BiNode {
   inline BNP rc() { return rc_; }
   inline SizeType height() const { return height_; };
 
+  // 递归计算子树规模
+  SizeType Size();
+
  private:
   // 作为左孩子插入, 如果存在左孩子则返回 nullptr
   BNP InsertAsLc(const T &data);
@@ -41,6 +44,15 @@ class BiNode {
   inline static bool HasC(BNP p) { return HasLc(p) || HasRc(p); }
   inline static bool IsLeaf(BNP p) { return !HasC(p); }
   inline static bool HasBc(BNP p) { return HasLc(p) && HasRc(p); }
+
+  /**
+   * @param p 需要分离的子树根, 作为媒介访问不需要是引用
+   * @param root 被分离的子树根指针, 有可能分离整棵树, 需要是引用
+   * @retrun 需要修改的引用对象
+   */
+  inline static BNP &FromParentTo(BNP p, BNP &root) {
+    return IsRoot(p) ? root : IsLc(p) ? p->parent_->lc_ : p->parent_->rc_;
+  }
 
   T data_;            // 数据
   BNP parent_;        // 指向父节点
