@@ -5,7 +5,7 @@
 #define GTEST_COUT std::cout << "[---INFO---] "
 
 
-TEST(Traverse, TraversePre) {
+TEST(Traverse, Traverse) {
   using namespace ds_cpp;
   using BNP = BiTree<int>::BNP;
 
@@ -17,7 +17,10 @@ TEST(Traverse, TraversePre) {
   BNP l1r1 = tree.Insert(l1, 4);
 
   BiTreeTraverse<int> traverse(std::cout);
-//  traverse(3);
 //  tree.TraversePreRecursion(traverse);
+
+  tree.TraverseInIterationVine(traverse);
+  std::cout << "\n";
   tree.TraversePreIteration(traverse);
+
 }

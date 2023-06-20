@@ -115,14 +115,32 @@ BiTree<T> * BiTree<T>::Secede(BNP p) {
 
 template <typename T>
 template <typename VST>
-void BiTree<T>::TraversePreRecursion(const VST &visit) {
-  TraversePreRecursion(root_, visit);
+void BiTree<T>::TraversePreIteration(const VST &visit) {
+  TraversePreIteration(root_, visit);
 }
 
 template <typename T>
 template <typename VST>
-void BiTree<T>::TraversePreIteration(const VST &visit) {
-  TraversePreIteration(root_, visit);
+void BiTree<T>::TraverseInIterationVine(const VST &visit) {
+  TraverseInIterationVine(root_, visit);
+}
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraverseInIterationSuccession(const VST &visit) {
+  TraverseInIterationSuccession(root_, visit);
+}
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraverseInIteration(const VST &visit) {
+  TraverseInIteration(root_, visit);
+}
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraversePostIteration(const VST &visit) {
+  TraversePostIteration(root_, visit);
 }
 
 template<typename T>
@@ -143,39 +161,57 @@ void BiTree<T>::UpdateHeightAbove(BNP p) {
 
 template <typename T>
 template <typename VST>
-void BiTree<T>::TraversePreRecursion(BNP p, const VST &visit) {
-  if (!p) return;
-  visit(p->data_);
-  TraversePreRecursion(p->lc_, visit);
-  TraversePreRecursion(p->rc_, visit);
-}
-
-template <typename T>
-template <typename VST>
 void BiTree<T>::TraversePreIteration(BNP p, const VST &visit) {
   if (!p) return;
-  std::stack<BNP> stack;
 
-  stack.push(p);
+  std::stack<BNP> stack; stack.push(p);
   while (!stack.empty()) {
-    BNP vine_root = stack.top();
+    p = stack.top();
     stack.pop();
-    TraverseAlongLeftVine(vine_root, stack, visit);
+    // 遍历 左藤
+    while (p) {
+      visit(p->data_);
+      if (p->rc_) stack.push(p->rc_);
+      p = p->rc_;
+    }
   }
+}
+
+template<typename T>
+template <typename VST>
+void BiTree<T>::TraverseInIterationVine(BNP p, const VST &visit) {
+  if (!p) return;
+
+  std::stack<BNP> stack;
+  auto go_along_left_vine = [&stack](BNP p) {
+    while (p) { stack.push(p); p = p->lc_; }
+  };
+  go_along_left_vine(p);
+  while (!stack.empty()) {
+    p = stack.top();
+    stack.pop();
+    visit(p->data_);
+    p = p->rc_;
+    if (p) go_along_left_vine(p);
+  }
+}
+
+template<typename T>
+template <typename VST>
+void BiTree<T>::TraverseInIterationSuccession(BNP p, const VST &visit) {
 
 }
 
 template<typename T>
-template<typename VST>
-void BiTree<T>::TraverseAlongLeftVine(BNP p, std::stack<BNP> &stack,
-                                      const VST &visit) {
-  while (p) {
-    visit(p->data_);
-    if (p->rc_) {
-      stack.push(p->rc_);
-    }
-    p = p->lc_;
-  }
+template <typename VST>
+void BiTree<T>::TraverseInIteration(BNP p, const VST &visit) {
+
+}
+
+template<typename T>
+template <typename VST>
+void BiTree<T>::TraversePostIteration(BNP p, const VST &visit) {
+
 }
 
 // 遍历调用对象类型

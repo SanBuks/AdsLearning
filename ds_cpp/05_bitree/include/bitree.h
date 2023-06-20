@@ -44,9 +44,16 @@ class BiTree {
 
   // 遍历方式
   template <typename VST>
-  void TraversePreRecursion(const VST &visit);
-  template <typename VST>
   void TraversePreIteration(const VST &visit);
+
+  template <typename VST>
+  void TraverseInIterationVine(const VST &visit);
+  template <typename VST>
+  void TraverseInIterationSuccession(const VST &visit);
+  template <typename VST>
+  void TraverseInIteration(const VST &visit);
+  template <typename VST>
+  void TraversePostIteration(const VST &visit);
 
   inline SizeType size() const { return size_; }
   inline BNP root() { return root_; }
@@ -63,11 +70,15 @@ class BiTree {
 
  private:
   template <typename VST>
-  void TraversePreRecursion(BNP p, const VST &visit);
-  template <typename VST>
   void TraversePreIteration(BNP p, const VST &visit);
   template <typename VST>
-  void TraverseAlongLeftVine(BNP p, std::stack<BNP> &stack, const VST &visit);
+  void TraverseInIterationVine(BNP p, const VST &visit);
+  template <typename VST>
+  void TraverseInIterationSuccession(BNP p, const VST &visit);
+  template <typename VST>
+  void TraverseInIteration(BNP p, const VST &visit);
+  template <typename VST>
+  void TraversePostIteration(BNP p, const VST &visit);
 };
 
 }  // namespace ds_cpp
