@@ -1,8 +1,6 @@
 template <typename T>
 class BiTree {
  public:
-  using HeightType = typename BiNode<T>::HeightType;
-
   /*---------------------------- 拷贝控制 -----------------------------------*/
   BiTree(const Vector<T> &vec, const T &null);  // null 表示空节点
   BiTree(const BiTree &rhs);
@@ -11,19 +9,6 @@ class BiTree {
   BiTree &operator=(BiTree &&rhs) noexcept;
   ~BiTree();
 
-  // 三种遍历 递归
-  template <typename VST> void TraversePreOrderR(BNP p, const VST &visit) const;
-  template <typename VST> void TraversePreOrderR(const VST &visit) const;
-  template <typename VST> void TraversePostOrderR(BNP p, const VST &visit) const;
-  template <typename VST> void TraversePostOrderR(const VST &visit) const;
-  template <typename VST> void TraverseInOrderR(BNP p, const VST &visit) const;
-  template <typename VST> void TraverseInOrderR(const VST &visit) const;
-
-  // 先序遍历 迭代
-  template <typename VST> void TraversePreOrderI1(BNP p, const VST &visit) const;
-  template <typename VST> void TraversePreOrderI1(const VST &visit) const;
-  template <typename VST> void TraversePreOrderI2(BNP p, const VST &visit) const;
-  template <typename VST> void TraversePreOrderI2(const VST &visit) const;
   // 中序遍历 迭代
   template <typename VST> void TraverseInOrderI1(BNP p, const VST &visit) const;
   template <typename VST> void TraverseInOrderI1(const VST &visit) const;
@@ -36,23 +21,6 @@ class BiTree {
   template <typename VST> void TraverseLevel(BNP p, const VST &visit) const;
   template <typename VST> void TraverseLevel(const VST &visit) const;
 
-  /*--------------------------- 可写访问 ------------------------------------*/
-  // 节点插入作为根
-  BNP InsertAsRoot(const T &elem);
-  // 节点插入作为左孩子
-  BNP InsertAsLc(BNP p, const T &elem);
-  // 节点插入作为右孩子
-  BNP InsertAsRc(BNP p, const T &elem);
-
-  // 二叉树作为左子树接入
-  BNP AttachAsLc(BNP p, BiTree &tree);
-  // 二叉树作为右子树接入
-  BNP AttachAsRc(BNP p, BiTree &tree);
-
-  // 删除子树, 返回删除节点个数
-  Size Remove(BNP p);
-  // 摘离子树 如果出错返回 nullptr
-  BiTree *Secede(BNP p);
 
  protected:
   /*----------------------------- 获取节点信息 --------------------------------*/
@@ -69,9 +37,6 @@ class BiTree {
   void CopyFrom(BNP p_source);
   // 从层次遍历序列初始化
   void CopyFrom(const Vector<T> &vec, const T &null);
-
-  template <typename VST>
-  void VisitAlongLeftBranch(BNP p, Stack<BNP> &stack, const VST &visit) const ;
 };
 
 
@@ -117,10 +82,6 @@ BiTree<T> &BiTree<T>::operator=(BiTree &&rhs) noexcept {
   return *this;
 }
 
-template <typename T>
-BiTree<T>::~BiTree() {
-  Remove(root_);
-}
 
 template <typename T>
 typename BiTree<T>::Size BiTree<T>::GetSubTreeSize(BNP p) const {
@@ -142,140 +103,6 @@ typename BiTree<T>::Size BiTree<T>::GetSubTreeSize(BNP p) const {
     }
   }
   return num;
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderR(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-  visit(p->data_);
-  TraversePreOrderR(p->lc_, visit);
-  TraversePreOrderR(p->rc_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderR(const VST &visit) const {
-  TraversePreOrderR(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePostOrderR(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-  TraversePostOrderR(p->lc_, visit);
-  TraversePostOrderR(p->rc_, visit);
-  visit(p->data_);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePostOrderR(const VST &visit) const {
-  TraversePostOrderR(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderR(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-  TraverseInOrderR(p->lc_, visit);
-  visit(p->data_);
-  TraverseInOrderR(p->rc_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderR(const VST &visit) const {
-  TraverseInOrderR(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderI1(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-
-  Stack<BNP> stack;
-  stack.Push(p);
-  while (!stack.Empty()) {
-    auto tp = stack.Pop();
-    visit(tp->data_);
-    if (tp->rc_) {
-      stack.Push(tp->rc_);
-    }
-    if (tp->lc_) {
-      stack.Push(tp->lc_);
-    }
-  }
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderI1(const VST &visit) const {
-  TraversePreOrderI1(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderI2(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-  Stack<BNP> stack;
-  stack.Push(p);
-  while (!stack.Empty()) {
-    auto tp = stack.Pop();
-    VisitAlongLeftBranch(tp, stack, visit);
-  }
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraversePreOrderI2(const VST &visit) const {
-  TraversePreOrderI2(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI1(BNP p, const VST &visit) const {
-
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI1(const VST &visit) const {
-  TraverseInOrderI1(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI2(BNP p, const VST &visit) const {
-
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI2(const VST &visit) const {
-  TraverseInOrderI2(root_, visit);
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI3(BNP p, const VST &visit) const {
-
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseInOrderI3(const VST &visit) const {
-  TraverseInOrderI3(root_, visit);
 }
 
 template <typename T>
@@ -303,38 +130,6 @@ template <typename T>
 template <typename VST>
 void BiTree<T>::TraverseLevel(const VST &visit) const {
   TraverseLevel(root_, visit);
-}
-
-template <typename T>
-typename BiTree<T>::Size BiTree<T>::Remove(BNP p) {
-  if (!p) {
-    return 0;
-  }
-
-  // 分离并更新高度
-  FromParentTo(p) = nullptr;
-  UpdateHeightAbove(p->parent_);
-
-  // 层次遍历删除节点
-  Size num_remove = 0;
-  Queue<BNP> queue;
-  queue.Enqueue(p);
-  while (!queue.Empty()) {
-    auto p_temp = queue.Dequeue();
-    if (p_temp->lc_) {
-      queue.Enqueue(p_temp->lc_);
-    }
-    if (p_temp->rc_) {
-      queue.Enqueue(p_temp->rc_);
-    }
-    delete p_temp;
-    ++num_remove;
-  }
-
-  // 更新个数
-  size_ -= num_remove;
-
-  return num_remove;
 }
 
 
@@ -415,33 +210,4 @@ void BiTree<T>::CopyFrom(const Vector<T> &vec, const T &null) {
     throw std::runtime_error(bitree_error::kConstructFromVectorError);
   }
 }
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::VisitAlongLeftBranch(BNP p, Stack<BNP> &stack,
-                                     const VST &visit) const {
-  while (p) {
-    visit(p->data_);
-    if (p->rc_) {
-      stack.Push(p->rc_);
-    }
-    p = p->lc_;
-  }
-}
-
-// 遍历调用对象类型
-template <typename T>
-class BiTreeTraverse {
- public:
-  explicit BiTreeTraverse(std::ostream &io) : io_(io) {}
-  void operator()(const T &e) const {
-    io_ << e << " ";
-  }
-  void operator()(T &e) const {
-    io_ << e << " ";
-  }
-  std::ostream& io() const { return io_; }
- private:
-  std::ostream& io_;
-};
 

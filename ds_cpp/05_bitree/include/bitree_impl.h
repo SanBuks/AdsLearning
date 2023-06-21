@@ -211,6 +211,23 @@ void BiTree<T>::TraverseInIteration(BNP p, const VST &visit) {
 template<typename T>
 template <typename VST>
 void BiTree<T>::TraversePostIteration(BNP p, const VST &visit) {
+  if (!p) return;
+  std::stack<BNP> stack; stack.push(p);
+
+  // 原始 p 不入栈
+  auto go_along_left_vine = [&stack](BNP p) {
+
+    if (p) {
+
+    }
+
+    stack.pop();
+  };
+  while (!stack.empty()) {
+    p = stack.top();
+
+
+  }
 
 }
 
