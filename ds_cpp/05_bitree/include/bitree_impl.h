@@ -143,6 +143,12 @@ void BiTree<T>::TraversePostIteration(const VST &visit) {
   TraversePostIteration(root_, visit);
 }
 
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraverseLevel(const VST &visit) {
+  TraverseLevel(root_, visit);
+}
+
 template<typename T>
 void BiTree<T>::UpdateHeight(BNP p) {
   //  获取子树高度后 + 1, 空树高度为零
@@ -214,22 +220,53 @@ void BiTree<T>::TraversePostIteration(BNP p, const VST &visit) {
   if (!p) return;
   std::stack<BNP> stack; stack.push(p);
 
-  // 原始 p 不入栈
-  auto go_along_left_vine = [&stack](BNP p) {
+  auto go_along_left_vine = [&stack]() {
+    while (true) {
+      auto p = stack.top();
+      if (!p) break;
 
-    if (p) {
-
+      if (BiNode<T>::HasLc(p)) {
+        if (BiNode<T>::HasRc(p)) stack.push(p->rc_);
+        stack.push(p->lc_);
+      } else {
+        stack.push(p->rc_);
+      }
     }
-
     stack.pop();
   };
+
   while (!stack.empty()) {
+    // 第一个访问的节点(叶子节点) 一定不是根节点的父节点, 一定优先访问
+    // 访问后 p 指向上一个访问节点
+    if (stack.top() != p->parent_) {
+      go_along_left_vine();
+    }
     p = stack.top();
-
-
+    stack.pop();
+    visit(p->data_);
   }
-
 }
+
+template <typename T>
+template <typename VST>
+void BiTree<T>::TraverseLevel(BNP p, const VST &visit) {
+  std::queue<BNP> queue;
+  queue.push(p);
+  while (!queue.empty()) {
+    SizeType size = queue.size();
+    for (SizeType i = 0; i < size; ++i) {
+      auto p = queue.front(); queue.pop();
+      visit(p->data_);
+      if (BiNode<T>::HasLc(p)) {
+        queue.push(p->lc_);
+      }
+      if (BiNode<T>::HasRc(p)) {
+        queue.push(p->rc_);
+      }
+    }
+  }
+}
+
 
 // 遍历调用对象类型
 template <typename T>

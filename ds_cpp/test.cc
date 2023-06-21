@@ -5,11 +5,9 @@
 #include <string>
 #include <random>
 #include <stack>
-using namespace std;
-/**
- * Definition for a binary tree node.
- */
+#include <queue>
 
+using namespace std;
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -21,18 +19,22 @@ struct TreeNode {
 
 class Solution {
  public:
-  vector<int> inorderTraversal(TreeNode *root) {
-    vector<int> ans;
+  vector<vector<int>> levelOrder(TreeNode *root) {
+    vector<vector<int>> ans;
     if (!root) return ans;
-    stack<TreeNode *> stack;
-    auto go_along_left_vine = [&stack](TreeNode *p) {
-      while (p) { stack.push(p); p = p->left; }
-    };
-    go_along_left_vine(root);
-    while (!stack.empty()) {
-      auto p = stack.top(); stack.pop();
-      ans.push_back(p->val);
-      if (p->right) { go_along_left_vine(p->right); }
+
+    queue<TreeNode *> queue;
+    queue.push(root);
+    while (!queue.empty()) {
+      auto size = queue.size();
+      vector<int> level;
+      for (size_t i = 0; i != size; ++i) {
+        auto p = queue.front(); queue.pop();
+        level.push_back(p->val);
+        if (p->left) queue.push(p->left);
+        if (p->right) queue.push(p->right);
+      }
+      ans.push_back(level);
     }
     return ans;
   }

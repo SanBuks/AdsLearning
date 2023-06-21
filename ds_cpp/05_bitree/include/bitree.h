@@ -52,8 +52,12 @@ class BiTree {
   void TraverseInIterationSuccession(const VST &visit);
   template <typename VST>
   void TraverseInIteration(const VST &visit);
+
   template <typename VST>
   void TraversePostIteration(const VST &visit);
+
+  template <typename VST>
+  void TraverseLevel(const VST &visit);
 
   inline SizeType size() const { return size_; }
   inline BNP root() { return root_; }
@@ -79,6 +83,8 @@ class BiTree {
   void TraverseInIteration(BNP p, const VST &visit);
   template <typename VST>
   void TraversePostIteration(BNP p, const VST &visit);
+  template <typename VST>
+  void TraverseLevel(BNP p, const VST &visit);
 };
 
 }  // namespace ds_cpp

@@ -1,7 +1,6 @@
 template <typename T>
 class BiTree {
  public:
-  /*---------------------------- 拷贝控制 -----------------------------------*/
   BiTree(const Vector<T> &vec, const T &null);  // null 表示空节点
   BiTree(const BiTree &rhs);
   BiTree(BiTree &&rhs) noexcept ;
@@ -10,23 +9,17 @@ class BiTree {
   ~BiTree();
 
   // 中序遍历 迭代
-  template <typename VST> void TraverseInOrderI1(BNP p, const VST &visit) const;
-  template <typename VST> void TraverseInOrderI1(const VST &visit) const;
   template <typename VST> void TraverseInOrderI2(BNP p, const VST &visit) const;
   template <typename VST> void TraverseInOrderI2(const VST &visit) const;
   template <typename VST> void TraverseInOrderI3(BNP p, const VST &visit) const;
   template <typename VST> void TraverseInOrderI3(const VST &visit) const;
   // 后序遍历 迭代
-  // 层次遍历
-  template <typename VST> void TraverseLevel(BNP p, const VST &visit) const;
-  template <typename VST> void TraverseLevel(const VST &visit) const;
 
 
  protected:
   /*----------------------------- 获取节点信息 --------------------------------*/
   // 返回 节点指针的高度, 如果空指针则为返回 -1
   inline HeightType Stature(BNP p) const;
-
   // 返回兄弟节点指针
   inline BNP Sibling(BNP p);
   // 返回叔叔节点指针
@@ -38,7 +31,6 @@ class BiTree {
   // 从层次遍历序列初始化
   void CopyFrom(const Vector<T> &vec, const T &null);
 };
-
 
 template <typename T>
 BiTree<T>::BiTree(const Vector<T> &vec, const T &null)
@@ -81,57 +73,6 @@ BiTree<T> &BiTree<T>::operator=(BiTree &&rhs) noexcept {
   }
   return *this;
 }
-
-
-template <typename T>
-typename BiTree<T>::Size BiTree<T>::GetSubTreeSize(BNP p) const {
-  if (!p) {
-    return 0;
-  }
-
-  Size num = 0;
-  Queue<BNP> queue;
-  queue.Enqueue(p);
-  while (!queue.Empty()) {
-    auto temp = queue.Dequeue();
-    ++num;
-    if (HasLc(temp)) {
-      queue.Enqueue(temp->lc_);
-    }
-    if (HasRc(temp)) {
-      queue.Enqueue(temp->rc_);
-    }
-  }
-  return num;
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseLevel(BNP p, const VST &visit) const {
-  if (!p) {
-    return;
-  }
-
-  Queue<BNP> queue;
-  queue.Enqueue(p);
-  while (!queue.Empty()) {
-    auto tp = queue.Dequeue();
-    visit(tp->data_);
-    if (tp->lc_) {
-      queue.Enqueue(tp->lc_);
-    }
-    if (tp->rc_) {
-      queue.Enqueue(tp->rc_);
-    }
-  }
-}
-
-template <typename T>
-template <typename VST>
-void BiTree<T>::TraverseLevel(const VST &visit) const {
-  TraverseLevel(root_, visit);
-}
-
 
 template <typename T>
 inline typename BiTree<T>::BNP BiTree<T>::Sibling(BNP p) {
