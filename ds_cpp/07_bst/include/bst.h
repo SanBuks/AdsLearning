@@ -1,0 +1,34 @@
+#ifndef DS_CPP_BST_H_
+#define DS_CPP_BST_H_
+
+#include "bitree.h"
+
+namespace ds_cpp {
+
+template<typename T>
+class BST : public BiTree<T> {
+
+ public:
+  using BNP = typename BiTree<T>::BNP;
+  using SizeType = typename BiNode<T>::SizeType;
+
+  BST();
+  BST(const std::vector<T> &vec, const T &end);
+
+  // 查找指向对象的指针引用
+  virtual BNP &Search(const T &e);
+  // 增加对象
+  virtual BNP Add(const T &e);
+  // 删除对象
+  virtual bool Remove(const T &e);
+
+ protected:
+  //命中节点的父亲
+  BNP hot_;
+};
+
+}  // namespace ds_cpp
+
+#include "bst_impl.h"
+
+#endif

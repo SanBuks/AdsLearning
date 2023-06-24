@@ -20,6 +20,23 @@ typename BiNode<T>::SizeType BiNode<T>::Size() {
 }
 
 template<typename T>
+typename BiNode<T>::BNP BiNode<T>::Succ() {
+  BNP p = this;
+  if (HasRc(this)) {
+    p = p->rc_;
+    while (HasLc(p)) {
+      p = p->lc_;
+    }
+  } else {
+    while (IsRc(p)) {
+      p = p->parent_;
+    }
+    p = p->parent_;
+  }
+  return p;
+}
+
+template<typename T>
 typename BiNode<T>::BNP BiNode<T>::InsertAsLc(const T &data) {
   return !lc_ ? lc_ = new BiNode<T>(data, this) : nullptr;
 }

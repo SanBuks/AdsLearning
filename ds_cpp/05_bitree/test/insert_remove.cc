@@ -4,7 +4,7 @@
 
 #define GTEST_COUT std::cout << "[---INFO---] "
 
-TEST(ConstructTest, InsertAndRemove1) {
+TEST(ConstructTest, InsertAndRemoveOneNode) {
   using namespace ds_cpp;
   using BNP = BiTree<int>::BNP;
 
@@ -12,14 +12,15 @@ TEST(ConstructTest, InsertAndRemove1) {
   BNP root = tree.Insert(3);
 
   ASSERT_EQ(1, tree.size());
-  ASSERT_EQ(3, root->data());
   ASSERT_EQ(0, root->height());
-  ASSERT_EQ(tree.Remove(root), 1);
-  ASSERT_EQ(tree.Empty(), true);
+  ASSERT_EQ(3, root->data());
+
+  ASSERT_EQ(1, tree.Remove(root));
+  ASSERT_EQ(true, tree.Empty());
 }
 
 
-TEST(ConstructTest, InsertAndRemove2) {
+TEST(ConstructTest, InsertAndRemoveMoreNode) {
   using namespace ds_cpp;
   using BNP = BiTree<int>::BNP;
 
@@ -32,8 +33,14 @@ TEST(ConstructTest, InsertAndRemove2) {
 
   ASSERT_EQ(5, tree.size());
   ASSERT_EQ(2, root->height());
+
   ASSERT_EQ(3, tree.Remove(l1));
   ASSERT_EQ(2, tree.size());
+
+  ASSERT_EQ(1, tree.Remove(r1));
+  ASSERT_EQ(1, tree.size());
+
+  ASSERT_EQ(1, tree.Remove(root));
 }
 
 TEST(ConstructTest, Destruction) {

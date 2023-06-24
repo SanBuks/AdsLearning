@@ -26,36 +26,40 @@ class BiTree {
   using SizeType = typename BiNode<T>::SizeType;
 
   BiTree();
+  BiTree(const std::vector<T> &vec, const T &end);
   ~BiTree();
   BiTree(const BiTree &rhs) = delete;
   BiTree& operator=(const BiTree &rhs) = delete;
 
-  // 三种节点初始化
+  /// 三种节点初始化
   BNP Insert(const T &data);         // 根
   BNP Insert(const T &data, BNP p);  // 左孩子
   BNP Insert(BNP p, const T &data);  // 右孩子
-  // 两种接入子树
+
+  /// 两种接入子树
   BNP Attach(BiTree<T> &tree, BNP p); // 接入左子树
   BNP Attach(BNP p, BiTree<T> &tree); // 接入右子树
-  // 删除/分离
+
+  /// 删除/分离
   SizeType Remove(BNP p);   // 删除子树
   SizeType static RemoveAt(BNP p); // 递归删除子树
   BiTree *Secede(BNP p);    // 分离子树, p 一定指向本树中的节点
 
-  // 遍历方式
+  /// 遍历方式
+  // 先序遍历
   template <typename VST>
   void TraversePreIteration(const VST &visit);
-
+  // 中序遍历
   template <typename VST>
   void TraverseInIterationVine(const VST &visit);
   template <typename VST>
-  void TraverseInIterationSuccession(const VST &visit);
-  template <typename VST>
   void TraverseInIteration(const VST &visit);
-
+  template <typename VST>
+  void TraverseInIterationSuccession(const VST &visit);
+  // 后序遍历
   template <typename VST>
   void TraversePostIteration(const VST &visit);
-
+  // 层次遍历
   template <typename VST>
   void TraverseLevel(const VST &visit);
 

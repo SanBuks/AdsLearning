@@ -1,25 +1,13 @@
 template <typename T>
 class BiTree {
  public:
-  BiTree(const Vector<T> &vec, const T &null);  // null 表示空节点
   BiTree(const BiTree &rhs);
   BiTree(BiTree &&rhs) noexcept ;
   BiTree &operator=(const BiTree &rhs);
   BiTree &operator=(BiTree &&rhs) noexcept;
-  ~BiTree();
-
-  // 中序遍历 迭代
-  template <typename VST> void TraverseInOrderI2(BNP p, const VST &visit) const;
-  template <typename VST> void TraverseInOrderI2(const VST &visit) const;
-  template <typename VST> void TraverseInOrderI3(BNP p, const VST &visit) const;
-  template <typename VST> void TraverseInOrderI3(const VST &visit) const;
-  // 后序遍历 迭代
 
 
  protected:
-  /*----------------------------- 获取节点信息 --------------------------------*/
-  // 返回 节点指针的高度, 如果空指针则为返回 -1
-  inline HeightType Stature(BNP p) const;
   // 返回兄弟节点指针
   inline BNP Sibling(BNP p);
   // 返回叔叔节点指针

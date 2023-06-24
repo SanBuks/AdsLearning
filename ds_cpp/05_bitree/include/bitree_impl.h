@@ -14,6 +14,34 @@ template<typename T>
 BiTree<T>::BiTree() : size_(0), root_(nullptr) {}
 
 template<typename T>
+BiTree<T>::BiTree(const std::vector<T> &vec, const T &end) : size_(0), root_(nullptr) {
+  if (vec.empty()) return;
+
+  std::queue<BNP> queue;
+  size_t index = 0;
+  Insert(vec[index++]);
+  queue.push(root_);
+
+  while(index != vec.size()) {
+     size_t num = queue.size();
+     for (size_t i = 0; i != num; ++i) {
+       BNP p = queue.front(); queue.pop();
+       if (vec[index] != end) {
+         auto left = Insert(vec[index], p);
+         queue.push(left);
+       }
+       ++index;
+
+       if (vec[index] != end) {
+         auto right = Insert(p, vec[index]);
+         queue.push(right);
+       }
+       ++index;
+     }
+  }
+}
+
+template<typename T>
 BiTree<T>::~BiTree(){
   Remove(root_);
 }
@@ -178,7 +206,7 @@ void BiTree<T>::TraversePreIteration(BNP p, const VST &visit) {
     while (p) {
       visit(p->data_);
       if (p->rc_) stack.push(p->rc_);
-      p = p->rc_;
+      p = p->lc_;
     }
   }
 }
@@ -204,15 +232,47 @@ void BiTree<T>::TraverseInIterationVine(BNP p, const VST &visit) {
 
 template<typename T>
 template <typename VST>
-void BiTree<T>::TraverseInIterationSuccession(BNP p, const VST &visit) {
+void BiTree<T>::TraverseInIteration(BNP p, const VST &visit) {
+  if (!p) return;
+  std::stack<BNP> stack;
 
+  while (true) {
+    if (p) {
+      stack.push(p);
+      p = p->lc_;
+    } else if (!stack.empty()) {
+      p = stack.top(); stack.pop();
+      visit(p->data_);
+      p = p->rc_;
+    } else {
+      break;
+    }
+  }
 }
 
 template<typename T>
 template <typename VST>
-void BiTree<T>::TraverseInIteration(BNP p, const VST &visit) {
+void BiTree<T>::TraverseInIterationSuccession(BNP p, const VST &visit) {
+  if (!p) return;
+  bool backtrace = false;
 
+  while (true) {
+    if (!backtrace && BiNode<T>::HasLc(p)) {
+      p = p->lc_;
+    } else {
+      visit(p->data_);
+      if (BiNode<T>::HasRc(p)) {
+        p = p->rc_;
+        backtrace = false;
+      } else {
+        p = p->Succ();
+        if (!p) break;
+        backtrace = true;
+      }
+    }
+  }
 }
+
 
 template<typename T>
 template <typename VST>
@@ -255,13 +315,13 @@ void BiTree<T>::TraverseLevel(BNP p, const VST &visit) {
   while (!queue.empty()) {
     SizeType size = queue.size();
     for (SizeType i = 0; i < size; ++i) {
-      auto p = queue.front(); queue.pop();
-      visit(p->data_);
-      if (BiNode<T>::HasLc(p)) {
-        queue.push(p->lc_);
+      auto x = queue.front(); queue.pop();
+      visit(x->data_);
+      if (BiNode<T>::HasLc(x)) {
+        queue.push(x->lc_);
       }
-      if (BiNode<T>::HasRc(p)) {
-        queue.push(p->rc_);
+      if (BiNode<T>::HasRc(x)) {
+        queue.push(x->rc_);
       }
     }
   }

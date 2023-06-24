@@ -14,6 +14,7 @@ include(cmake/import.cmake)
 #add_subdirectory(04_stack)
 add_subdirectory(05_bitree)
 #add_subdirectory(06_graph)
+add_subdirectory(07_bst)
 #add_subdirectory(12_sort)
 
 add_executable(test test.cc)

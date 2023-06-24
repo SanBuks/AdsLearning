@@ -7,9 +7,13 @@ template<typename T>
 class BiTree;
 
 template<typename T>
+class BST;
+
+template<typename T>
 class BiNode {
 
   friend class BiTree<T>;
+  friend class BST<T>;
 
  public:
   using BNP = BiNode *;
@@ -28,6 +32,8 @@ class BiNode {
 
   // 递归计算子树规模
   SizeType Size();
+  // 返回中序遍历的后继节点
+  BNP Succ();
 
  private:
   // 作为左孩子插入, 如果存在左孩子则返回 nullptr
