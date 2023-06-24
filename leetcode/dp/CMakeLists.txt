@@ -18,6 +18,10 @@ add_executable(1049 1049_last_stone_weight_ii.cc)
 add_executable(0494 0494_target_sum.cc) # another method backtrace
 add_executable(0474 0474_ones_and_zeroes.cc)
 
+
+add_executable(0956 0956_tallest_billboard.cc) # (难题 高度差)
+#2035. Partition Array Into Two Arrays to Minimize Sum Difference
+
 # 完全背包 ---------------------------------------------------------------------
 add_executable(0518 0518_coin_change_2.cc)
 add_executable(0377 0377_combination_sum_iv.cc)
@@ -39,6 +43,7 @@ add_executable(2466 2466_count_ways_to_build_good_strings.cc) # 简单题 (一�
 #1349. Maximum Students Taking Exam
 add_executable(1143 1143_longest_common_subsequence.cc) # 简单题 (LCS)
 add_executable(1035 1035_uncrossed_lines.cc) # 简单题 (LCS)
+add_executable(1027 1027_longest_arithmetic_subsequence.cc) #(LCS 额外状态)
 
 add_executable(0300 0300_longest_increasing_subsequence.cc) # 简单题 (动态规划/贪心二分 LIS)
 #334. Increasing Triplet Subsequence
