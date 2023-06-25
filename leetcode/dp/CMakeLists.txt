@@ -73,3 +73,5 @@ add_executable(1187 1187_make_array_strictly_increasing.cc) # 难题*
 add_executable(2328 2328_number_of_increasing_paths_in_a_grid.cc) # 中等题 (DFS/记忆)
 
 
+add_executable(1575 1575_count_all_possible_routes.cc) # 难题
+
