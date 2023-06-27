@@ -15,4 +15,4 @@ add_executable(1383 1383_maximum_performance_of_a_team.cc)
 #IPO
 #Minimum Cost to Hire K Workers
 
-
+add_executable(0373 0373_find_k_pairs_with_smallest_sums.cc)  # (堆+哈希)
