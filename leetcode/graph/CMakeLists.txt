@@ -26,3 +26,6 @@ add_executable(0547 0547_number_of_provinces.cc)                           # 中
 #Max Area of Island
 #Rotting Oranges
 #Minesweeper
+
+add_executable(1514 1514_path_with_maximum_probability.cc)                 # 单源最短路径(dijkstra/spf/bf)
+
