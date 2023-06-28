@@ -16,19 +16,17 @@ typename BST<T>::BNP & BST<T>::Search(const T &e) {
     hot_ = nullptr;
     return this->root_;
   }
-
-  // TODO
-  for (BNP &ref = this->root_;;) {
-    hot_ = ref;
-    ref = ref->data_ < e ? ref->lc_ : ref->rc_;
+  for (hot_ = this->root_;;) {
+    BNP &ref = e < hot_->data_ ? hot_->lc_ : hot_->rc_;
     if (!ref || ref->data_ == e) return ref;
+    hot_ = ref;
   }
 }
 
 template <typename T>
 typename BST<T>::BNP BST<T>::Add(const T &e) {
   BNP &p = Search(e);
-  if (p) return p;
+  if (p) return p; // 如果存在则返回
 
   p = new BiNode<T>(e, hot_);
   ++this->size_;

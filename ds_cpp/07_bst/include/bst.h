@@ -15,11 +15,11 @@ class BST : public BiTree<T> {
   BST();
   BST(const std::vector<T> &vec, const T &end);
 
-  // 查找指向对象的指针引用
+  // 查找指向节点的指针引用
   virtual BNP &Search(const T &e);
-  // 增加对象
+  // 插入节点(唯一)
   virtual BNP Add(const T &e);
-  // 删除对象
+  // 删除节点
   virtual bool Remove(const T &e);
 
  protected:
