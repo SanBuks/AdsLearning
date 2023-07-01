@@ -68,8 +68,6 @@ class BiTree {
   inline bool Empty() const { return !size_; }
 
  protected:
-  // 根据孩子节点高度更新 p 节点高度
-  void virtual UpdateHeight(BNP p);
   // 更新 p 节点及祖先节点高度
   void UpdateHeightAbove(BNP p);
 
@@ -77,6 +75,9 @@ class BiTree {
   SizeType size_;
 
  private:
+  // 根据孩子节点高度更新 p 节点高度
+  void virtual UpdateHeight(BNP p);
+
   template <typename VST>
   void TraversePreIteration(BNP p, const VST &visit);
   template <typename VST>

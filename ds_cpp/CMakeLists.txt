@@ -17,6 +17,8 @@ add_subdirectory(05_bitree)
 add_subdirectory(07_bst)
 #add_subdirectory(12_sort)
 
+add_subdirectory(exercise)
+
 add_executable(test test.cc)
 set_target_properties(test PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")
 
