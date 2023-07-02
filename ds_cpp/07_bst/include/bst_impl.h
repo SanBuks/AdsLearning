@@ -50,27 +50,43 @@ bool BST<T>::Remove(const T &e) {
 
 template <typename T>
 typename BST<T>::BNP BST<T>::RemoveAt(BNP &ref, BNP &hot) {
+  // 后继节点用来替换
   BNP succ = nullptr;
+  // 指向被删除的节点
   BNP target = ref;
 
   if (!BiNode<T>::HasLc(ref)) {
     succ = ref = ref->rc_;
+    if (succ) succ->parent_ = hot_;
+    delete target;
+    return succ;
   } else if (!BiNode<T>::HasRc(ref)) {
     succ = ref = ref->lc_;
+    if (succ) succ->parent_ = hot_;
+    delete target;
+    return succ;
   } else {
+    // 指向待删节点中序遍历后继
     target = ref->Succ();
-    std::swap(target->data_, target->data_);
-    BNP target_parent = target->parent_;
-    if (target_parent == ref) {
-      target_parent->rc_ = succ = target->rc_;
+    // 交换数值
+    std::swap(target->data_, ref->data_);
+    // 实际删除节点的父节点
+    BNP tp= target->parent_;
+    succ = target->rc_;
+
+    // 一般实际删除节点在 父节点的左子树中
+    // 除非父节点是 ref, 则删除节点在 ref 的右子树中
+    if (tp == ref) {
+      tp->rc_ = succ;
     } else {
-      target_parent->lc_ = succ = target->rc_;
+      tp->lc_ = succ;
     }
+    // 需要更新改动处的父节点
+    hot_ = target->parent_;
+    succ->parent_ = hot_;
+    delete target;
+    return succ;
   }
-  hot_ = target->parent_;
-  if (succ) succ->parent_ = hot_;
-  delete target;
-  return succ;
 }
 
 }  // namespace ds_cpp

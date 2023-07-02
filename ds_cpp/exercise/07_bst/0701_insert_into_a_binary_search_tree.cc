@@ -22,7 +22,7 @@ class Solution {
     TreeNode * p = root;
     while (true) {
       TreeNode * &ref = val < p->val ? p->left : p->right;
-      if (!ref) return ref;
+      if (!ref || ref->val == val) return ref;
       p = ref;
     }
   }

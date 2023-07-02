@@ -36,8 +36,11 @@
 - 背景: 以{0,1}\*编码过程中会发生解码歧义即 某个字符编码是另一个字符的前缀,为了消除歧义构造二叉编码树
 - 构造: 树T以根节点(字符串为空)出发,左孩子字符串追加0,右孩子字符串追加1,最终叶子节点完成最后编码,叶子节点的深度即编码的长度,只要所有编码对应叶子节点则会消除前缀歧义
 
+### 3. AVL 树
+
 ## 习题总结
 - 0144 Binary Tree Preorder Traversal (迭代先序遍历)
 - 0094 Binary Tree Inorder Traversal (迭代中序遍历)
 - 0145 Binary Tree Postorder Traversal (迭代后序遍历)
 - 0102 Binary Tree Level Order Traversal (层次遍历)
+- 
