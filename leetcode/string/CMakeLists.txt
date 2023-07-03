@@ -1,6 +1,7 @@
 project(string)
 
 add_executable(0006 0006_zigzag_conversion.cc) # 简单题(希尔排序 n-sort 矩阵)
+add_executable(0859 0859_buddy_strings.cc) # 简单题
 
 # set from https://programmercarl.com
 add_executable(0344 0344_reverse_string.cc)
