@@ -23,3 +23,5 @@ add_executable(1146 1146_snapshot_array.cc) #(中等题 二分+更改记录)
 
 add_executable(2352 2352_equal_row_and_column_pairs.cc)
 add_executable(2462 2462_total_cost_to_hire_k_workers.cc) # (中等题 堆+双指针)
+add_executable(0137 0137_single_number_ii.cc)             # (中等题 异或 + 位处理)
+
