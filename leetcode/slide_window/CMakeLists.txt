@@ -16,3 +16,5 @@ add_executable(2090 2090_k_radius_subarray_averages.cc) #简单题(前n项和 / 
 #Minimum Size Subarray Sum
 #Subarray Sum Equals K
 #Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+add_executable(1493 1493_longest_subarray_of_1s_after_deleting_one_element.cc)
