@@ -24,11 +24,9 @@ class Solution {
       return 1;
     }
     for (int end = 1; end < nums.size(); ++end) {
-      if (sum < target) {
-        sum += nums[end];
-      }
+      sum += nums[end];
       while (sum >= target) {
-        min_length = (end - begin + 1 < min_length ? end - begin + 1 : min_length);
+        min_length = min(min_length, end - begin + 1);
         sum -= nums[begin++];
       }
     }
