@@ -17,11 +17,12 @@ set(CMAKE_BUILD_TYPE            Debug CACHE INTERNAL "")
 #add_subdirectory(math)
 #add_subdirectory(search)
 #add_subdirectory(simulation)
-add_subdirectory(slide_window)
+#add_subdirectory(slide_window)
 #add_subdirectory(stack)
 #add_subdirectory(string)
 #add_subdirectory(tree)
 #add_subdirectory(two_pointer)
+#add_subdirectory(unsolved)
 
 # PRIVATE -fno-elide-constructors
 #add_executable(complex  complex.cc)
