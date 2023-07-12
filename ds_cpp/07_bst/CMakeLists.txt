@@ -9,11 +9,14 @@ target_link_libraries(bst INTERFACE bitree)
 
 
 # -------------------------TEST--------------------------------
-add_executable(add test/add.cc)
+add_executable(add test/bst/add.cc)
 target_link_libraries(add PRIVATE bst PRIVATE GTest::Main)
 
-add_executable(search test/search.cc)
+add_executable(search test/bst/search.cc)
 target_link_libraries(search PRIVATE bst PRIVATE GTest::Main)
 
-add_executable(remove test/remove.cc)
+add_executable(remove test/bst/remove.cc)
 target_link_libraries(remove PRIVATE bst PRIVATE GTest::Main)
+
+add_executable(avl_add test/avl/add.cc)
+target_link_libraries(avl_add PRIVATE bst PRIVATE GTest::Main)
