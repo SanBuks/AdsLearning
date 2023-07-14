@@ -30,3 +30,6 @@ add_executable(0547 0547_number_of_provinces.cc)                           # 中
 add_executable(1514 1514_path_with_maximum_probability.cc)                 # 单源最短路径(dijkstra/spf/bf)
 add_executable(0864 0864_shortest_path_to_get_all_keys.cc)                 # 多目标可回溯最短路径 *
 add_executable(1970 1970_last_day_where_you_can_still_cross.cc)            # 中等题(二分 + DFS 找存在路径)
+add_executable(0802 0802_find_eventual_safe_states.cc)
+
+add_executable(0207 0207_course_schedule.cc)                               # 拓扑排序
