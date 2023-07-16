@@ -57,6 +57,7 @@ add_executable(1964 1964_find_the_longest_valid_obstacle_course_at_each_position
 
 add_executable(0837 0837_new_21_game.cc)   # 难题(滑动窗口/概率统计) *
 
+# 博弈相关
 add_executable(0877 0877_stone_game.cc)     # 简单题(零和博弈/记忆/二维)
 add_executable(1140 1140_stone_game_ii.cc)  # 难题(零和博弈/记忆)
 add_executable(1406 1406_stone_game_iii.cc) # 简单题(零和博弈/记忆)
@@ -76,3 +77,7 @@ add_executable(2328 2328_number_of_increasing_paths_in_a_grid.cc) # 中等题 (D
 
 add_executable(1575 1575_count_all_possible_routes.cc) # 难题
 
+
+# 规划区间相关
+add_executable(1235 1235_maximum_profit_in_job_scheduling.cc)                 # (区间权重 按照 end 排序)
+add_executable(1751 1751_maximum_number_of_events_that_can_be_attended_ii.cc) # (*区间权重 最多 k 区间 )
