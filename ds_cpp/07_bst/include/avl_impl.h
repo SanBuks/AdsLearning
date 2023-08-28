@@ -3,7 +3,6 @@
 
 namespace ds_cpp {
 
-
 template <typename T>
 AVL<T>::AVL() : BST<T>(){ }
 

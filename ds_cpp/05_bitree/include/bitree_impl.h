@@ -107,7 +107,7 @@ typename BiTree<T>::BNP BiTree<T>::Attach(BNP p, BiTree<T> &tree) {
 template<typename T>
 typename BiTree<T>::SizeType BiTree<T>::Remove(BNP p) {
   if (!p) return 0;
-  BiNode<T>::FromParentTo(p, root_) = nullptr;
+  FromParentTo(p) = nullptr;
   UpdateHeightAbove(p->parent_);
   SizeType num = RemoveAt(p);
   size_ -= num;
@@ -134,7 +134,7 @@ BiTree<T> * BiTree<T>::Secede(BNP p) {
   tree->size_ = p->Size();
   // 再分离
   size_ -= tree->size_;
-  BiNode<T>::FromParentTo(p, root_) = nullptr;
+  FromParentTo(p) = nullptr;
   UpdateHeightAbove(p->parent_);
   p->parent_ = nullptr;
 
@@ -175,6 +175,29 @@ template <typename T>
 template <typename VST>
 void BiTree<T>::TraverseLevel(const VST &visit) {
   TraverseLevel(root_, visit);
+}
+
+template<typename T>
+typename BiTree<T>::BNP BiTree<T>::Zig(BNP p) {
+  // 顺时针旋转, 旋转根节点没有左孩子则不旋转
+  if (!BiNode<T>::HasLc(p)) { return this; }
+
+  BNP lc = p->lc_;
+
+  // 修改 左孩子的关系
+  lc->parent_ = p->parent_;
+  FromParentTo(this) = lc;
+
+  // 修改 左孩子的右孩子的关系
+  // 修改
+
+
+
+}
+
+template<typename T>
+typename BiTree<T>::BNP BiTree<T>::Zag(BNP p) {
+
 }
 
 template<typename T>

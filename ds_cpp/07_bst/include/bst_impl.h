@@ -17,7 +17,7 @@ typename BST<T>::BNP & BST<T>::Search(const T &e) {
     return this->root_;
   }
 
-  for (hot_ = this->root_;;) {
+  for (hot_ = this->root_; ; ) {
     // 注意 ref 是引用, 不能作为迭代对象
     BNP &ref = e < hot_->data_ ? hot_->lc_ : hot_->rc_;
     if (!ref || ref->data_ == e) return ref;

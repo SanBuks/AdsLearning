@@ -51,14 +51,6 @@ class BiNode {
   inline static bool IsLeaf(BNP p) { return !HasC(p); }
   inline static bool HasBc(BNP p) { return HasLc(p) && HasRc(p); }
 
-  /**
-   * @param p 需要分离的子树根, 作为媒介访问不需要是引用
-   * @param root 被分离的子树根指针, 有可能分离整棵树, 需要是引用
-   * @retrun 需要修改的引用对象
-   */
-  inline static BNP &FromParentTo(BNP p, BNP &root) {
-    return IsRoot(p) ? root : IsLc(p) ? p->parent_->lc_ : p->parent_->rc_;
-  }
 
   T data_;            // 数据
   BNP parent_;        // 指向父节点

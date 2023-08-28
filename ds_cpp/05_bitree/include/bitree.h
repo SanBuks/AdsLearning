@@ -67,6 +67,16 @@ class BiTree {
   inline BNP root() { return root_; }
   inline bool Empty() const { return !size_; }
 
+  // 顺时针旋转
+  BNP Zig(BNP p);
+  // 逆时针旋转
+  BNP Zag(BNP p);
+
+  // 返回 p 所指节点的父节点的关联引用, 如果是根节点则返回 root
+  inline BNP &FromParentTo(BNP p) {
+    return IsRoot(p) ? root_ : IsLc(p) ? p->parent_->lc_ : p->parent_->rc_;
+  }
+
  protected:
   // 更新 p 节点及祖先节点高度
   void UpdateHeightAbove(BNP p);
