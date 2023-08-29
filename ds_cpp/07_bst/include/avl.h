@@ -19,7 +19,7 @@ class AVL : public BST<T> {
   // AVL 平衡条件
   inline static bool AvlBalanced(BNP p) { return (-2 < BalFac(p)) && (BalFac(p) < 2); }
   // 返回较高孩子节点, 如果相同则与 p 同侧优先
-  inline static bool TallerChild(BNP p) {
+  inline static BNP TallerChild(BNP p) {
     if (BiNode<T>::Stature(p->lc()) > BiNode<T>::Stature(p->rc())) {
       return p->lc();
     } else if (BiNode<T>::Stature(p->lc()) < BiNode<T>::Stature(p->rc())) {
@@ -35,6 +35,10 @@ class AVL : public BST<T> {
   virtual BNP Add(const T &e);
   virtual bool Remove(const T &e);
 
+  // 按照 “3 + 4” 结构
+  BNP Connect34(BNP left, BNP parent, BNP right, BNP ll, BNP lr, BNP rl, BNP rr);
+  // 按照类型旋转 返回调整过后的根节点
+  BNP RotateAt(BNP p);
 };
 
 }

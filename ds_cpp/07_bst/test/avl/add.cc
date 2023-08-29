@@ -11,13 +11,11 @@ TEST(AVL_TEST, INSERT) {
                      -1, -1, -1, -1};
 
   AVL<int> avl(vec, -1);
-  avl.Add(9);
-  BiTreeTraverse<int> traverse(std::cout);
+  avl.Add(27);
+  std::ostringstream oss;
+  BiTreeTraverse<int> traverse(oss);
   avl.TraverseLevel(traverse);
-  cout << "\n";
-  avl.TraverseInIteration(traverse);
-  cout << "\n";
-  avl.TraversePreIteration(traverse);
+  std::cout << oss.str() << "\n"; oss.clear(); oss.str("");
 }
 
 

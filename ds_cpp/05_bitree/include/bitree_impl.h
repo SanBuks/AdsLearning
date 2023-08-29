@@ -197,9 +197,7 @@ typename BiTree<T>::BNP BiTree<T>::Zig(BNP p) {
   p->parent_ = lc;
 
   // 先 更新 p 节点的高度
-  p->height_ = 1 +
-      (p->lc_ ? p->lc_->height_ : -1) +
-      (p->rc_ ? p->rc_->height_ : -1);
+  UpdateHeight(p);
   UpdateHeightAbove(lc);
   return lc;
 }
@@ -223,10 +221,7 @@ typename BiTree<T>::BNP BiTree<T>::Zag(BNP p) {
   rc->lc_ = p;
   p->parent_ = rc;
 
-  p->height_ = 1 +
-      (p->lc_ ? p->lc_->height_ : -1) +
-      (p->rc_ ? p->rc_->height_ : -1);
-
+  UpdateHeight(p);
   UpdateHeightAbove(rc);
   return rc;
 }

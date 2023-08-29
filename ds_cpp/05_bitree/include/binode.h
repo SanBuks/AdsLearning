@@ -10,10 +10,14 @@ template<typename T>
 class BST;
 
 template<typename T>
+class AVL;
+
+template<typename T>
 class BiNode {
 
   friend class BiTree<T>;
   friend class BST<T>;
+  friend class AVL<T>;
 
  public:
   using BNP = BiNode *;

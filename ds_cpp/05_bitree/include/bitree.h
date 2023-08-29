@@ -80,13 +80,13 @@ class BiTree {
  protected:
   // 更新 p 节点及祖先节点高度
   void UpdateHeightAbove(BNP p);
+  // 根据孩子节点高度更新 p 节点高度
+  void virtual UpdateHeight(BNP p);
 
   BNP root_;
   SizeType size_;
 
  private:
-  // 根据孩子节点高度更新 p 节点高度
-  void virtual UpdateHeight(BNP p);
 
   template <typename VST>
   void TraversePreIteration(BNP p, const VST &visit);
