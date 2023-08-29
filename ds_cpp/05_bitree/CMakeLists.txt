@@ -12,3 +12,6 @@ target_link_libraries(construct PRIVATE bitree PRIVATE GTest::Main)
 
 add_executable(traverse test/traverse.cc)
 target_link_libraries(traverse PRIVATE bitree PRIVATE GTest::Main)
+
+add_executable(zigzag test/zigzag.cc)
+target_link_libraries(zigzag PRIVATE bitree PRIVATE GTest::Main)

@@ -180,24 +180,55 @@ void BiTree<T>::TraverseLevel(const VST &visit) {
 template<typename T>
 typename BiTree<T>::BNP BiTree<T>::Zig(BNP p) {
   // 顺时针旋转, 旋转根节点没有左孩子则不旋转
-  if (!BiNode<T>::HasLc(p)) { return this; }
+  if (!BiNode<T>::HasLc(p)) { return p; }
 
   BNP lc = p->lc_;
 
   // 修改 左孩子的关系
   lc->parent_ = p->parent_;
-  FromParentTo(this) = lc;
+  FromParentTo(p) = lc;
 
   // 修改 左孩子的右孩子的关系
-  // 修改
+  p->lc_ = lc->rc_;
+  if (lc->rc_) lc->rc_->parent_ = p;
 
+  // 修改 旋转节点和左孩子的关系
+  lc->rc_ = p;
+  p->parent_ = lc;
 
-
+  // 先 更新 p 节点的高度
+  p->height_ = 1 +
+      (p->lc_ ? p->lc_->height_ : -1) +
+      (p->rc_ ? p->rc_->height_ : -1);
+  UpdateHeightAbove(lc);
+  return lc;
 }
 
 template<typename T>
 typename BiTree<T>::BNP BiTree<T>::Zag(BNP p) {
+  // 逆时针旋转, 旋转根节点没有右孩子则不旋转
+  if (!BiNode<T>::HasRc(p)) { return p; }
 
+  BNP rc = p->rc_;
+
+  // 修改 右孩子的关系
+  rc->parent_ = p->parent_;
+  FromParentTo(p) = rc;
+
+  // 修改 右孩子的左孩子的关系
+  p->rc_ = rc->lc_;
+  if (rc->lc_) rc->lc_->parent_ = p;
+
+  // 修改 旋转节点和右孩子的关系
+  rc->lc_ = p;
+  p->parent_ = rc;
+
+  p->height_ = 1 +
+      (p->lc_ ? p->lc_->height_ : -1) +
+      (p->rc_ ? p->rc_->height_ : -1);
+
+  UpdateHeightAbove(rc);
+  return rc;
 }
 
 template<typename T>

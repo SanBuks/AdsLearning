@@ -50,6 +50,7 @@ class BiNode {
   inline static bool HasC(BNP p) { return HasLc(p) || HasRc(p); }
   inline static bool IsLeaf(BNP p) { return !HasC(p); }
   inline static bool HasBc(BNP p) { return HasLc(p) && HasRc(p); }
+  inline static int Stature(BNP p) { return p ? p->height_ : -1; }
 
 
   T data_;            // 数据

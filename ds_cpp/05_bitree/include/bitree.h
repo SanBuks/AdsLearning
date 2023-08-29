@@ -67,14 +67,14 @@ class BiTree {
   inline BNP root() { return root_; }
   inline bool Empty() const { return !size_; }
 
-  // 顺时针旋转
+  // 顺时针右旋
   BNP Zig(BNP p);
-  // 逆时针旋转
+  // 逆时针左旋
   BNP Zag(BNP p);
 
   // 返回 p 所指节点的父节点的关联引用, 如果是根节点则返回 root
   inline BNP &FromParentTo(BNP p) {
-    return IsRoot(p) ? root_ : IsLc(p) ? p->parent_->lc_ : p->parent_->rc_;
+    return BiNode<T>::IsRoot(p) ? root_ : BiNode<T>::IsLc(p) ? p->parent_->lc_ : p->parent_->rc_;
   }
 
  protected:
