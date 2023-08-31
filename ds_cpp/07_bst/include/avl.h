@@ -20,9 +20,11 @@ class AVL : public BST<T> {
   inline static bool AvlBalanced(BNP p) { return (-2 < BalFac(p)) && (BalFac(p) < 2); }
   // 返回较高孩子节点, 如果相同则与 p 同侧优先
   inline static BNP TallerChild(BNP p) {
-    if (BiNode<T>::Stature(p->lc()) > BiNode<T>::Stature(p->rc())) {
+    int lheight = BiNode<T>::Stature(p->lc());
+    int rheight = BiNode<T>::Stature(p->rc());
+    if (lheight > rheight) {
       return p->lc();
-    } else if (BiNode<T>::Stature(p->lc()) < BiNode<T>::Stature(p->rc())) {
+    } else if (lheight < rheight) {
       return p->rc();
     } else {
       return BiNode<T>::IsLc(p) ? p->lc() : p->rc();
