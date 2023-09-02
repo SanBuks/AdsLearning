@@ -56,10 +56,10 @@ typename BST<T>::BNP BST<T>::RemoveAt(BNP &ref, BNP &hot) {
   BNP target = ref;
 
   if (!BiNode<T>::HasLc(ref)) {
-    succ = ref = ref->rc_;
-    if (succ) succ->parent_ = hot_;
+    ref = ref->rc_;
+    if (ref) ref->parent_ = hot_;
     delete target;
-    return succ;
+    return ref;
   } else if (!BiNode<T>::HasRc(ref)) {
     succ = ref = ref->lc_;
     if (succ) succ->parent_ = hot_;

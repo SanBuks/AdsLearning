@@ -37,6 +37,10 @@ typename AVL<T>::BNP AVL<T>::Add(const T &e) {
 
 template<typename T>
 bool AVL<T>::Remove(const T &e) {
+  BNP &remove_ref = this->Search(e);
+  if (!remove_ref) return false;
+  this->Remove
+
   return true;
 }
 
