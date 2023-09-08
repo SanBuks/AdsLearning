@@ -41,7 +41,7 @@ bool BST<T>::Remove(const T &e) {
   BNP &ref = Search(e);
   if (!ref) return false;
 
-  RemoveAt(ref, hot_);
+  RemoveAt(ref);
   --this->size_;
   this->UpdateHeightAbove(hot_);
   return true;
@@ -49,7 +49,7 @@ bool BST<T>::Remove(const T &e) {
 
 
 template <typename T>
-typename BST<T>::BNP BST<T>::RemoveAt(BNP &ref, BNP &hot) {
+typename BST<T>::BNP BST<T>::RemoveAt(BNP &ref) {
   // 后继节点用来替换
   BNP succ = nullptr;
   // 指向被删除的节点

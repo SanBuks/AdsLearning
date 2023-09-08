@@ -25,8 +25,8 @@ class BST : public BiTree<T> {
  protected:
   //命中节点的父亲
   BNP hot_;
- private:
-  BNP RemoveAt(BNP &ref, BNP &hot);
+  // 在
+  BNP RemoveAt(BNP &ref);
 };
 
 }  // namespace ds_cpp
