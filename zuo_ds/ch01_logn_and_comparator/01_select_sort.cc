@@ -1,6 +1,6 @@
 #include <utility>
 #include <iostream>
-#include "comparator.h"
+#include "algorithm_test.h"
 
 template<typename T>
 void static SelectSort(T array[], size_t n) {
@@ -19,6 +19,6 @@ void static SelectSort(T array[], size_t n) {
 int main() {
   std::pair<size_t, size_t> size_range = std::make_pair(0, 100);
   std::pair<const double &, const double &> value_range = std::make_pair(1.1, 200.3);
-  zuo::SortAlgorithmTest<double>::Test(200, size_range, value_range, SelectSort);
+  zuo::SortAlgorithmTest<double>::Test(200, size_range, value_range, RightSelectSort);
   return 0;
 }

@@ -1,6 +1,6 @@
 #include <utility>
 #include <iostream>
-#include "comparator.h"
+#include "algorithm_test.h"
 
 template<typename T>
 void static BubbleSort(T array[], size_t n) {
