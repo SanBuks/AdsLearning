@@ -1,13 +1,10 @@
-#include <iostream>
-#include <cstring>
-#include <chrono>
-#include <vector>
-#include <string>
-#include <random>
+﻿#include <vector>
 #include <stack>
 #include <queue>
+#include <utility>
 
 using namespace std;
+
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -20,26 +17,23 @@ struct TreeNode {
 class Solution {
  public:
   vector<vector<int>> levelOrder(TreeNode *root) {
-    vector<vector<int>> ans;
-    if (!root) return ans;
+    vector<vector<int>> res;
+    if (!root) return res;
 
     queue<TreeNode *> queue;
     queue.push(root);
+
     while (!queue.empty()) {
+      vector<int> vec;
       auto size = queue.size();
-      vector<int> level;
-      for (size_t i = 0; i != size; ++i) {
+      for (int i = 0; i < size; ++i) {
         auto p = queue.front(); queue.pop();
-        level.push_back(p->val);
+        vec.push_back(p->val);
         if (p->left) queue.push(p->left);
         if (p->right) queue.push(p->right);
       }
-      ans.push_back(level);
+      res.push_back(std::move(vec));
     }
-    return ans;
+    return res;
   }
 };
-
-int main() {
-  return 0;
-}
