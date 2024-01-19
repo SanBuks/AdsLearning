@@ -10,6 +10,21 @@ template<typename T>
 AVL<T>::AVL(const std::vector<T> &vec, const T &end) : BST<T>(vec, end) {}
 
 template<typename T>
+typename AVL<T>::BNP AVL<T>::TallerChild(BNP p) {
+  if (!p) return nullptr;
+
+  int lh = BiNode<T>::Stature(p->lc());
+  int rh = BiNode<T>::Stature(p->rc());
+  if (lh > rh) {
+    return p->lc();
+  } else if (lh < rh) {
+    return p->rc();
+  } else {
+    return BiNode<T>::IsLc(p) ? p->lc() : p->rc();
+  }
+}
+
+template<typename T>
 typename AVL<T>::BNP AVL<T>::Add(const T &e) {
   // 查找插入位置, 如果节点存在则直接返回
   BNP &insert_ref = this->Search(e);

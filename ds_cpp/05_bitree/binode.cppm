@@ -28,11 +28,24 @@ class BiNode {
   BiNode &operator=(BiNode &&rhs) = delete;
   ~BiNode() = default;
 
-  [[nodiscard]] inline T &data() { return data_; }
-  [[nodiscard]] inline BNP parent() { return parent_; }
-  [[nodiscard]] inline BNP lc() { return lc_; }
-  [[nodiscard]] inline BNP rc() { return rc_; }
+  [[nodiscard]] inline const T &data() const { return data_; }
+  [[nodiscard]] inline BNP parent() const { return parent_; }
+  [[nodiscard]] inline BNP lc() const { return lc_; }
+  [[nodiscard]] inline BNP rc() const { return rc_; }
   [[nodiscard]] inline SizeType height() const { return height_; };
+
+  // 返回引用
+  [[nodiscard]] inline T &Data() { return data_; }
+  [[nodiscard]] inline BNP &Parent() { return parent_; }
+  [[nodiscard]] inline BNP &Lc() { return lc_; }
+  [[nodiscard]] inline BNP &Rc() { return rc_; }
+  [[nodiscard]] inline SizeType &Height() { return height_; };
+
+  inline void data(T data) { data_ = data; }
+  inline void parent(const BiNode *parent) { parent_ = parent; }
+  inline void lc(const BiNode *lc) { lc_ = lc; }
+  inline void rc(const BiNode *rc) { rc_ = rc; }
+  inline void height(const SizeType &height) { height_ = height; }
 
   [[nodiscard]] inline static bool HasParent(BNP p) { return p->parent_; }
   [[nodiscard]] inline static bool HasLc(BNP p) { return p->lc_; }
