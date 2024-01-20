@@ -7,28 +7,20 @@ struct TreeNode {
   TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+//leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
  public:
   TreeNode *searchBST(TreeNode *root, int val) {
-    return find(root, val);
-  }
-
-  TreeNode *find(TreeNode *root, int val) {
-    if (!root || root->val == val) {
-      return root;
-    }
-
     while (root) {
-      if (val == root->val) {
+      if (root->val == val) {
         return root;
-      }
-      if (val > root->val) {
-        root = root->right;
-      } else {
+      } else if (val < root->val) {
         root = root->left;
+      } else {
+        root = root->right;
       }
     }
     return root;
   }
-
 };
+//leetcode submit region end(Prohibit modification and deletion)
