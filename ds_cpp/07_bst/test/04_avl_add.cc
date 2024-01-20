@@ -1,7 +1,8 @@
 #include "gtest/gtest.h"
-#include "avl.h"
 
-TEST(AVL_TEST, INSERT_RR) {
+import ds_cpp.avl;
+
+TEST(avl, insert_rr) {
   using namespace std;
   using namespace ds_cpp;
 
@@ -9,16 +10,19 @@ TEST(AVL_TEST, INSERT_RR) {
                      10,     25,
                   -1,  11, -1, 27,
                      -1, -1, -1, -1};
+  Avl<int> avl(vec, -1);
+  auto p = avl.Add(28);
+  EXPECT_EQ(p->data(), 28);
+  EXPECT_EQ(p->height(), 0);
 
-  AVL<int> avl(vec, -1);
-  avl.Add(28);
   std::ostringstream oss;
   BiTreeTraverse<int> traverse(oss);
   avl.TraverseLevel(traverse);
-  std::cout << oss.str() << "\n"; oss.clear(); oss.str("");
+  EXPECT_EQ(oss.str(), "16 10 27 11 25 28 "); oss.clear(); oss.str("");
+  EXPECT_EQ(avl.root()->height(), 2);
 }
 
-TEST(AVL_TEST, INSERT_RL) {
+TEST(avl, insert_rl) {
   using namespace std;
   using namespace ds_cpp;
 
@@ -28,11 +32,15 @@ TEST(AVL_TEST, INSERT_RL) {
                      -1, -1, -1, -1};
 
 
-  AVL<int> avl(vec, -1);
-  avl.Add(27);
+  Avl<int> avl(vec, -1);
+  auto p = avl.Add(26);
+  EXPECT_EQ(p->data(), 26);
+  EXPECT_EQ(p->height(), 1);
+
   std::ostringstream oss;
   BiTreeTraverse<int> traverse(oss);
   avl.TraverseLevel(traverse);
-  std::cout << oss.str() << "\n"; oss.clear(); oss.str("");
+  EXPECT_EQ(oss.str(), "16 10 26 11 25 27 "); oss.clear(); oss.str("");
+  EXPECT_EQ(avl.root()->height(), 2);
 }
 

@@ -69,7 +69,8 @@ class BiTree {
   template <typename VST> void TraversePost(const VST &visit);         // 后序迭代遍历
 
  protected:
-  void UpdateHeightAbove(BNP p);      // 更新高度
+  void UpdateHeightAbove(BNP p);      // 更新节点及祖先节点高度
+  void UpdateHeight(BNP p);           // 更新节点高度
 
   BNP root_{};       // 指向根节点
   SizeType size_{};  // 结点个数
@@ -302,13 +303,19 @@ void BiTree<T>::BuildFromLevel(const std::vector<T> &vec, const T &null) {
 template<typename T>
 void BiTree<T>::UpdateHeightAbove(BNP p) {
   while (p) {
-    auto lh = p->lc_ ? p->lc_->height_ : 0;
-    auto rh = p->rc_ ? p->rc_->height_ : 0;
-    p->height_ = 1 + (lh < rh ? rh : lh);
-    // 如果没有 lc 和 rc 则修正为 0 而非 1
-    p->height_ = BiNode<T>::HasC(p) ? p->height_ : 0;
+    UpdateHeight(p);
     p = p->parent_;
   }
+}
+
+template<typename T>
+void BiTree<T>::UpdateHeight(BNP p) {
+  if (!p) return;
+  auto lh = p->lc_ ? p->lc_->height_ : 0;
+  auto rh = p->rc_ ? p->rc_->height_ : 0;
+  p->height_ = 1 + (lh < rh ? rh : lh);
+  // 如果没有 lc 和 rc 则修正为 0 而非 1
+  p->height_ = BiNode<T>::HasC(p) ? p->height_ : 0;
 }
 
 template<typename T>

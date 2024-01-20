@@ -13,9 +13,9 @@ class Bst : public BiTree<T> {
   Bst();
   Bst(const std::vector<T> &vec, const T &null);
 
-  BNP &SearchRef(const T &e);
-  BNP Add(const T &e);
-  bool Del(const T &e);
+  [[nodiscard]] BNP &SearchRef(const T &e);
+  [[nodiscard]] virtual BNP Add(const T &e);
+  [[nodiscard]] virtual bool Del(const T &e);
 
   [[nodiscard]] inline BNP pcache() const { return pcache_; }
 
@@ -54,6 +54,7 @@ typename Bst<T>::BNP &Bst<T>::SearchRef(const T &e) {
       return this->Ref(p, this->root_);
     }
   }
+  return this->root_;
 }
 
 template<typename T>

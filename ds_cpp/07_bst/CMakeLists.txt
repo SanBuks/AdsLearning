@@ -8,17 +8,17 @@ target_sources(bst PUBLIC FILE_SET CXX_MODULES FILES
 target_link_libraries(bst PUBLIC bitree)
 
 # -------------------------TEST--------------------------------
-add_executable(07_bst_01_search test/01_bst_search.cc)
-target_link_libraries(07_bst_01_search PRIVATE bst PRIVATE GTest::Main)
+add_executable(07_bst_01_bst_search test/01_bst_search.cc)
+target_link_libraries(07_bst_01_bst_search PRIVATE bst PRIVATE GTest::Main)
 
-add_executable(07_bst_02_add test/02_bst_add.cc)
-target_link_libraries(07_bst_02_add PRIVATE bst PRIVATE GTest::Main)
+add_executable(07_bst_02_bst_add test/02_bst_add.cc)
+target_link_libraries(07_bst_02_bst_add PRIVATE bst PRIVATE GTest::Main)
 
-add_executable(07_bst_03_del test/03_bst_del.cc)
-target_link_libraries(07_bst_03_del PRIVATE bst PRIVATE GTest::Main)
+add_executable(07_bst_03_bst_del test/03_bst_del.cc)
+target_link_libraries(07_bst_03_bst_del PRIVATE bst PRIVATE GTest::Main)
 
-#add_executable(avl_add test/avl/add.cc)
-#target_link_libraries(avl_add PRIVATE bst PRIVATE GTest::Main)
+add_executable(07_bst_04_avl_add test/04_avl_add.cc)
+target_link_libraries(07_bst_04_avl_add PRIVATE bst PRIVATE GTest::Main)
 
-#add_executable(avl_remove test/avl/remove.cc)
-#target_link_libraries(avl_remove PRIVATE bst PRIVATE GTest::Main)
+add_executable(07_bst_05_avl_del test/05_avl_del.cc)
+target_link_libraries(07_bst_05_avl_del PRIVATE bst PRIVATE GTest::Main)
