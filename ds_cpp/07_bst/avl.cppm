@@ -87,8 +87,20 @@ Avl<T>::BNP Avl<T>::TallerChild(BNP p) {
 
 template<typename T>
 bool Avl<T>::Del(const T &e) {
-
-  return false;
+  auto &ref = this->SearchRef(e);
+  if (!ref) return false;
+  auto g = this->DelAt(ref);
+  --this->size_;
+  for (; g; g = g->parent()) {
+    if (!AvlBalanced(g)) {
+      auto &refg = this->Ref(g, this->root_);
+      auto v = TallerChild(g);
+      auto p = TallerChild(v);
+      refg = Rotate(p);
+    }
+    this->UpdateHeight(g);
+  }
+  return true;
 }
 
 //              RR单旋                          RL双旋
@@ -109,7 +121,7 @@ Avl<T>::BNP Avl<T>::Rotate(Avl::BNP p) {
 
   // 注意 类型 和 判断顺序 相反
   if (BiNode<T>::IsRc(p)) {
-    if (BiNode<T>::IsRc(g)) {  // RR
+    if (BiNode<T>::IsRc(v)) {  // RR
       v->Parent() = pp;
       return Connect34(g, v, p, g->lc(), v->lc(), p->lc(), p->rc());
     } else {                   // LR
@@ -117,7 +129,7 @@ Avl<T>::BNP Avl<T>::Rotate(Avl::BNP p) {
       return Connect34(v, p, g, v->lc(), p->lc(), p->rc(), g->rc());
     }
   } else {
-    if (BiNode<T>::IsLc(g)) {  // LL
+    if (BiNode<T>::IsLc(v)) {  // LL
       v->Parent() = pp;
       return Connect34(p, v, g, p->lc(), p->rc(), v->rc(), g->rc());
     } else {                   // RL

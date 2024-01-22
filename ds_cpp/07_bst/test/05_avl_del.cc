@@ -1,40 +1,67 @@
 #include "gtest/gtest.h"
-#include "avl.h"
 
-TEST(AVL_TEST, REMOVE_RR) {
-using namespace std;
-using namespace ds_cpp;
+import ds_cpp.avl;
 
-vector<int> vec{       16,
-                       10,     25,
-                       -1,  11, -1, 27,
-                       -1, -1, -1, -1};
+TEST(del, rr) {
+  using namespace std;
+  using namespace ds_cpp;
 
+  vector<int> vec{
+                 16,
+          10,            25,
+      -1,     11,      -1,      27,
+            -1, -1,          -1, -1
+  };
 
-AVL<int> avl(vec, -1);
-avl.Remove(11);
-avl.Remove(10);
-std::ostringstream oss;
-BiTreeTraverse<int> traverse(oss);
-avl.TraverseLevel(traverse);
-std::cout << oss.str() << "\n"; oss.clear(); oss.str("");
+  Avl<int> avl(vec, -1);
+  std::ostringstream oss;
+  BiTreeTraverse<int> traverse(oss);
+
+  bool result;
+
+  result = avl.Del(11);
+  EXPECT_EQ(result , true);
+  avl.TraverseLevel(traverse);
+  EXPECT_EQ(avl.size(), 4);
+  EXPECT_EQ(avl.root()->height(), 2);
+  EXPECT_EQ(oss.str(), "16 10 25 27 "); oss.clear(); oss.str("");
+
+  result = avl.Del(10);
+  EXPECT_EQ(result, true);
+  avl.TraverseLevel(traverse);
+  EXPECT_EQ(avl.size(), 3);
+  EXPECT_EQ(avl.root()->height(), 1);
+  EXPECT_EQ(oss.str(), "25 16 27 "); oss.clear(); oss.str("");
 }
 
-TEST(AVL_TEST, REMOVE_RL) {
-using namespace std;
-using namespace ds_cpp;
+TEST(del, rl) {
+  using namespace std;
+  using namespace ds_cpp;
 
-vector<int> vec{       16,
-                       10,     25,
-                       -1,  11, -1, 27,
-                       -1, -1, -1, -1};
+  vector<int> vec{
+               16,
+       10,           25,
+    -1,   11,     24,  -1,
+       -1, -1,  -1, -1
+  };
+  std::ostringstream oss;
+  BiTreeTraverse<int> traverse(oss);
 
+  Avl<int> avl(vec, -1);
 
-AVL<int> avl(vec, -1);
-avl.Remove(11);
-avl.Remove(10);
-std::ostringstream oss;
-BiTreeTraverse<int> traverse(oss);
-avl.TraverseLevel(traverse);
-std::cout << oss.str() << "\n"; oss.clear(); oss.str("");
+  bool result;
+
+  result = avl.Del(11);
+  EXPECT_EQ(result, true);
+  avl.TraverseLevel(traverse);
+  EXPECT_EQ(avl.size(), 4);
+  EXPECT_EQ(avl.root()->height(), 2);
+  EXPECT_EQ(oss.str(), "16 10 25 24 "); oss.clear(); oss.str("");
+
+  result = avl.Del(10);
+  EXPECT_EQ(result, true);
+  avl.TraverseLevel(traverse);
+  EXPECT_EQ(avl.size(), 3);
+  EXPECT_EQ(avl.root()->height(), 1);
+  EXPECT_EQ(oss.str(), "24 16 25 "); oss.clear(); oss.str("");
 }

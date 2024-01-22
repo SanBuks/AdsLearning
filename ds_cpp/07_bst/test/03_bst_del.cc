@@ -9,7 +9,7 @@ TEST(bst, del_empty) {
   using namespace ds_cpp;
 
   Bst<int> bst;
-  EXPECT_EQ(bst.Del(3), true);
+  EXPECT_EQ(bst.Del(3), false);
 }
 
 TEST(bst, del_one) {

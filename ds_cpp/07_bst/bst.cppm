@@ -16,6 +16,7 @@ class Bst : public BiTree<T> {
   [[nodiscard]] BNP &SearchRef(const T &e);
   [[nodiscard]] virtual BNP Add(const T &e);
   [[nodiscard]] virtual bool Del(const T &e);
+  [[nodiscard]] BNP DelAt(BNP &ref);
 
   [[nodiscard]] inline BNP pcache() const { return pcache_; }
 
@@ -70,24 +71,26 @@ typename Bst<T>::BNP Bst<T>::Add(const T &e) {
 template<typename T>
 bool Bst<T>::Del(const T &e) {
   auto &ref = SearchRef(e);
-  if (!ref) return false;  // 没找到则返回 true
+  if (!ref) return false;       // 没找到则返回 true
+  auto pp = DelAt(ref);         // 更新 size, 返回实际删除节点的父亲节点
+  --this->size_;                // 更新大小
+  this->UpdateHeightAbove(pp);  // 更新高度
+  return true;
+}
+
+template <typename T>
+Bst<T>::BNP Bst<T>::DelAt(BNP &ref) {
   auto pp = pcache_;      // 父节点
   auto p = ref;           // 目标节点
 
   if (!p->lc()) {         // 单分支
     ref = p->rc();
     if (p->rc()) p->rc()->Parent() = pp;
-    this->UpdateHeightAbove(pp);
     delete p;
-    --this->size_;
-    return true;
   } else if(!p->rc()) {   // 单分支
     ref = p->lc();
     if (p->lc()) p->lc()->Parent() = pp;
-    this->UpdateHeightAbove(pp);
     delete p;
-    --this->size_;
-    return true;
   } else {                // 双分支
     auto successor = p->Successor();
     std::swap(p->Data(), successor->Data());
@@ -100,11 +103,9 @@ bool Bst<T>::Del(const T &e) {
     }
 
     if (successor->rc()) successor->rc()->Parent() = pp;
-    this->UpdateHeightAbove(pp);
     delete successor;
-    --this->size_;
-    return true;
   }
+  return pp;
 }
 
 }
